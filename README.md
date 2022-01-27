@@ -43,4 +43,10 @@ KPIs available with a simple REST API:
 - Notify: Push and email notifications.
 - Follow: Create and subscribe to topics.
 
-More features TBD
+More features TBD...
+
+## How to use:
+
+```
+$ go run main.go
+```
