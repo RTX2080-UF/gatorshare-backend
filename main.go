@@ -12,7 +12,7 @@ func main() {
   router := gin.Default()
 
   router.GET("/", func(responseCtx *gin.Context) {
-    responseCtx.JSON(http.StatusOK, gin.H{"data": "Welcome to Go and Gin!"})    
+    responseCtx.JSON(http.StatusOK, gin.H{"data": "Welcome to Gatorshare made with the help of Go and Gin!"})    
   })
 
   routes.InitializeRoutes(router)
