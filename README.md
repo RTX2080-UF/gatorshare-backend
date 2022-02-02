@@ -59,11 +59,12 @@ $ go run main.go
 3. You can check server status in terminal and website will be up onm port `8080` by default.
 
 # Api endpoints
-| Type | Api Endpoint | Description | Status
-| ----------- | ----------- | ----------- |
-| Get | / | Home (Provide Server Status) | Active
-| Get | /v1/posts/getAll/:userId | Get all user post from user post ID | Active
-| Get | /v1/posts/getOne/:id | Get a single post by post ID | Active
-| Post | /v1/posts/create | Create a user post | Active
-| Patch | /v1/posts/update/:id   | Update an existing post | In-progress
-| Delete | /v1/posts/delete/:id  | Delete an existing post by post ID | Active
+
+| Type | Api Endpoint | Description | Status |
+| ----------- | ----------- | ----------- | ----------- |
+| Get | `/` | Home (Provide Server Status) | Active |
+| Get | `/v1/posts/getAll/:userId` | Get all user post from user post ID | Active |
+| Get | `/v1/posts/getOne/:id` | Get a single post by post ID | Active |
+| Post | `/v1/posts/create` | Create a user post | Active |
+| Patch | `/v1/posts/update/:id`   | Update an existing post | In-progress |
+| Delete | `/v1/posts/delete/:id`  | Delete an existing post by post ID | Active |
