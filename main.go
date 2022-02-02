@@ -1,16 +1,21 @@
 package main
 
 import (
-  "net/http"
-  "github.com/gin-gonic/gin"
+	"gatorshare/models"
+	"gatorshare/routes"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-  r := gin.Default()
+  router := gin.Default()
 
-  r.GET("/", func(c *gin.Context) {
-    c.JSON(http.StatusOK, gin.H{"data": "hello world"})    
+  router.GET("/", func(responseCtx *gin.Context) {
+    responseCtx.JSON(http.StatusOK, gin.H{"data": "Welcome to Go and Gin!"})    
   })
 
-  r.Run()
+  routes.InitializeRoutes(router)
+  models.ConnectDatabase()
+  router.Run(":8080")
 }
