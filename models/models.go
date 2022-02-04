@@ -34,8 +34,8 @@ type Post struct {
 
 type Comment struct {
 	gorm.Model
-	UserId     User      `json:"userId" binding:"required"`
-	PostId     Post      `json:"postId" binding:"required"`
+	UserId     uint      `json:"userId" binding:"required"`
+	PostId     uint      `json:"postId" binding:"required"`
 	Message    string    `json:"message" binding:"required"`
 	ParentId   uint      `json:"parentId"`
 	Votes      int       `json:"votes" gorm:"default:0"`

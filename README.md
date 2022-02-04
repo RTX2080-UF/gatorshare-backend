@@ -68,3 +68,8 @@ $ go run main.go
 | Post | `/v1/posts/create` | Create a user post | Active |
 | Patch | `/v1/posts/update/:id`   | Update an existing post | In-progress |
 | Delete | `/v1/posts/delete/:id`  | Delete an existing post by post ID | Active |
+| Get | `/v1/comments/getAll/:userId` | Get all user comments from user comment Id | Active |
+| Get | `/v1/comments/getOne/:id` | Get a single comment from user by Id | Active |
+| Post | `/v1/comments/create` | Create a user comment | Active |
+| Patch |  `/v1/comments/update/:id` | Update an existing comment | In-progress |
+| Delete | `/v1/comments/delete/:id` | Delete a user comment | Active |
