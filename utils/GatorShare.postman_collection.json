@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "2faddf19-0f7c-4d44-a0c0-b89ab9d8f495",
+		"_postman_id": "94e78154-9ecb-4570-8906-0279debce651",
 		"name": "GatorShare",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -14,19 +14,7 @@
 					"mode": "raw",
 					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 2\",\r\n    \"description\" : \"My second post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"create"
-					]
-				}
+				"url": "http://localhost:8080/v1/posts/create"
 			},
 			"response": []
 		},
@@ -35,20 +23,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/delete/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"delete",
-						"1"
-					]
-				}
+				"url": "http://localhost:8080/v1/posts/delete/1"
 			},
 			"response": []
 		},
@@ -57,20 +32,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/getAll/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"getAll",
-						"1"
-					]
-				}
+				"url": "http://localhost:8080/v1/posts/getAll/1"
 			},
 			"response": []
 		},
@@ -79,20 +41,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/getOne/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"getOne",
-						"1"
-					]
-				}
+				"url": "http://localhost:8080/v1/posts/getOne/1"
 			},
 			"response": []
 		},
@@ -101,19 +50,32 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						""
-					]
-				}
+				"url": "http://localhost:8080/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\" : 1,\n\t\"postId\" : 1,\n\t\"message\" : \"I Love BTS\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+				},
+				"url": "http://localhost:8080/v1/comments/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comment by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/comments/getOne/1"
 			},
 			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
