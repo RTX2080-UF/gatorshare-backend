@@ -75,6 +75,24 @@
 				"url": "http://localhost:8080/v1/comments/getOne/1"
 			},
 			"response": []
+		},
+		{
+			"name": "Delete Comment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/v1/comments/delete/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All User Comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/comments/getAll/1"
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
