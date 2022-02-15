@@ -3,10 +3,10 @@ package models
 import (
 	"fmt"
 	"log"
-	"os"
 	"gorm.io/gorm"
 	"gorm.io/driver/sqlite"
 	"gorm.io/driver/postgres"
+	"gatorshare/middleware"
 )
 
 var db *gorm.DB
@@ -33,19 +33,12 @@ func ConnectDatabasePostgres(dbinfo string) *gorm.DB{
 	return database
 }
 
-func getEnv(key, fallback string) string {
-	if value, ok := os.LookupEnv(key); ok {
-		return value
-	}
-	return fallback
-}
-
-func Init() {
-	user := getEnv("PG_USER", "postgres")
-	password := getEnv("PG_PASSWORD", "")
-	host := getEnv("PG_HOST", "localhost")
-	port := getEnv("PG_PORT", "8080")
-	database := getEnv("PG_DB", "gatorshare")
+func Init(envSrc bool) {
+	user := middleware.GetEnv("PG_USER", "postgres", envSrc)
+	password := middleware.GetEnv("PG_PASSWORD", "", envSrc)
+	host := middleware.GetEnv("PG_HOST", "localhost", envSrc)
+	port := middleware.GetEnv("PG_PORT", "5432", envSrc)
+	database := middleware.GetEnv("PG_DB", "gatorshare", envSrc)
 	// databaseSqlLite :=  getEnv("SQLite_DB", "Db/share-v.1.0-test.db")
 
 	dbinfo := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
