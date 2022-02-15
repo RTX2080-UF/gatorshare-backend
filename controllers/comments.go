@@ -63,34 +63,33 @@ func (base *Controller) GetOnecomment(ctx *gin.Context) {
 	}
 }
 
-func (base *Controller) Updatecomment(c *gin.Context) {
+func (base *Controller) Updatecomment(ctx *gin.Context) {
 	var comment models.Comment
-	id := c.Params.ByName("id")
+	id := ctx.Params.ByName("id")
 	
 	CommentId, err := strconv.Atoi(id)
     if err != nil {
-		middleware.RespondJSON(c, http.StatusBadRequest, comment, err)
+		middleware.RespondJSON(ctx, http.StatusBadRequest, comment, err)
 		return    
 	}
-
-	err = c.ShouldBindJSON(&comment);
+	
+	err = models.GetOnecomment(base.DB, &comment, CommentId)
 	if err != nil {
-		middleware.RespondJSON(c, http.StatusBadRequest, comment, err)
+		middleware.RespondJSON(ctx, http.StatusBadRequest, comment, err)
+		return	
+	}
+
+	err = ctx.ShouldBindJSON(&comment);
+	if err != nil {
+		middleware.RespondJSON(ctx, http.StatusBadRequest, comment, err)
 		return
 	}
 
-	err = models.GetOnecomment(base.DB, &comment, CommentId)
+	err = models.Updatecomment(base.DB, &comment)
 	if err != nil {
-		middleware.RespondJSON(c, http.StatusBadRequest, comment, err)
-		return	
-	}
-	c.BindJSON(&comment)
-	
-	err = models.Updatecomment(base.DB, &comment, CommentId)
-	if err != nil {
-		middleware.RespondJSON(c, http.StatusBadGateway, comment, err)
+		middleware.RespondJSON(ctx, http.StatusBadGateway, comment, err)
 	} else {
-		middleware.RespondJSON(c, http.StatusOK, comment, nil)
+		middleware.RespondJSON(ctx, http.StatusOK, comment, nil)
 	}
 }
 
