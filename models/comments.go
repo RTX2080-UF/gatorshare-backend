@@ -16,7 +16,7 @@ func GetAllcomment(db *gorm.DB, comments *[]Comment, id int) error {
 }
 
 func GetOnecomment(db *gorm.DB, comments *Comment, id int) error {
-	res := db.Find(&comments, id)
+	res := db.First(&comments, id)
 	return res.Error
 }
 
@@ -25,7 +25,7 @@ func Deletecomment(db *gorm.DB, comments *Comment, id int) error {
 	return res.Error
 }
 
-// func Updatecomment(db *gorm.DB, comments *Comment, id int) (error) {
-// 	res := DB.Update(&Comment{}, id)
-// 	return res.Error
-// }
+func Updatecomment(db *gorm.DB, comments *Comment) (error) {
+	res := db.Model(&comments).Updates(comments)
+	return res.Error
+}

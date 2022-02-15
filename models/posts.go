@@ -16,7 +16,7 @@ func AddNewpost(db *gorm.DB, posts *Post) (uint, error) {
 }
 
 func GetOnepost(db *gorm.DB, post *Post, id int) error {
-	res := db.Find(&post, id)
+	res := db.First(&post, id)
 	return res.Error
 }
 
@@ -25,7 +25,7 @@ func Deletepost(db *gorm.DB, post *Post, id int) error {
 	return res.Error
 }
 
-// func UpdatePost(post *Post, id int) (error) {
-// 	res := db.Update(&Post{}, id)
-// 	return res.Error
-// }
+func UpdatePost(db *gorm.DB, post *Post) (error) {
+	res := db.Model(post).Updates(post)
+	return res.Error
+}
