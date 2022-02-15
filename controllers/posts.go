@@ -49,6 +49,7 @@ func (base *Controller) GetOnepost(ctx *gin.Context) {
 	postIdStr := ctx.Params.ByName("id")
 	var post models.Post
 	postId, err := strconv.Atoi(postIdStr)
+	log.Print("Got request to get post")
 
     if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
@@ -57,40 +58,39 @@ func (base *Controller) GetOnepost(ctx *gin.Context) {
 
 	err = models.GetOnepost(base.DB, &post, postId)
 	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadGateway, post, err)
+		middleware.RespondJSON(ctx, http.StatusBadGateway, nil, err)
 	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, post, nil)
+		middleware.RespondJSON(ctx, http.StatusOK, post, err)
 	}
 }
 
-func (base *Controller) UpdatePost(c *gin.Context) {
+func (base *Controller) UpdatePost(ctx *gin.Context) {
 	var post models.Post
-	id := c.Params.ByName("id")
+	id := ctx.Params.ByName("id")
 	
 	PostId, err := strconv.Atoi(id)
     if err != nil {
-		middleware.RespondJSON(c, http.StatusBadRequest, post, err)
+		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
 		return    
 	}
-
-	err = c.ShouldBindJSON(&post);
-	if err != nil {
-		middleware.RespondJSON(c, http.StatusBadRequest, post, err)
-		return
-	}
-
+	
 	err = models.GetOnepost(base.DB, &post, PostId)
 	if err != nil {
-		middleware.RespondJSON(c, http.StatusBadRequest, post, err)
+		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
 		return	
 	}
-	c.BindJSON(&post)
 	
-	err = models.UpdatePost(base.DB, &post, PostId)
+	err = ctx.ShouldBindJSON(&post);
 	if err != nil {
-		middleware.RespondJSON(c, http.StatusBadGateway, post, err)
+		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
+		return
+	}
+	
+	err = models.UpdatePost(base.DB, &post)
+	if err != nil {
+		middleware.RespondJSON(ctx, http.StatusBadGateway, post, err)
 	} else {
-		middleware.RespondJSON(c, http.StatusOK, post, nil)
+		middleware.RespondJSON(ctx, http.StatusOK, post, nil)
 	}
 }
 
