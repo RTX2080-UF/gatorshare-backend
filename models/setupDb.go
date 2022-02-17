@@ -12,7 +12,11 @@ import (
 var db *gorm.DB
 
 func ConnectDatabaseSqlLite(dbname string) *gorm.DB{
-	database, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+	if dbname == ""{
+		dbname = "gorm.db"
+	}
+
+	database, err := gorm.Open(sqlite.Open(dbname), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database!")
@@ -34,23 +38,30 @@ func ConnectDatabasePostgres(dbinfo string) *gorm.DB{
 }
 
 func Init(envSrc bool) {
-	user := middleware.GetEnv("PG_USER", "postgres", envSrc)
-	password := middleware.GetEnv("PG_PASSWORD", "", envSrc)
-	host := middleware.GetEnv("PG_HOST", "localhost", envSrc)
-	port := middleware.GetEnv("PG_PORT", "5432", envSrc)
-	database := middleware.GetEnv("PG_DB", "gatorshare", envSrc)
-	// databaseSqlLite :=  getEnv("SQLite_DB", "Db/share-v.1.0-test.db")
+	dbtype := middleware.GetEnv("DB_TYPE", "sqlite", envSrc)
 
-	dbinfo := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
-		user,
-		password,
-		host,
-		port,
-		database,
-	)
+	if dbtype == "postgres" {
+		user := middleware.GetEnv("PG_USER", "postgres", envSrc)
+		password := middleware.GetEnv("PG_PASSWORD", "", envSrc)
+		host := middleware.GetEnv("PG_HOST", "localhost", envSrc)
+		port := middleware.GetEnv("PG_PORT", "5432", envSrc)
+		database := middleware.GetEnv("DB_NAME", "gatorshare", envSrc)
+		// databaseSqlLite :=  getEnv("SQLite_DB", "Db/share-v.1.0-test.db")
+		
+		dbinfo := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
+			user,
+			password,
+			host,
+			port,
+			database,
+		)
 
-	db = ConnectDatabasePostgres(dbinfo)
-
+		db = ConnectDatabasePostgres(dbinfo)
+	} else if dbtype == "sqlite" {
+		database := middleware.GetEnv("DB_NAME", "gatorshare", envSrc)
+		db = ConnectDatabaseSqlLite(database)
+	}
+	
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Post{})
 	db.AutoMigrate(&Comment{})
