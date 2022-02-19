@@ -47,7 +47,7 @@ func Init(envSrc bool) {
 		port := middleware.GetEnv("PG_PORT", "5432", envSrc)
 		database := middleware.GetEnv("DB_NAME", "gatorshare", envSrc)
 		
-		dbinfo := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
+		dbinfo := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=prefer",
 			user,
 			password,
 			host,
