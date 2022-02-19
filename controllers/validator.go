@@ -1,5 +1,7 @@
 package controllers
 
+import "gatorshare/models"
+
 type User struct {
 	Username  string `json:"username" binding:"required"`
 	Firstname string `json:"firstname" binding:"required"`
@@ -12,26 +14,51 @@ type User struct {
 }
 
 type Post struct {
-	UserID       int 		`json:"userId"`
-	Title        string    	`json:"title" binding:"required"`
-	Description  string    	`json:"description"`
-	Participants string    	`json:"participants"`
-	Expiry       float32   	`json:"expiry"`
-	ViewCount    int64     	`json:"viewCount"`
-	UserLimit    int       	`json:"userLimit" binding:"required"`
-	Status       int       	`json:"status" binding:"required"`
+	UserID       int     `json:"userId" binding:"required"`
+	Title        string  `json:"title" binding:"required"`
+	Description  string  `json:"description"`
+	Participants string  `json:"participants"`
+	Expiry       float32 `json:"expiry"`
+	ViewCount    int64   `json:"viewCount"`
+	UserLimit    int     `json:"userLimit" binding:"required"`
+	Status       int     `json:"status" binding:"required"`
 	Categories   string
+	Tags         string
 }
 
 type Comment struct {
-	UserId     uint      `json:"userId" binding:"required"`
-	PostId     uint      `json:"postId" binding:"required"`
-	Message    string    `json:"message" binding:"required"`
-	ParentId   uint      `json:"parentId"`
-	Votes      int       `json:"votes"`
+	UserID   uint   `json:"userId" binding:"required"`
+	PostID   uint   `json:"postId" binding:"required"`
+	Message  string `json:"message" binding:"required"`
+	ParentId uint   `json:"parentId"`
+	Votes    int    `json:"votes"`
 }
 
 type Tag struct {
-	Name		string	 `json:"tagName" binding:"required"`
-	Frequency	int		 `json:"count"`
+	Name      string `json:"tagName" binding:"required"`
+	Frequency int    `json:"count"`
+}
+
+func ConvertPostRequestToDBModel(req Post) models.Post {
+	return models.Post{
+		UserID:       req.UserID,  
+		Title:        req.Title,
+		Description:  req.Description,  		
+		UserLimit:    req.UserLimit,
+		Participants: req.Participants,
+		Expiry:       req.Expiry,
+		ViewCount:    req.ViewCount,
+		Status:       req.Status,
+		Categories:   req.Categories,
+	}
+}
+
+func ConvertCommentRequestToDBModel(req Comment) models.Comment {
+	return models.Comment{
+		UserID:   req.UserID,
+		PostID:   req.PostID,
+		Message:  req.Message,
+		ParentId: req.ParentId,
+		Votes:    req.Votes,
+	}
 }
