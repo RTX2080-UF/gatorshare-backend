@@ -12,5 +12,6 @@ func main() {
   models.Init(envsrc)
   DB := models.GetDB()
   router := routes.InitializeRoutes(DB)
-  router.Run(":8080")
+  hostport := middleware.GetEnv("PORT", "8080", envsrc)
+  router.Run(":"+hostport)
 }
