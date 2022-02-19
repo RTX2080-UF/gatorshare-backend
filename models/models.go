@@ -20,10 +20,10 @@ type User struct {
 
 type Post struct {
 	gorm.Model	
-	UserId       uint      `json:"userId" binding:"required"`
+	UserId       int      `json:"userId" binding:"required"`
 	Title        string    `json:"title" binding:"required"`
 	Description  string    `json:"description"`
-	UserLimit    int    `json:"userLimit" binding:"required"`
+	UserLimit    int       `json:"userLimit" binding:"required"`
 	Participants string    `json:"participants" gorm:"default:1"`
 	Expiry       float32   `json:"expiry" gorm:"default:24"`
 	ViewCount    int64     `json:"viewCount" gorm:"default:0"`
@@ -40,3 +40,5 @@ type Comment struct {
 	ParentId   uint      `json:"parentId"`
 	Votes      int       `json:"votes" gorm:"default:0"`
 }
+
+// User		 User		`gorm:"foreignKey:UserID"`
