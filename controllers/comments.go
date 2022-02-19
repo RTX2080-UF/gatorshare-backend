@@ -28,7 +28,7 @@ func (base *Controller) GetAllcomment(ctx *gin.Context) {
 }
 
 func (base *Controller) AddNewcomment(ctx *gin.Context) {
-	var comment models.Comment
+	var comment Comment
 
 	log.Print("Got request to add new comment")
 	err := ctx.ShouldBindJSON(&comment);
@@ -37,7 +37,8 @@ func (base *Controller) AddNewcomment(ctx *gin.Context) {
 		return
 	}
 
-	CommentId, err := models.AddNewcomment(base.DB, &comment)
+	commentDbObj := ConvertCommentRequestToDBModel(comment)
+	CommentId, err := models.AddNewcomment(base.DB, &commentDbObj)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, comment, err)
 	} else {
