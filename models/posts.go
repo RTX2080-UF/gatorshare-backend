@@ -1,6 +1,8 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 func GetAllpost(db *gorm.DB, posts *[]Post, id int) error {
 	res := db.Where("user_id = ?", id).Find(&posts)
@@ -8,10 +10,17 @@ func GetAllpost(db *gorm.DB, posts *[]Post, id int) error {
 }
 
 func AddNewpost(db *gorm.DB, posts *Post) (uint, error) {
-	err := db.Create(posts).Error
+	var user User
+	err := db.First(&user, posts.ID).Error
 	if err != nil {
 		return 0, err
 	}
+
+	err = db.Create(posts).Error
+	if err != nil {
+		return 0, err
+	}
+
 	return posts.ID, nil
 }
 

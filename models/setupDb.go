@@ -12,7 +12,7 @@ import (
 var db *gorm.DB
 
 func ConnectDatabaseSqlLite(dbname string) *gorm.DB{
-	if dbname == ""{
+	if dbname == "" {
 		dbname = "gorm.db"
 	}
 
@@ -46,7 +46,6 @@ func Init(envSrc bool) {
 		host := middleware.GetEnv("PG_HOST", "localhost", envSrc)
 		port := middleware.GetEnv("PG_PORT", "5432", envSrc)
 		database := middleware.GetEnv("DB_NAME", "gatorshare", envSrc)
-		// databaseSqlLite :=  getEnv("SQLite_DB", "Db/share-v.1.0-test.db")
 		
 		dbinfo := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
 			user,
@@ -58,7 +57,7 @@ func Init(envSrc bool) {
 
 		db = ConnectDatabasePostgres(dbinfo)
 	} else if dbtype == "sqlite" {
-		database := middleware.GetEnv("DB_NAME", "gatorshare", envSrc)
+		database := middleware.GetEnv("DB_NAME", "Db/gatorshare.db", envSrc)
 		db = ConnectDatabaseSqlLite(database)
 	}
 	
