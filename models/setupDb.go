@@ -2,11 +2,12 @@ package models
 
 import (
 	"fmt"
-	"log"
-	"gorm.io/gorm"
-	"gorm.io/driver/sqlite"
-	"gorm.io/driver/postgres"
 	"gatorshare/middleware"
+	"log"
+	"gorm.io/gorm/logger"
+	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 var db *gorm.DB
@@ -16,7 +17,7 @@ func ConnectDatabaseSqlLite(dbname string) *gorm.DB{
 		dbname = "gorm.db"
 	}
 
-	database, err := gorm.Open(sqlite.Open(dbname), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open(dbname), &gorm.Config{Logger: logger.Default.LogMode(logger.Info),})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database!")
@@ -27,7 +28,7 @@ func ConnectDatabaseSqlLite(dbname string) *gorm.DB{
 }
 
 func ConnectDatabasePostgres(dbinfo string) *gorm.DB{
-	database, err := gorm.Open(postgres.Open(dbinfo), &gorm.Config{})
+	database, err := gorm.Open(postgres.Open(dbinfo), &gorm.Config{Logger: logger.Default.LogMode(logger.Info),})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database!")
@@ -64,6 +65,10 @@ func Init(envSrc bool) {
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Post{})
 	db.AutoMigrate(&Comment{})
+
+	if res := db.Exec("PRAGMA foreign_keys = ON", nil); res.Error != nil {
+		log.Fatal("Failed to enable foreign key!")
+	}
 }
 
 func GetDB() *gorm.DB {
