@@ -28,7 +28,7 @@ func (base *Controller) Listpost(ctx *gin.Context) {
 }
 
 func (base *Controller) AddNewpost(ctx *gin.Context) {
-	var post models.Post
+	var post Post
 
 	log.Print("Got request to add new post")
 	err := ctx.ShouldBindJSON(&post);
@@ -37,7 +37,8 @@ func (base *Controller) AddNewpost(ctx *gin.Context) {
 		return
 	}
 
-	postId, err := models.AddNewpost(base.DB, &post)
+	post_model := ConvertPostRequestToDBModel(post)
+	postId, err := models.AddNewpost(base.DB, &post_model)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, post, err)
 	} else {
