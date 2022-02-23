@@ -10,7 +10,7 @@ import (
 )
 
 func (base *Controller) Register(ctx *gin.Context) {
-	var userdata models.User
+	var userdata User
 
 	log.Print("Got request to add new User")
 	err := ctx.ShouldBindJSON(&userdata);
@@ -19,7 +19,10 @@ func (base *Controller) Register(ctx *gin.Context) {
 		return
 	}
 
-	userId, err := models.AddNewUser(base.DB, &userdata)
+	userdataDb := UserRequestToDBModel(userdata) 
+	userdataDb.Password, err = middleware.HashPassword(userdataDb.Password)
+
+	userId, err := models.AddNewUser(base.DB, &userdataDb)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, userdata, err)
 	} else {
@@ -98,4 +101,19 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 	} else {
 		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
 	}
+}
+
+func (base *Controller) LoginUser(ctx *gin.Context) (uint) {
+	username := ctx.Params.ByName("Username")
+	password := ctx.Params.ByName("Password")
+	log.Print("Got request to get User profile")
+	var id uint = 0
+
+	hash, err := middleware.HashPassword(password)
+	id, err = models.VerifyUser(base.DB, username, hash)
+	if err != nil {
+		log.Fatal("Unable to Authenticate User")
+	} 
+
+	return id
 }
