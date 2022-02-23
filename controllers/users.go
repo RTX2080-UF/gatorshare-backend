@@ -10,7 +10,7 @@ import (
 )
 
 func (base *Controller) Register(ctx *gin.Context) {
-	var userdata User
+	var userdata UserRegister
 
 	log.Print("Got request to add new User")
 	err := ctx.ShouldBindJSON(&userdata);
