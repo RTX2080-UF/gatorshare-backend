@@ -110,7 +110,7 @@ func (base *Controller) LoginUser(ctx *gin.Context) (uint) {
 	var id uint = 0
 
 	hash, err := middleware.HashPassword(password)
-	id, err = models.VerifyUser(base.DB, username, hash)
+	id, err = models.AuthenticateUser(base.DB, username, hash)
 	if err != nil {
 		log.Fatal("Unable to Authenticate User")
 	} 
