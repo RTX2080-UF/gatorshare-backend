@@ -113,20 +113,26 @@ func (base *Controller) Login(ctx *gin.Context) {
 
 	var loginDetails Login
 	if err := ctx.ShouldBindJSON(&loginDetails); err != nil {
+		log.Println("Login", err.Error())
 		errObj.Message = "Invalid Json Recieved"
 		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errObj ,err)
 	   	return
 	}
 	log.Print("Got request to get User profile")
 	
-	hash, err := middleware.HashPassword(loginDetails.Password)
+	hash, _ := middleware.HashPassword(loginDetails.Password)
 	id, err := models.AuthenticateUser(base.DB, loginDetails.Username, hash)
 	if err != nil {
-		log.Fatal("Unable to Authenticate User")
+		log.Println("Login", err.Error())
+		errObj.Message = "Unable to Authenticate User"
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, errObj, err)
+		return
 	}
 
 	token, err := middleware.CreateToken(id, signingKey)
 	if err != nil {
+		errObj.Message = "Unable to generate token"
+		log.Println("Login", err.Error())
 		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errObj, err)
 		return
 	}

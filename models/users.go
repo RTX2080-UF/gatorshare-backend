@@ -30,6 +30,6 @@ func UpdateUserProfile(db *gorm.DB, user *User) (error) {
 
 func AuthenticateUser(db *gorm.DB, username string,  password string) (uint, error){
 	var user User
-	err := db.Select("ID").Where(&User{Username: username, Password: password}).First(&user).Error
-	return user.ID, err
+	res := db.Select("ID").Where(&User{Username: username, Password: password}).First(&user)
+	return user.ID, res.Error
 }
