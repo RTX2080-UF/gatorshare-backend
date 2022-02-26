@@ -107,21 +107,29 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 	}
 }
 
-func (base *Controller) LoginUser(ctx *gin.Context) (uint) {
-	username := ctx.Params.ByName("Username")
-	password := ctx.Params.ByName("Password")
-	log.Print("Got request to get User profile")
-	var id uint = 0
+func (base *Controller) Login(ctx *gin.Context) {
+	var errObj StdError
+	signingKey := middleware.GetEnv("ACCESS_SECRET", "8080", true)
 
-	hash, err := middleware.HashPassword(password)
-	if (err != nil) {
-		return id
+	var loginDetails Login
+	if err := ctx.ShouldBindJSON(&loginDetails); err != nil {
+		errObj.Message = "Invalid Json Recieved"
+		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errObj ,err)
+	   	return
 	}
-
-	id, err = models.AuthenticateUser(base.DB, username, hash)
+	log.Print("Got request to get User profile")
+	
+	hash, err := middleware.HashPassword(loginDetails.Password)
+	id, err := models.AuthenticateUser(base.DB, loginDetails.Username, hash)
 	if err != nil {
 		log.Fatal("Unable to Authenticate User")
 	}
 
-	return id
+	token, err := middleware.CreateToken(id, signingKey)
+	if err != nil {
+		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errObj, err)
+		return
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, token, nil)
 }
