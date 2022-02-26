@@ -48,6 +48,15 @@ type Tag struct {
 	Frequency int    `json:"count"`
 }
 
+type Login struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type StdError struct {
+	Message string `json:"message"` 
+}
+
 func PostRequestToDBModel(req Post) models.Post {
 	return models.Post {
 		UserID:       req.UserID,  
