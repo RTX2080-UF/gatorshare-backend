@@ -49,7 +49,7 @@ type Tag struct {
 }
 
 func PostRequestToDBModel(req Post) models.Post {
-	return models.Post{
+	return models.Post {
 		UserID:       req.UserID,  
 		Title:        req.Title,
 		Description:  req.Description,  		
@@ -63,7 +63,7 @@ func PostRequestToDBModel(req Post) models.Post {
 }
 
 func CommentRequestToDBModel(req Comment) models.Comment {
-	return models.Comment{
+	return models.Comment {
 		UserID:   req.UserID,
 		PostID:   req.PostID,
 		Message:  req.Message,
@@ -73,7 +73,7 @@ func CommentRequestToDBModel(req Comment) models.Comment {
 }
 
 func UserRequestToDBModel(req UserRegister) models.User {
-	return models.User{
+	return models.User {
 		Username: req.Username,
 		Firstname: req.Firstname,
 		Lastname: req.Lastname,

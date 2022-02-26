@@ -21,6 +21,10 @@ func (base *Controller) Register(ctx *gin.Context) {
 
 	userdataDb := UserRequestToDBModel(userdata) 
 	userdataDb.Password, err = middleware.HashPassword(userdataDb.Password)
+	if (err != nil) {
+		middleware.RespondJSON(ctx, http.StatusBadGateway, userdata, err)
+		return
+	}
 
 	userId, err := models.AddNewUser(base.DB, &userdataDb)
 	if err != nil {
@@ -110,10 +114,14 @@ func (base *Controller) LoginUser(ctx *gin.Context) (uint) {
 	var id uint = 0
 
 	hash, err := middleware.HashPassword(password)
+	if (err != nil) {
+		return id
+	}
+
 	id, err = models.AuthenticateUser(base.DB, username, hash)
 	if err != nil {
 		log.Fatal("Unable to Authenticate User")
-	} 
+	}
 
 	return id
 }
