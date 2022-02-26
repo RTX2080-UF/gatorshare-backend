@@ -105,6 +105,28 @@
 				"url": "http://localhost:8080/v1/comments/create"
 			},
 			"response": []
+		},
+		{
+			"name": "Get post by ID Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/posts/getOne/2"
+			},
+			"response": []
 		}
 	]
 }
