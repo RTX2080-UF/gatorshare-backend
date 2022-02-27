@@ -22,10 +22,6 @@
 							"\r",
 							"pm.test(\"Body matches the String\", function(){\r",
 							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"title\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"description\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"status\");\r",
 							"});\r",
 							"\r",
 							"\r",
@@ -41,6 +37,7 @@
 							"\r",
 							"\r",
 							"\r",
+							"\r",
 							""
 						],
 						"type": "text/javascript"
@@ -52,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\" : 4,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"Vitalik is Bae\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
+					"raw": "{\r\n    \"userId\" : 5,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"Test Message\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
 				},
 				"url": "http://localhost:8080/v1/posts/create"
 			},
@@ -71,15 +68,10 @@
 							"\r",
 							"pm.test(\"id was assigned\", function(){ \r",
 							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
-							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Body matches the String\", function(){\r",
 							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"postId\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"message\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"parentId\");\r",
-							"    // pm.expect(pm.response.text()).to.include(\"votes\");\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 200s\", function(){\r",
@@ -100,7 +92,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"userId\" : 3,\n\t\"postId\" : 1,\n\t\"message\" : \"DJ Snake is Savage\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+					"raw": "{\n\t\"userId\" : 4,\n\t\"postId\" : 2,\n\t\"message\" : \"API Test\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
 				},
 				"url": "http://localhost:8080/v1/comments/create"
 			},
@@ -120,7 +112,26 @@
 							"     pm.response.to.be.ok;\r",
 							"     pm.response.to.be.withBody;\r",
 							"     pm.response.to.be.json;\r",
-							"});"
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"participants\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"expiry\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Categories\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Tags\");\r",
+							"});\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -147,7 +158,25 @@
 							"     pm.response.to.be.ok;\r",
 							"     pm.response.to.be.withBody;\r",
 							"     pm.response.to.be.json;\r",
-							"});"
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"participants\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"expiry\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Categories\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Tags\");\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript"
 					}
