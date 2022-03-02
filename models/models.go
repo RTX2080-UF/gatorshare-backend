@@ -6,10 +6,10 @@ import (
 
 type User struct {
 	gorm.Model
-	Username  string 
+	Username  string `gorm:"uniqueIndex"`
 	Firstname string 
 	Lastname  string 
-	Email     string 
+	Email     string `gorm:"uniqueIndex"`
 	Zipcode   uint   
 	Avatar    string 
 	Password  string 
@@ -35,7 +35,7 @@ type Comment struct {
 	gorm.Model
 	UserID   uint   
 	User	 User
-	PostID   uint   
+	PostID   uint
 	Post	 Post
 	Message  string 
 	ParentId uint   

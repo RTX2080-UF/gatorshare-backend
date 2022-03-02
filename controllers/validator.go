@@ -53,10 +53,6 @@ type Login struct {
 	Password string `json:"password"`
 }
 
-type StdError struct {
-	Message string `json:"message"` 
-}
-
 func PostRequestToDBModel(req Post) models.Post {
 	return models.Post {
 		UserID:       req.UserID,  
