@@ -1,10 +1,10 @@
 # gatorshare-backend
 Backend Code of GatorShare, Software Engineering Spring 2022 project.
 Built by:
-- Anuj Singh (Backend)
-- Dinesh Valasala (Frontend)
-- Ekleen Kaur (Backend)
-- Rishabh Tatiraju (Frontend)
+- Anuj Singh (Backend) {R3dI0}
+- Dinesh Valasala (Frontend) {valasaladinesh}
+- Ekleen Kaur (Backend) {eclairss17}
+- Rishabh Tatiraju (Frontend) {tatirajurishabh}
 
 Stack:
 - Frontend: React.js
