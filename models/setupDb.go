@@ -69,10 +69,6 @@ func Init(envSrc bool) {
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Post{})
 	db.AutoMigrate(&Comment{})
-
-	if res := db.Exec("PRAGMA foreign_keys = ON", nil); res.Error != nil {
-		log.Fatal("Failed to enable foreign key!")
-	}
 }
 
 func GetDB() *gorm.DB {
