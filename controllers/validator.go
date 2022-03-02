@@ -11,7 +11,7 @@ type UserRegister struct {
 
 }
 
-type UserProfile struct {
+type User struct {
 	Username  string `json:"username" binding:"required"`
 	Firstname string `json:"firstname" binding:"required"`
 	Lastname  string `json:"lastname" binding:"required"`
