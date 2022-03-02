@@ -1,11 +1,13 @@
 package controllers
 
 import (
+	"errors"
 	"gatorshare/middleware"
 	"gatorshare/models"
 	"log"
 	"net/http"
 	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -108,32 +110,33 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 }
 
 func (base *Controller) Login(ctx *gin.Context) {
-	var errObj StdError
 	signingKey := middleware.GetEnv("ACCESS_SECRET", "8080", true)
 
 	var loginDetails Login
 	if err := ctx.ShouldBindJSON(&loginDetails); err != nil {
 		log.Println("Login", err.Error())
-		errObj.Message = "Invalid Json Recieved"
-		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errObj ,err)
+		errCustom := errors.New("invalid input provided")
+		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errCustom ,err)
 	   	return
 	}
 	log.Print("Got request to get User profile")
 	
-	hash, _ := middleware.HashPassword(loginDetails.Password)
-	id, err := models.AuthenticateUser(base.DB, loginDetails.Username, hash)
-	if err != nil {
-		log.Println("Login", err.Error())
-		errObj.Message = "Unable to Authenticate User"
-		middleware.RespondJSON(ctx, http.StatusUnauthorized, errObj, err)
+	userObj, err := models.GetUserDetailByUsername(base.DB, loginDetails.Username)
+	isPasswordValid := middleware.CheckPasswordHash(userObj.Password, loginDetails.Password)
+	if err != nil || !isPasswordValid {
+		if err != nil {
+			log.Println("Login", err.Error())
+		}
+		errCustom := errors.New("unable to authenticate user")
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, userObj, errCustom)
 		return
 	}
 
-	token, err := middleware.CreateToken(id, signingKey)
+	token, err := middleware.CreateToken(userObj.ID, signingKey)
 	if err != nil {
-		errObj.Message = "Unable to generate token"
+		errCustom := errors.New("unable to generate token")
 		log.Println("Login", err.Error())
-		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errObj, err)
+		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errCustom, err)
 		return
 	}
 
