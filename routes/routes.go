@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
-	"time"
 )
 
 func InitializeRoutes(db *gorm.DB) *gin.Engine {
@@ -19,17 +18,7 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 	  responseCtx.JSON(http.StatusOK, gin.H{"data": "Welcome to Gatorshare made with the help of Go and Gin!"})    
 	})
 
-	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://foo.com"},
-		AllowMethods:     []string{"PUT", "PATCH"},
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		AllowOriginFunc: func(origin string) bool {
-		  return origin == "*"
-		},
-		MaxAge: 12 * time.Hour,
-	}))
+	router.Use(cors.Default())
 
 	api := controllers.Controller{DB: db}
 
