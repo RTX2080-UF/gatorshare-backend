@@ -9,7 +9,7 @@ type User struct {
 	Username  string `gorm:"uniqueIndex"`
 	Firstname string 
 	Lastname  string 
-	Email     string 
+	Email     string `gorm:"uniqueIndex"`
 	Zipcode   uint   
 	Avatar    string 
 	Password  string 
