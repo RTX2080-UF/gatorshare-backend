@@ -1,3 +1,4 @@
+[![Deploy](https://github.com/RTX2080-UF/gatorshare-backend/actions/workflows/main.yml/badge.svg)](https://github.com/RTX2080-UF/gatorshare-backend/actions/workflows/main.yml)
 # gatorshare-backend
 Backend Code of GatorShare, Software Engineering Spring 2022 project.
 Built by:
