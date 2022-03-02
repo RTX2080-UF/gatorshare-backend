@@ -11,15 +11,15 @@ import (
 
 func (base *Controller) GetAllcomment(ctx *gin.Context) {
 	var comments []models.Comment
-	uid_str := ctx.Params.ByName("userId")
+	pid_str := ctx.Params.ByName("postId")
 	
-	uid, err := strconv.Atoi(uid_str)
+	pid, err := strconv.Atoi(pid_str)
     if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadRequest, comments, err)
 		return    
 	}
 
-	err = models.GetAllcomment(base.DB, &comments, uid)
+	err = models.GetAllcomment(base.DB, &comments, pid)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusNotFound, comments, err)
 	} else {

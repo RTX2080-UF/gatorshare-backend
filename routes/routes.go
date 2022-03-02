@@ -32,7 +32,7 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			posts.DELETE("delete/:id", api.Deletepost)
 		};
 		comments := v1.Group("/comments"); {
-			comments.GET("getAll/:userId", api.GetAllcomment)
+			comments.GET("getAll/:postId", api.GetAllcomment)
 			comments.GET("getOne/:id", api.GetOnecomment)
 			comments.POST("create", api.AddNewcomment)
 			comments.DELETE("delete/:id", api.Deletecomment)
