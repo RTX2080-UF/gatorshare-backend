@@ -188,6 +188,48 @@
 				"url": "http://localhost:8080/v1/posts/getAll/1"
 			},
 			"response": []
+		},
+		{
+			"name": "Get Comment by ID Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"postId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"parentId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/comments/getOne/2"
+			},
+			"response": []
 		}
 	]
 }
