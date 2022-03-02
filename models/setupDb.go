@@ -60,6 +60,10 @@ func Init(envSrc bool) {
 	} else if dbtype == "sqlite" {
 		database := middleware.GetEnv("DB_NAME", "Db/gatorshare.db", envSrc)
 		db = ConnectDatabaseSqlLite(database)
+		
+		if res := db.Exec("PRAGMA foreign_keys = ON", nil); res.Error != nil {
+			log.Fatal("Failed to enable foreign key!")
+		}
 	}
 	
 	db.AutoMigrate(&User{})

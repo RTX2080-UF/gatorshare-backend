@@ -37,7 +37,7 @@ func (base *Controller) AddNewpost(ctx *gin.Context) {
 		return
 	}
 
-	post_model := ConvertPostRequestToDBModel(post)
+	post_model := PostRequestToDBModel(post)
 	postId, err := models.AddNewpost(base.DB, &post_model)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, post, err)

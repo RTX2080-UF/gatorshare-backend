@@ -53,7 +53,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 7\",\r\n    \"description\" : \"My seventh post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
+					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/v1/posts/create",
@@ -253,6 +253,56 @@
 						"posts",
 						"update",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\": \"johndoe\",\r\n    \"Firstname\": \"John\",\r\n    \"Lastname\": \"Doe\",\r\n    \"Email\": \"johndoe@gatorshare.com\",\r\n    \"Password\": \"password123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"johndoe\",\r\n    \"password\": \"password123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"login"
 					]
 				}
 			},

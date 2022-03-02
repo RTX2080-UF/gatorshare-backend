@@ -37,7 +37,7 @@ func (base *Controller) AddNewcomment(ctx *gin.Context) {
 		return
 	}
 
-	commentDbObj := ConvertCommentRequestToDBModel(comment)
+	commentDbObj := CommentRequestToDBModel(comment)
 	CommentId, err := models.AddNewcomment(base.DB, &commentDbObj)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, comment, err)
