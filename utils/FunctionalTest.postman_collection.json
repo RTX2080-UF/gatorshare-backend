@@ -272,6 +272,28 @@
 				"url": "http://localhost:8080/v1/comments/getAll/1"
 			},
 			"response": []
+		},
+		{
+			"name": "Delete Post Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/v1/posts/delete/6"
+			},
+			"response": []
 		}
 	]
 }
