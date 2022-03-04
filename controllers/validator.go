@@ -26,7 +26,7 @@ type Post struct {
 	UserID       int     `json:"userId" binding:"required"`
 	Title        string  `json:"title" binding:"required"`
 	Description  string  `json:"description"`
-	Participants string  `json:"participants"`
+	Participants uint  	 `json:"participants"`
 	Expiry       float32 `json:"expiry"`
 	ViewCount    int64   `json:"viewCount"`
 	UserLimit    int     `json:"userLimit" binding:"required"`

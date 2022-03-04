@@ -19,7 +19,7 @@ func AddNewpost(db *gorm.DB, posts *Post) (uint, error) {
 }
 
 func GetOnepost(db *gorm.DB, post *Post, id int) error {
-	res := db.First(&post, id)
+	res := db.Omit("User.Password").Joins("User").First(&post, id)
 	return res.Error
 }
 
