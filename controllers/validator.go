@@ -23,13 +23,13 @@ type User struct {
 }
 
 type Post struct {
-	UserID       int     `json:"userId" binding:"required"`
+	UserID       uint     `json:"userId" binding:"required"`
 	Title        string  `json:"title" binding:"required"`
 	Description  string  `json:"description"`
 	Participants uint  	 `json:"participants"`
 	Expiry       float32 `json:"expiry"`
 	ViewCount    int64   `json:"viewCount"`
-	UserLimit    int     `json:"userLimit" binding:"required"`
+	UserLimit    uint     `json:"userLimit" binding:"required"`
 	Status       int     `json:"status" binding:"required"`
 	Categories   string
 	Tags         string
