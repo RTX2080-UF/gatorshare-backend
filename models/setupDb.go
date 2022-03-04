@@ -58,6 +58,7 @@ func Init(envSrc bool) {
 		db = ConnectDatabasePostgres(dbinfo)
 	} else if dbtype == "sqlite" {
 		database := middleware.GetEnv("DB_NAME", "Db/gatorshare.db", envSrc)
+		println("Connecting to database", database)
 		db = ConnectDatabaseSqlLite(database)
 	}
 	
