@@ -43,21 +43,21 @@ GET- http://localhost:8080/
 Json Response received- 
     "data": "Welcome to Gatorshare made with the help of Go and Gin!"
 ## User Posts
--By ID
--GET- http://localhost:8080/v1/posts/getOne/2
--Json Response received if the record exists:
+-By ID </br>
+-GET- http://localhost:8080/v1/posts/getOne/2 <br/>
+-Json Response received if the record exists: <br/>
 -{"data":{"ID":2,"CreatedAt":"2022-02-22T03:56:47.6075532+05:30","UpdatedAt":"2022-02-22T03:56:47.6075532+05:30","DeletedAt":null,"userId":1,"title":"Test post 2","description":"My second post","userLimit":4,"participants":"1","expiry":24,"viewCount":0,"status":2,"Categories":"","Tags":""}}
--if the record doesn't exist:
--{"error":"record not found"}
--All Posts
--GET- http://localhost:8080/v1/posts/getAll/1
--Json Received if the record exists:
+-if the record doesn't exist: <br/>
+-{"error":"record not found"}  <br/>
+-All Posts  <br/>
+-GET- http://localhost:8080/v1/posts/getAll/1  <br/>
+-Json Received if the record exists:  <br/>
 -{"data":[{"ID":2,"CreatedAt":"2022-02-22T03:56:47.6075532+05:30","UpdatedAt":"2022-02-22T03:56:47.6075532+05:30","DeletedAt":null,"userId":1,"title":"Test post 2","description":"My second post","userLimit":4,"participants":"1","expiry":24,"viewCount":0,"status":2,"Categories":"","Tags":""},{"ID":3,"CreatedAt":"2022-02-22T04:29:47.2209425+05:30","UpdatedAt":"2022-02-22T04:29:47.2209425+05:30","DeletedAt":null,"userId":1,"title":"Test post 2","description":"My second post","userLimit":4,"participants":"1","expiry":24,"viewCount":0,"status":2,"Categories":"","Tags":""},{"ID":4,"CreatedAt":"2022-02-22T04:30:51.0203078+05:30","UpdatedAt":"2022-02-22T04:30:51.0203078+05:30","DeletedAt":null,"userId":1,"title":"Test post 2","description":"Testing Post Creation","userLimit":4,"participants":"1","expiry":24,"viewCount":0,"status":2,"Categories":"","Tags":""}]}
--If the record doesn't exist:
--{"error":"record not found"}
--Create User Post 
--POST- http://localhost:8080/v1/posts/create
--Json Body Sent-
+-If the record doesn't exist:  <br/>
+-{"error":"record not found"}  <br/>
+-Create User Post  <br/>
+-POST- http://localhost:8080/v1/posts/create  <br/>
+-Json Body Sent-  <br/>
 -{
     "userId" : 1,
     "title" : "Test post 2",
@@ -65,12 +65,12 @@ Json Response received-
     "userLimit" : 4,
     "status" : 2
 }
--Json response received- 
+-Json response received-  <br/>
 -{
     "data": 8
 }
--DELETE- http://localhost:8080/v1/posts/delete/1
--Json Response Received- 
+-DELETE- http://localhost:8080/v1/posts/delete/1  <br/>
+-Json Response Received-  <br/>
 -{
     "data": {
         "ID": 0,
@@ -89,13 +89,13 @@ Json Response received-
         "Tags": ""
     }
 }
--If the record is already deleted- 
+-If the record is already deleted-  <br/>
 -{
     "error": "record not found"
 }
 
 ## User Comments
--By ID
+-By ID  
 -GET- http://localhost:8080/v1/comments/getOne/2
 -Json Response received if the record exists:
 -{"data":{"ID":2,"CreatedAt":"2022-02-23T23:25:56.5582548+05:30","UpdatedAt":"2022-02-23T23:25:56.5582548+05:30","DeletedAt":null,"userId":2,"postId":1,"message":"Satoshi is Life","parentId":0,"votes":5}}
