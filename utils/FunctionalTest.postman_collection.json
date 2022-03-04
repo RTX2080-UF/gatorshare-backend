@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "fa7ed480-0660-4ecb-bd74-694393d573eb",
+		"name": "FunctionalTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Post Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"id was assigned\", function(){ \r",
+							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200s\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code name has String\", function(){\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\" : 5,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"Test Message\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
+				},
+				"url": "http://localhost:8080/v1/posts/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Comment Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"id was assigned\", function(){ \r",
+							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200s\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has String\", function(){\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\" : 4,\n\t\"postId\" : 2,\n\t\"message\" : \"API Test\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+				},
+				"url": "http://localhost:8080/v1/comments/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Get post by ID Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"participants\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"expiry\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Categories\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Tags\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/posts/getOne/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All user post Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"participants\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"expiry\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Categories\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Tags\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/posts/getAll/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comment by ID Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"postId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"parentId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/comments/getOne/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All User Comments Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"postId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"parentId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/comments/getAll/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Post Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/v1/posts/delete/6"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Comment Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/v1/comments/delete/2"
+			},
+			"response": []
+		}
+	]
+}
