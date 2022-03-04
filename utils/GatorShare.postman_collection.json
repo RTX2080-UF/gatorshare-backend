@@ -1,51 +1,10 @@
 {
 	"info": {
-		"_postman_id": "54e83510-f102-4d8f-8e32-78e48773e57b",
+		"_postman_id": "94e78154-9ecb-4570-8906-0279debce651",
 		"name": "GatorShare",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Gatorshare home",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All user post",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/getAll/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"getAll",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "Create Post",
 			"request": {
@@ -55,41 +14,7 @@
 					"mode": "raw",
 					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get post by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/getOne/7",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"getOne",
-						"7"
-					]
-				}
+				"url": "http://localhost:8080/v1/posts/create"
 			},
 			"response": []
 		},
@@ -98,68 +23,34 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/delete/7",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"delete",
-						"7"
-					]
-				}
+				"url": "http://localhost:8080/v1/posts/delete/1"
 			},
 			"response": []
 		},
 		{
-			"name": "Update post",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"description\" : \"My first post updated 3\",\r\n    \"userLimit\" : 5\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/update/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"update",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All User Comments",
+			"name": "Get All user post",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/comments/getAll/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"comments",
-						"getAll",
-						"1"
-					]
-				}
+				"url": "http://localhost:8080/v1/posts/getAll/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get post by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v1/posts/getOne/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Gatorshare home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/"
 			},
 			"response": []
 		},
@@ -170,21 +61,9 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"userId\" : 1,\n\t\"postId\" : 1,\n\t\"message\" : \"I Love Gatoshare again\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+					"raw": "{\n\t\"userId\" : 1,\n\t\"postId\" : 1,\n\t\"message\" : \"I Love BTS\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/v1/comments/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"comments",
-						"create"
-					]
-				}
+				"url": "http://localhost:8080/v1/comments/create"
 			},
 			"response": []
 		},
@@ -193,20 +72,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/comments/getOne/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"comments",
-						"getOne",
-						"5"
-					]
-				}
+				"url": "http://localhost:8080/v1/comments/getOne/1"
 			},
 			"response": []
 		},
@@ -215,46 +81,16 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/comments/delete/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"comments",
-						"delete",
-						"2"
-					]
-				}
+				"url": "http://localhost:8080/v1/comments/delete/2"
 			},
 			"response": []
 		},
 		{
-			"name": "Update Comment",
+			"name": "Get All User Comments",
 			"request": {
-				"method": "PATCH",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"description\" : \"My first post updated 3\",\r\n    \"userLimit\" : 5\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/v1/posts/update/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"posts",
-						"update",
-						"1"
-					]
-				}
+				"url": "http://localhost:8080/v1/comments/getAll/1"
 			},
 			"response": []
 		},

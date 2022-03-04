@@ -18,11 +18,11 @@ type User struct {
 
 type Post struct {
 	gorm.Model
-	UserID       int 	 `json:"userId"`
+	UserID       uint 	 `json:"userId"`
 	User         User
 	Title        string  `json:"title"`
 	Description  string  `json:"description"`
-	UserLimit    int     `json:"userLimit"`
+	UserLimit    uint    `json:"userLimit"`
 	Participants uint  	 `json:"participantNum" gorm:"default:1"`
 	Expiry       float32 `gorm:"default:24"`
 	ViewCount    int64   `json:"viewCount" gorm:"default:0"`
