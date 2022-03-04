@@ -58,6 +58,7 @@ func (base *Controller) GetOnepost(ctx *gin.Context) {
     }
 
 	err = models.GetOnepost(base.DB, &post, postId)
+	post.User.Password = ""  
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, nil, err)
 	} else {
