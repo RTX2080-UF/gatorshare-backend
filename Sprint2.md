@@ -43,7 +43,7 @@ GET- http://localhost:8080/
 Json Response received- 
     "data": "Welcome to Gatorshare made with the help of Go and Gin!"
 ## User Posts
-By ID
+-By ID
 -GET- http://localhost:8080/v1/posts/getOne/2
 -Json Response received if the record exists:
 -{"data":{"ID":2,"CreatedAt":"2022-02-22T03:56:47.6075532+05:30","UpdatedAt":"2022-02-22T03:56:47.6075532+05:30","DeletedAt":null,"userId":1,"title":"Test post 2","description":"My second post","userLimit":4,"participants":"1","expiry":24,"viewCount":0,"status":2,"Categories":"","Tags":""}}
