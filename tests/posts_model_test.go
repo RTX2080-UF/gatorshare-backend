@@ -1,17 +1,20 @@
 package test
 
 import (
+	"crypto/rand"
 	"fmt"
 	"gatorshare/models"
-	"math/rand"
+	"math/big"
 	"testing"
 )
 
 func TestAddNewpost(t *testing.T) {
+	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
+
   	user := &models.User{
-		Username: "TestUser1" + fmt.Sprint(rand.Intn(10000)),
+		Username: "TestUser1" + fmt.Sprint(rnum),
 		Firstname: "Test User",
-		Email: "TestUser1" + fmt.Sprint(rand.Intn(10000)) + "@gatorshare.com",
+		Email: "TestUser1" + fmt.Sprint(rnum) + "@gatorshare.com",
 		Lastname: "1",
 		Password: "Test",
 	} 

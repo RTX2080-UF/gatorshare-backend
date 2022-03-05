@@ -2,4 +2,4 @@ server:
 	go run main.go
 
 test: 
-	go test .\tests
+	go clean -testcache && go test .\tests
