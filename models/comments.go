@@ -26,6 +26,6 @@ func Deletecomment(db *gorm.DB, comments *Comment, id int) error {
 }
 
 func Updatecomment(db *gorm.DB, comments *Comment) (error) {
-	res := db.Model(&comments).Updates(comments)
+	res := db.Model(&comments).Where("user_id = ? AND post_id = ?", comments.UserID, comments.PostID).Update("message", comments.Message)
 	return res.Error
 }
