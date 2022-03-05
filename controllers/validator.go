@@ -8,7 +8,7 @@ type UserRegister struct {
 	Lastname  string `json:"lastname" binding:"required"`
 	Email     string `json:"email" binding:"required"`
 	Password  string `json:"password" binding:"required"`
-
+	Zipcode	  uint `json:"zipcode"`
 }
 
 type User struct {
@@ -84,5 +84,6 @@ func UserRequestToDBModel(req UserRegister) models.User {
 		Lastname: req.Lastname,
 		Email: req.Email,
 		Password: req.Password,
+		Zipcode: req.Zipcode,
 	}
 }
