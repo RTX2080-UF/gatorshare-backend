@@ -1,10 +1,44 @@
 {
 	"info": {
-		"_postman_id": "94e78154-9ecb-4570-8906-0279debce651",
+		"_postman_id": "54e83510-f102-4d8f-8e32-78e48773e57b",
 		"name": "GatorShare",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Gatorshare home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}",
+					"host": [
+						"{{HOST_URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All user post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/posts/getAll/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"posts",
+						"getAll",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Create Post",
 			"request": {
@@ -14,25 +48,17 @@
 					"mode": "raw",
 					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
 				},
-				"url": "http://localhost:8080/v1/posts/create"
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Post",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": "http://localhost:8080/v1/posts/delete/1"
-			},
-			"response": []
-		},
-		{
-			"name": "Get All user post",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v1/posts/getAll/1"
+				"url": {
+					"raw": "{{HOST_URL}}/v1/posts/create",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"posts",
+						"create"
+					]
+				}
 			},
 			"response": []
 		},
@@ -41,16 +67,82 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:8080/v1/posts/getOne/1"
+				"url": {
+					"raw": "{{HOST_URL}}/v1/posts/getOne/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"posts",
+						"getOne",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "Gatorshare home",
+			"name": "Delete Post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/posts/delete/7",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"posts",
+						"delete",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update post",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\" : \"My first post updated 2\",\r\n    \"userLimit\" : 5\r\n}"
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/v1/posts/update/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"posts",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All User Comments",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:8080/"
+				"url": {
+					"raw": "{{HOST_URL}}/v1/comments/getAll/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"comments",
+						"getAll",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -61,9 +153,19 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"userId\" : 1,\n\t\"postId\" : 1,\n\t\"message\" : \"I Love BTS\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+					"raw": "{\n\t\"userId\" : 1,\n\t\"postId\" : 1,\n\t\"message\" : \"I Love Gatoshare again\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
 				},
-				"url": "http://localhost:8080/v1/comments/create"
+				"url": {
+					"raw": "{{HOST_URL}}/v1/comments/create",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"comments",
+						"create"
+					]
+				}
 			},
 			"response": []
 		},
@@ -72,7 +174,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:8080/v1/comments/getOne/1"
+				"url": {
+					"raw": "{{HOST_URL}}/v1/comments/getOne/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"comments",
+						"getOne",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -81,16 +194,42 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "http://localhost:8080/v1/comments/delete/2"
+				"url": {
+					"raw": "{{HOST_URL}}/v1/comments/delete/2",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"comments",
+						"delete",
+						"2"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get All User Comments",
+			"name": "Update Comment",
 			"request": {
-				"method": "GET",
+				"method": "PATCH",
 				"header": [],
-				"url": "http://localhost:8080/v1/comments/getAll/1"
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"userId\" : 1,\r\n\t\"postId\" : 1,\r\n\t\"message\" : \"Working update 3\"\r\n}"
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/v1/comments/update/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"comments",
+						"update",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -104,12 +243,10 @@
 					"raw": "{\r\n    \"Username\": \"johndoe\",\r\n    \"Firstname\": \"John\",\r\n    \"Lastname\": \"Doe\",\r\n    \"Email\": \"johndoe@gatorshare.com\",\r\n    \"Password\": \"password123\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/users/register",
-					"protocol": "http",
+					"raw": "{{HOST_URL}}/v1/users/register",
 					"host": [
-						"localhost"
+						"{{HOST_URL}}"
 					],
-					"port": "8080",
 					"path": [
 						"v1",
 						"users",
@@ -129,12 +266,10 @@
 					"raw": "{\r\n    \"username\": \"johndoe\",\r\n    \"password\": \"password123\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/users/login",
-					"protocol": "http",
+					"raw": "{{HOST_URL}}/v1/users/login",
 					"host": [
-						"localhost"
+						"{{HOST_URL}}"
 					],
-					"port": "8080",
 					"path": [
 						"v1",
 						"users",
@@ -143,6 +278,97 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get user profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/getProfile/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"getProfile",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User profile",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n}"
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/updateProfile/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"updateProfile",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user profile",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/deleteProfile/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"deleteProfile",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST_URL",
+			"value": "http://localhost:8080",
+			"type": "string"
 		}
 	]
 }
