@@ -10,7 +10,7 @@ Built by:
 Stack:
 - Frontend: React.js
 - Backend: GoLang
-- Database: TBD
+- Database: Postgres and sqlite
 
 # GatorShare
 
@@ -49,7 +49,27 @@ More features TBD...
 # Setup and run instructions
 1. First download and install go setup from *[here](https://go.dev/doc/install)*
 
-2. If you have Make tool install run
+2. Create an env file with following parameters
+```
+GIN_MODE: debug
+
+# If you want to use sqlite
+DB_TYPE: sqlite
+DB_NAME: Db/share-v1.0-dev.db
+
+# If you want to use postgres
+DB_TYPE: postgres
+DB_NAME: gatorshare
+PG_USER: postgres
+PG_PASSWORD: password
+PG_HOST: localhost
+PG_PORT: 5432
+
+ACCESS_SECRET: "Gatorshare"
+PORT: 8080
+```
+
+3. If you have Make tool install run
 ```
 $ make server 
 ```
@@ -57,7 +77,12 @@ else you can directly run
 ```
 $ go run main.go
 ```
-3. You can check server status in terminal and website will be up onm port `8080` by default.
+4. You can check server status in terminal and website will be up onm port `8080` by default.
+
+## Api Details (Documentation)
+- [User Api Endpoints](./documentation/User_api.md)
+- [Post Api Endpoints](./documentation/Posts_api.md)
+- [Comment Api Endpoints](./documentation/Comment_api.md)
 
 # Api endpoints
 
@@ -67,10 +92,16 @@ $ go run main.go
 | Get | `/v1/posts/getAll/:userId` | Get all user post from user post ID | Active |
 | Get | `/v1/posts/getOne/:id` | Get a single post by post ID | Active |
 | Post | `/v1/posts/create` | Create a user post | Active |
-| Patch | `/v1/posts/update/:id`   | Update an existing post | In-progress |
+| Patch | `/v1/posts/update/:id`   | Update an existing post | Active |
 | Delete | `/v1/posts/delete/:id`  | Delete an existing post by post ID | Active |
 | Get | `/v1/comments/getAll/:userId` | Get all user comments from user comment Id | Active |
 | Get | `/v1/comments/getOne/:id` | Get a single comment from user by Id | Active |
 | Post | `/v1/comments/create` | Create a user comment | Active |
-| Patch |  `/v1/comments/update/:id` | Update an existing comment | In-progress |
+| Patch |  `/v1/comments/update/:id` | Update an existing comment | Active |
 | Delete | `/v1/comments/delete/:id` | Delete a user comment | Active |
+| POST | `/v1/users/register` | Register new users | Active |
+| POST | `/v1/users/login` | Authenticate and create user session | Active |
+| GET | `/v1/users/getProfile/:id` | Get user profile by Id | Active |
+| DELETE | `/v1/users/deleteProfile/:id` | Delete user and associated resource | Active |
+| PATCH | `/v1/users/updateProfile/:id` | Update user details | Active |
+
