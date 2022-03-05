@@ -53,3 +53,10 @@ Json Response received- <br>
 | GET | `/v1/users/getProfile/:id` | Get user profile by Id | Active |
 | DELETE | `/v1/users/deleteProfile/:id` | Delete user and associated resource | Active |
 | PATCH | `/v1/users/updateProfile/:id` | Update user details | Active |
+
+# Unit test
+Unit tests are present in tests folder and could be excuted using make test
+
+# Functional test
+Functional test are created with the help of postman and they are present in utils folder with 
+file name FunctionalTest.postman_collection.json

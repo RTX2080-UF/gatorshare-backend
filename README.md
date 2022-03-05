@@ -78,6 +78,14 @@ else you can directly run
 $ go run main.go
 ```
 4. You can check server status in terminal and website will be up onm port `8080` by default.
+5. To run unit tests execute one of the below command depending on avialbility of make tool.
+```
+$ make test 
+```
+else you can directly run
+```
+$ go run ./tests
+```
 
 ## Api Details (Documentation)
 - [User Api Endpoints](./documentation/User_api.md)
