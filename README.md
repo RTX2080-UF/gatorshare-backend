@@ -112,4 +112,3 @@ $ go run ./tests
 | GET | `/v1/users/getProfile/:id` | Get user profile by Id | Active |
 | DELETE | `/v1/users/deleteProfile/:id` | Delete user and associated resource | Active |
 | PATCH | `/v1/users/updateProfile/:id` | Update user details | Active |
-
