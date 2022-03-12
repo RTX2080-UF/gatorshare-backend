@@ -113,3 +113,10 @@ $ go run ./tests
 | DELETE | `/v1/users/deleteProfile/:id` | Delete user and associated resource | Active |
 | PATCH | `/v1/users/updateProfile/:id` | Update user details | Active |
 
+# Unit test
+[Unit tests](./tests/) are present in tests folder and could be excuted using make test
+
+Working snippets of Unit Tests
+![User Test](./tests/screenshots/UsersTest1.PNG)
+![User Post Test](./tests/screenshots/PostsTest1.PNG)
+![User Comment Test](./tests/screenshots/CommentsTests1.PNG)
