@@ -28,7 +28,7 @@ func Deletepost(db *gorm.DB, post *Post, id int) error {
 	return res.Error
 }
 
-func UpdatePost(db *gorm.DB, post *Post) (error) {
+func UpdatePost(db *gorm.DB, post *Post) error {
 	res := db.Model(post).Updates(post)
 	return res.Error
 }

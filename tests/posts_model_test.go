@@ -36,8 +36,56 @@ func TestAddNewpost(t *testing.T) {
 		t.Log("Succesfully able to create post")	  
 	}
 
-	testobj.DB.Delete(user)
-	testobj.DB.Delete(post)
+	// testobj.DB.Delete(user)
+	// testobj.DB.Delete(post)
 	print(res)  
 
 }
+func createPost(t *testing.T)(post *models.Post){
+	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
+	user := &models.User{
+		Username: "TestUser17" + fmt.Sprint(rnum),
+		Firstname: "Test User",
+		Email: "TestUser17" + fmt.Sprint(rnum)+ "@gatorshare.com",
+		Lastname: "1",
+		Password: "Test",
+	} 
+
+	res, _ := models.AddNewUser(testobj.DB, user)
+
+	if res != 0 {
+		print(res)
+		post := &models.Post{
+			Title: "Test new post",
+			UserID: user.ID,
+			Description: "Test Message",
+			UserLimit: 4,
+			Status: 2,
+		}
+		res, _ := models.AddNewpost(testobj.DB, post)
+		if res == 0 {
+			t.Error("Unable to create post!")
+		} else {
+			return post
+		}
+
+
+
+	}else{
+		t.Error("Cannot return post User not created!")
+	}
+	return 
+}
+
+func TestGetOnepost(t *testing.T){
+
+	post := createPost(t)
+	if(post.ID  != 0){
+		res := models.GetOnepost(testobj.DB, post, int(post.ID))
+		print(res)
+	}
+
+	// testobj.DB.Delete(user)
+	// testobj.DB.Delete(post)
+}
+
