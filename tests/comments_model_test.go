@@ -175,3 +175,14 @@ func TestGetAllcomment(t *testing.T){
 		}
 	}
 }
+func TestDeletecomment(t *testing.T){
+	comment := createComment(t)
+	if comment.ID != 0 && comment.PostID != 0 && comment.UserID != 0{
+		res := models.Deletecomment(testobj.DB,comment,int(comment.ID))
+		if res == nil {
+			t.Log("Succesfully able to delete comment")
+		}else {
+			t.Error("Unable to delete comment!")
+		}
+	}
+}
