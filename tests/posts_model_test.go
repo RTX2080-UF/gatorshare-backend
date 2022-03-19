@@ -69,8 +69,6 @@ func createPost(t *testing.T)(post *models.Post){
 			return post
 		}
 
-
-
 	}else{
 		t.Error("Cannot return post User not created!")
 	}
@@ -83,9 +81,9 @@ func TestGetOnepost(t *testing.T){
 	if(post.ID  != 0){
 		res:= models.GetOnepost(testobj.DB, post, int(post.ID))
 		print(res)
-		// if res != 0 {
-		
-		// }
+		if res != nil {
+			t.Log("Succesfully able to return post")
+		}
 	}
 }
 func createPosts(t *testing.T)(post *[]models.Post, userID uint){
@@ -136,8 +134,6 @@ func createPosts(t *testing.T)(post *[]models.Post, userID uint){
 		return posts,user.ID
 		}
 
-
-
 	}else{
 		t.Error("Cannot return post User not created!")
 	}
@@ -146,10 +142,11 @@ func createPosts(t *testing.T)(post *[]models.Post, userID uint){
 func TestGetAllpost(t *testing.T){
 	
 	post, ID := createPosts(t)
-	
 
 	if((*post)[0].UserID == ID ){
 		res := models.GetAllpost(testobj.DB, post, int(ID))
-		print(res)
+		if res != nil {
+			t.Log("Succesfully able to return posts")
+		}		
 	}
 }
