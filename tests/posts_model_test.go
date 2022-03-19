@@ -83,6 +83,8 @@ func TestGetOnepost(t *testing.T){
 		print(res)
 		if res != nil {
 			t.Log("Succesfully able to return post")
+		}else{
+			t.Error("Unable to return post!")
 		}
 	}
 }
@@ -147,6 +149,8 @@ func TestGetAllpost(t *testing.T){
 		res := models.GetAllpost(testobj.DB, post, int(ID))
 		if res != nil {
 			t.Log("Succesfully able to return posts")
-		}		
+		}else {
+			t.Error("Unable to return posts!")
+		}
 	}
 }
