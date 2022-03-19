@@ -100,7 +100,7 @@ func TestGetOnecomment(t *testing.T){
 	if comment.ID != 0{
 		res := models.GetOnecomment(testobj.DB, comment, int(comment.ID))
 		print(res)
-		if  comment.ID != 0 {
+		if  comment.ID != 0 && res == nil{
 			t.Log("Succesfully able to return comment")	
 		} else {
 			t.Error("Unable to return comment!")
@@ -168,7 +168,7 @@ func TestGetAllcomment(t *testing.T){
 	comments,ID := createcomments(t)
 	if((*comments)[0].PostID != ID){
 		res := models.GetAllcomment(testobj.DB,comments,int(ID))
-		if res != nil {
+		if res == nil {
 			t.Log("Succesfully able to return comments")
 		}else {
 			t.Error("Unable to return comments!")

@@ -81,7 +81,7 @@ func TestGetOnepost(t *testing.T){
 	if(post.ID  != 0){
 		res:= models.GetOnepost(testobj.DB, post, int(post.ID))
 		print(res)
-		if post.ID != 0 {
+		if post.ID != 0 && res == nil {
 			t.Log("Succesfully able to return post")
 		}else{
 			t.Error("Unable to return post!")
@@ -147,10 +147,21 @@ func TestGetAllpost(t *testing.T){
 
 	if((*post)[0].UserID == ID ){
 		res := models.GetAllpost(testobj.DB, post, int(ID))
-		if res != nil {
+		if res == nil {
 			t.Log("Succesfully able to return posts")
 		}else {
 			t.Error("Unable to return posts!")
+		}
+	}
+}
+func TestDeletepost(t *testing.T){
+	post := createPost(t)
+	if(post.ID != 0){
+		res := models.Deletepost(testobj.DB,post,int(post.ID))
+		if res == nil {
+			t.Log("Succesfully able to delete post")
+		}else {
+			t.Error("Unable to delete post!")
 		}
 	}
 }
