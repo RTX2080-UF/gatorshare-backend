@@ -81,7 +81,7 @@ func TestGetOnepost(t *testing.T){
 	if(post.ID  != 0){
 		res:= models.GetOnepost(testobj.DB, post, int(post.ID))
 		print(res)
-		if res != nil {
+		if post.ID != 0 {
 			t.Log("Succesfully able to return post")
 		}else{
 			t.Error("Unable to return post!")
