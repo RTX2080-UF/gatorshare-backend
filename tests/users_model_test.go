@@ -74,3 +74,15 @@ func TestGetUserDetailByUsername(t *testing.T){
 	}
 }
 
+func TestDeleteUser(t *testing.T){
+	user, _ := createUser(t)
+	if(user.ID != 0){
+		res := models.DeleteUser(testobj.DB,int(user.ID))
+		if res == nil {
+			t.Log("Succesfully able to delete user")
+		}else {
+			t.Error("Unable to delete user!")
+		}
+	}
+}
+
