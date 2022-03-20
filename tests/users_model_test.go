@@ -62,3 +62,15 @@ func TestGetUserProfile(t *testing.T){
 }
 
 
+func TestGetUserDetailByUsername(t *testing.T){
+	user, username:= createUser(t)
+	if(username != "" && user.ID != 0){
+		res, _ := models.GetUserDetailByUsername(testobj.DB, string(username))
+		if(res.ID != 0){
+			t.Log("Succesfully able to return user")
+		}else {
+			t.Error("Unable to return user!")
+		}
+	}
+}
+
