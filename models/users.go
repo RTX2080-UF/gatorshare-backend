@@ -13,7 +13,7 @@ func AddNewUser(db *gorm.DB, user *User) (uint, error) {
 	return user.ID, nil
 }
 
-func GetUserProfile(db *gorm.DB, user *User, id int) error {
+func GetUserProfile(db *gorm.DB, user *User, id uint) error {
 	res := db.Omit("password").First(&user, id)
 	return res.Error
 }
