@@ -23,7 +23,6 @@ type User struct {
 }
 
 type Post struct {
-	UserID       uint     `json:"userId" binding:"required"`
 	Title        string  `json:"title" binding:"required"`
 	Description  string  `json:"description"`
 	Participants uint  	 `json:"participants"`
@@ -53,9 +52,9 @@ type Login struct {
 	Password string `json:"password"`
 }
 
-func PostRequestToDBModel(req Post) models.Post {
+func PostRequestToDBModel(req Post, UserID uint) models.Post {
 	return models.Post {
-		UserID:       req.UserID,  
+		UserID:       UserID,  
 		Title:        req.Title,
 		Description:  req.Description,  		
 		UserLimit:    req.UserLimit,
