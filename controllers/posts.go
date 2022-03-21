@@ -11,13 +11,8 @@ import (
 
 func (base *Controller) Listpost(ctx *gin.Context) {
 	var posts []models.Post
-	uid_str := ctx.Params.ByName("userId")
-	
-	uid, err := strconv.Atoi(uid_str)
-    if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, posts, err)
-		return    
-	}
+	token := middleware.ExtractToken(ctx)
+	uid, err := middleware.ExtractTokenID(token)
 
 	err = models.GetAllpost(base.DB, &posts, uid)
 	if err != nil {

@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetAllpost(db *gorm.DB, posts *[]Post, id int) error {
+func GetAllpost(db *gorm.DB, posts *[]Post, id uint) error {
 	res := db.Where("user_id = ?", id).Find(&posts)
 	return res.Error
 }
