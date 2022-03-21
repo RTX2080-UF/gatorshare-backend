@@ -41,9 +41,10 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 		users := v1.Group("/users"); {
 			users.POST("register", api.Register)
 			users.POST("login", api.Login)
-			users.GET("getProfile/:id", api.GetProfile)
-			users.DELETE("deleteProfile/:id", api.DeleteUser)
-			users.PATCH("updateProfile/:id", api.UpdateProfile)
+			users.GET("getProfile", api.GetProfile)
+			users.GET("getUserProfile/:id", api.GetProfileGeneric)
+			users.DELETE("deleteProfile", api.DeleteUser)
+			users.PATCH("updateProfile", api.UpdateProfile)
 		}
 	}
 
