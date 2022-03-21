@@ -2,8 +2,10 @@ package middleware
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -93,4 +95,28 @@ func Pretty(data interface{}) {
 	}
 
 	fmt.Println(string(b))
+}
+
+func GetUidFromToken(ctx *gin.Context) uint {
+	token := ExtractToken(ctx)
+	errCustom := errors.New("invalid token provided")
+
+	if (token != "") {
+		err := TokenValid(token)
+		if (err != nil) {
+			RespondJSON(ctx, http.StatusForbidden, errCustom, err)
+			return 0
+		}
+	} else {
+		RespondJSON(ctx, http.StatusForbidden, errCustom, nil)
+		return 0
+	}
+	
+	uid, err := ExtractTokenID(token)
+	if err != nil {
+		RespondJSON(ctx, http.StatusForbidden, errCustom, err)
+		return 0
+	}
+
+	return uid
 }
