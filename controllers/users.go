@@ -17,95 +17,25 @@ func (base *Controller) Register(ctx *gin.Context) {
 	log.Print("Got request to add new User")
 	err := ctx.ShouldBindJSON(&userdata);
 	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userdata, err)
+		errCustom := errors.New("invalid user object provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return
 	}
 
 	userdataDb := UserRequestToDBModel(userdata) 
 	userdataDb.Password, err = middleware.HashPassword(userdataDb.Password)
 	if (err != nil) {
-		middleware.RespondJSON(ctx, http.StatusBadGateway, userdata, err)
+		errCustom := errors.New("invalid user password provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 		return
 	}
 
 	userId, err := models.AddNewUser(base.DB, &userdataDb)
 	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadGateway, userdata, err)
+		errCustom := errors.New("unable to register user").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 	} else {
 		middleware.RespondJSON(ctx, http.StatusOK, userId, nil)
-	}
-}
-
-func (base *Controller) GetProfile(ctx *gin.Context) {
-	var userData models.User
-	userIdStr := ctx.Params.ByName("id")
-	userId, err := strconv.Atoi(userIdStr)
-	log.Print("Got request to get User profile", userId)
-
-    if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
-		return
-    }
-
-	err = models.GetUserProfile(base.DB, &userData, userId)
-	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadGateway, nil, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, userData, err)
-	}
-}
-
-func (base *Controller) UpdateProfile(ctx *gin.Context) {
-	var userData models.User
-	userIdStr := ctx.Params.ByName("id")
-	log.Print("Got request to Update User profile", userIdStr)
-
-	userId, err := strconv.Atoi(userIdStr)
-    if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
-		return    
-	}
-	
-	err = models.GetUserProfile(base.DB, &userData, userId)
-	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
-		return	
-	}
-	
-	err = ctx.ShouldBindJSON(&userData);
-	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
-		return
-	}
-	
-	err = models.UpdateUserProfile(base.DB, &userData)
-	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadGateway, userData, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
-	}
-}
-
-func (base *Controller) DeleteUser(ctx *gin.Context) {
-	var userData models.User
-	userIdStr := ctx.Params.ByName("id")
-	
-	userId, err := strconv.Atoi(userIdStr)
-    if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
-    }
-
-	err = models.GetUserProfile(base.DB, &userData, userId)
-	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
-	}
-	ctx.BindJSON(&userData)
-
-	err = models.DeleteUser(base.DB, userId)
-	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadGateway, userData, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
 	}
 }
 
@@ -140,4 +70,124 @@ func (base *Controller) Login(ctx *gin.Context) {
 	}
 
 	middleware.RespondJSON(ctx, http.StatusOK, token, nil)
+}
+
+func (base *Controller) GetProfileGeneric(ctx *gin.Context) {
+	var userData models.User
+
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+
+	userIdStr := ctx.Params.ByName("id")
+	userId, err := strconv.Atoi(userIdStr)
+	log.Print("Got request to get User profile", userId)
+
+    if err != nil {
+		errCustom := errors.New("invalid user id provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+    }
+
+	err = models.GetUserProfile(base.DB, &userData, uint(userId))
+	if err != nil {
+		errCustom := errors.New("unable to retrieve user profile with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		middleware.RespondJSON(ctx, http.StatusOK, userData, err)
+	}
+}
+
+func (base *Controller) GetProfile(ctx *gin.Context) {
+	var userData models.User
+	
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	log.Print("Got request to get User profile", uid)
+
+	err := models.GetUserProfile(base.DB, &userData, uid)
+
+	if userData.ID != uid {
+		errCustom := errors.New("profile doesn't belong to the given user").Error()
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
+		return
+	}
+
+	if err != nil {
+		errCustom := errors.New("unable to retrieve user profile with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		middleware.RespondJSON(ctx, http.StatusOK, userData, err)
+	}
+}
+
+func (base *Controller) UpdateProfile(ctx *gin.Context) {
+	var userData models.User
+	
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	log.Print("Got request to Update User profile", uid)
+
+	err := models.GetUserProfile(base.DB, &userData, uid)
+	if err != nil {
+		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
+		return	
+	}
+
+	if userData.ID != uid {
+		errCustom := errors.New("profile doesn't belong to the given user").Error()
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
+		return
+	}
+	
+	err = ctx.ShouldBindJSON(&userData);
+	if err != nil {
+		errCustom := errors.New("unable to retrieve user profile with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+	}
+	
+	err = models.UpdateUserProfile(base.DB, &userData)
+	if err != nil {
+		errCustom := errors.New("unable to update user profile with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
+	}
+}
+
+func (base *Controller) DeleteUser(ctx *gin.Context) {
+	var userData models.User
+
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	log.Print("Got request to delete User profile", uid)
+
+	err := models.GetUserProfile(base.DB, &userData, uid)
+	if err != nil {
+		errCustom := errors.New("unable to retrieve user profile with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+	}
+	ctx.BindJSON(&userData)
+
+	if userData.ID != uid {
+		errCustom := errors.New("profile doesn't belong to the given user").Error()
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
+		return
+	}
+
+	err = models.DeleteUser(base.DB, int(uid))
+	if err != nil {
+		errCustom := errors.New("unable to delete user with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
+	}
 }
