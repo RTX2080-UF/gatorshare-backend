@@ -127,7 +127,7 @@ func (base *Controller) Login(ctx *gin.Context) {
 			log.Println("Login", err.Error())
 		}
 		errCustom := errors.New("unable to authenticate user")
-		middleware.RespondJSON(ctx, http.StatusUnauthorized, userObj, errCustom)
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, errCustom)
 		return
 	}
 
