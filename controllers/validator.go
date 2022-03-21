@@ -66,9 +66,9 @@ func PostRequestToDBModel(req Post, UserID uint) models.Post {
 	}
 }
 
-func CommentRequestToDBModel(req Comment) models.Comment {
+func CommentRequestToDBModel(req Comment, UserID uint) models.Comment {
 	return models.Comment {
-		UserID:   req.UserID,
+		UserID:   UserID,
 		PostID:   req.PostID,
 		Message:  req.Message,
 		ParentId: req.ParentId,
