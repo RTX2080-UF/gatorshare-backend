@@ -1,20 +1,48 @@
 package controllers
 
 import (
+	"errors"
 	"gatorshare/middleware"
 	"gatorshare/models"
 	"log"
 	"net/http"
 	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
-func (base *Controller) Listpost(ctx *gin.Context) {
-	var posts []models.Post
+func getUidFromToken(ctx *gin.Context) uint {
 	token := middleware.ExtractToken(ctx)
-	uid, err := middleware.ExtractTokenID(token)
+	errCustom := errors.New("invalid token provided")
 
-	err = models.GetAllpost(base.DB, &posts, uid)
+	if (token != "") {
+		err := middleware.TokenValid(token)
+		if (err != nil) {
+			middleware.RespondJSON(ctx, http.StatusForbidden, errCustom, err)
+			return 0
+		}
+	} else {
+		middleware.RespondJSON(ctx, http.StatusForbidden, errCustom, nil)
+		return 0
+	}
+	
+	uid, err := middleware.ExtractTokenID(token)
+	if err != nil {
+		middleware.RespondJSON(ctx, http.StatusForbidden, errCustom, err)
+		return 0
+	}
+
+	return uid
+}
+
+func (base *Controller) Listpost(ctx *gin.Context) {
+	uid := getUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+
+	var posts []models.Post
+	err := models.GetAllpost(base.DB, &posts, uid)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusNotFound, posts, err)
 	} else {
@@ -24,7 +52,6 @@ func (base *Controller) Listpost(ctx *gin.Context) {
 
 func (base *Controller) AddNewpost(ctx *gin.Context) {
 	var post Post
-
 	log.Print("Got request to add new post")
 	err := ctx.ShouldBindJSON(&post);
 	if err != nil {
@@ -32,7 +59,12 @@ func (base *Controller) AddNewpost(ctx *gin.Context) {
 		return
 	}
 
-	post_model := PostRequestToDBModel(post)
+	uid := getUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	post_model := PostRequestToDBModel(post, uid)
+
 	postId, err := models.AddNewpost(base.DB, &post_model)
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, post, err)
@@ -64,7 +96,12 @@ func (base *Controller) GetOnepost(ctx *gin.Context) {
 func (base *Controller) UpdatePost(ctx *gin.Context) {
 	var post models.Post
 	id := ctx.Params.ByName("id")
-	
+
+	uid := getUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+
 	PostId, err := strconv.Atoi(id)
     if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
@@ -75,6 +112,11 @@ func (base *Controller) UpdatePost(ctx *gin.Context) {
 	if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
 		return	
+	}
+
+	if (post.User.ID != uid) {
+		middleware.RespondJSON(ctx, http.StatusForbidden, post, err)
+		return
 	}
 	
 	err = ctx.ShouldBindJSON(&post);
@@ -95,6 +137,11 @@ func (base *Controller) Deletepost(ctx *gin.Context) {
 	var post models.Post
 	id := ctx.Params.ByName("id")
 	
+	uid := getUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+
 	PostId, err := strconv.Atoi(id)
     if err != nil {
 		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
@@ -105,6 +152,11 @@ func (base *Controller) Deletepost(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusBadRequest, post, err)
 	}
 	ctx.BindJSON(&post)
+
+	if (post.User.ID != uid) {
+		middleware.RespondJSON(ctx, http.StatusForbidden, post, err)
+		return
+	}
 
 	err = models.Deletepost(base.DB, &post, PostId)
 	if err != nil {
