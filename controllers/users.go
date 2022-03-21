@@ -110,7 +110,6 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 }
 
 func (base *Controller) Login(ctx *gin.Context) {
-	signingKey := middleware.GetEnv("ACCESS_SECRET", "8080", true)
 
 	var loginDetails Login
 	if err := ctx.ShouldBindJSON(&loginDetails); err != nil {
@@ -132,7 +131,7 @@ func (base *Controller) Login(ctx *gin.Context) {
 		return
 	}
 
-	token, err := middleware.CreateToken(userObj.ID, signingKey)
+	token, err := middleware.CreateToken(userObj.ID)
 	if err != nil {
 		errCustom := errors.New("unable to generate token")
 		log.Println("Login", err.Error())
