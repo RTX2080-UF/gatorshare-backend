@@ -15,20 +15,20 @@ import (
 var signingKey = GetEnv("ACCESS_SECRET", "Gatorshare", true)
 
 func CreateToken(userid uint) (string, error) {
-  var err error
+	var err error
 
-  atClaims := jwt.MapClaims{}
-  atClaims["authorized"] = true
-  atClaims["user_id"] = userid
-  atClaims["exp"] = time.Now().Add(time.Minute * 15).Unix()
-  at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
+	atClaims := jwt.MapClaims{}
+	atClaims["authorized"] = true
+	atClaims["user_id"] = userid
+	atClaims["exp"] = time.Now().Add(time.Minute * 15).Unix()
+	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 
-  token, err := at.SignedString([]byte(signingKey))
-  if err != nil {
-     return "", err
-  }
+	token, err := at.SignedString([]byte(signingKey))
+	if err != nil {
+		return "", err
+	}
 
-  return token, nil
+	return token, nil
 }
 
 func TokenValid(tokenString string) error {
@@ -78,10 +78,11 @@ func ExtractToken(ctx *gin.Context) string {
 	}
 
 	bearerToken := ctx.Request.Header["Authorization"]
-  if len(strings.Split(bearerToken[0], " ")) == 2 {
+	if len(strings.Split(bearerToken[0], " ")) == 2 {
 		return strings.Split(bearerToken[0], " ")[1]
 	}
-  return ""
+
+  	return ""
 }
 
 func Pretty(data interface{}) {
