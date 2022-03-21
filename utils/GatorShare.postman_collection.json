@@ -35,15 +35,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}/v1/posts/getAll/1",
+					"raw": "{{HOST_URL}}/v1/posts/getAll",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"posts",
-						"getAll",
-						"1"
+						"getAll"
 					]
 				}
 			},
@@ -355,15 +354,43 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}/v1/users/getProfile/1",
+					"raw": "{{HOST_URL}}/v1/users/getProfile",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"users",
-						"getProfile",
-						"1"
+						"getProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user profile Generic",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/getProfile",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"getProfile"
 					]
 				}
 			},
@@ -389,15 +416,14 @@
 					"raw": "{\r\n   \r\n}"
 				},
 				"url": {
-					"raw": "{{HOST_URL}}/v1/users/updateProfile/1",
+					"raw": "{{HOST_URL}}/v1/users/updateProfile",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"users",
-						"updateProfile",
-						"1"
+						"updateProfile"
 					]
 				}
 			},
@@ -419,15 +445,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}/v1/users/deleteProfile/1",
+					"raw": "{{HOST_URL}}/v1/users/deleteProfile",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"users",
-						"deleteProfile",
-						"1"
+						"deleteProfile"
 					]
 				}
 			},
