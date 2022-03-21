@@ -25,7 +25,7 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 	v1 := router.Group("/v1")
 	{
 		posts := v1.Group("/posts"); {
-			posts.GET("getAll/:userId", api.Listpost)
+			posts.GET("getAll", api.Listpost)
 			posts.GET("getOne/:id", api.GetOnepost)
 			posts.POST("create", api.AddNewpost)
 			posts.PATCH("update/:id", api.UpdatePost)
