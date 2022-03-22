@@ -2,13 +2,15 @@ package controllers
 
 import "gatorshare/models"
 
-type UserRegister struct {
+type UserProfile struct {
 	Username  string `json:"username" binding:"required"`
 	Firstname string `json:"firstname" binding:"required"`
 	Lastname  string `json:"lastname" binding:"required"`
 	Email     string `json:"email" binding:"required"`
+	OldPassword  string `json:"oldPassword"`
 	Password  string `json:"password" binding:"required"`
-	Zipcode	  uint `json:"zipcode"`
+	Zipcode	  uint   `json:"zipcode"`
+	Avatar    string `json:"avatar"`
 }
 
 type User struct {
@@ -76,7 +78,7 @@ func CommentRequestToDBModel(req Comment, UserID uint) models.Comment {
 	}
 }
 
-func UserRequestToDBModel(req UserRegister) models.User {
+func UserRequestToDBModel(req UserProfile) models.User {
 	return models.User {
 		Username: req.Username,
 		Firstname: req.Firstname,

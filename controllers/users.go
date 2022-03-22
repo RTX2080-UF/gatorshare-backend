@@ -12,7 +12,7 @@ import (
 )
 
 func (base *Controller) Register(ctx *gin.Context) {
-	var userdata UserRegister
+	var userdata UserProfile
 
 	log.Print("Got request to add new User")
 	err := ctx.ShouldBindJSON(&userdata);
@@ -129,39 +129,61 @@ func (base *Controller) GetProfile(ctx *gin.Context) {
 }
 
 func (base *Controller) UpdateProfile(ctx *gin.Context) {
-	var userData models.User
-	
+	var newUserData UserProfile
+	var currentUserData models.User
+
 	uid := middleware.GetUidFromToken(ctx)
 	if uid == 0 {
 		return
 	}
 	log.Print("Got request to Update User profile", uid)
 
-	err := models.GetUserProfile(base.DB, &userData, uid)
+	err := models.GetUserProfile(base.DB, &currentUserData, uid)
 	if err != nil {
-		middleware.RespondJSON(ctx, http.StatusBadRequest, userData, err)
+		errCustom := errors.New("unable to retrieve user profile with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return	
 	}
 
-	if userData.ID != uid {
+	if currentUserData.ID != uid {
 		errCustom := errors.New("profile doesn't belong to the given user").Error()
 		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
 		return
 	}
 	
-	err = ctx.ShouldBindJSON(&userData);
+	err = ctx.ShouldBindJSON(&newUserData);
 	if err != nil {
 		errCustom := errors.New("unable to retrieve user profile with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return
 	}
 	
-	err = models.UpdateUserProfile(base.DB, &userData)
+	if (newUserData.OldPassword != "" && newUserData.OldPassword != currentUserData.Password) {
+		errCustom := errors.New("unable to update password, password didn't match").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+	}
+
+	updatedUserData := models.User {
+		Firstname: newUserData.Firstname,
+		Lastname: newUserData.Lastname,
+		Email: newUserData.Email,
+		Zipcode: newUserData.Zipcode,
+		Avatar: newUserData.Avatar,
+	}
+
+	if (newUserData.OldPassword != "") {
+		updatedUserData.Password = newUserData.Password
+	} else {
+		updatedUserData.Password = currentUserData.Password
+	}
+
+	err = models.UpdateUserProfile(base.DB, &updatedUserData)
 	if err != nil {
 		errCustom := errors.New("unable to update user profile with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
+		middleware.RespondJSON(ctx, http.StatusOK, updatedUserData, nil)
 	}
 }
 
