@@ -1,6 +1,7 @@
 package models
 
 import (
+	"gorm.io/gorm/clause"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +15,7 @@ func AddNewUser(db *gorm.DB, user *User) (uint, error) {
 }
 
 func GetUserProfile(db *gorm.DB, user *User, id uint) error {
-	res := db.Omit("password").First(&user, id)
+	res := db.First(&user, id)
 	return res.Error
 }
 
@@ -24,7 +25,7 @@ func DeleteUser(db *gorm.DB, id int) error {
 }
 
 func UpdateUserProfile(db *gorm.DB, user *User) (error) {
-	res := db.Model(user).Updates(user)
+	res := db.Model(user).Clauses(clause.Returning{}).Updates(user)
 	return res.Error
 }
 
