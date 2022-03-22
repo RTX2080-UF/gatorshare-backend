@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	// "fmt"
 	"gatorshare/middleware"
 	"gatorshare/models"
 	"log"
@@ -23,6 +24,12 @@ func (base *Controller) Register(ctx *gin.Context) {
 	}
 
 	userdataDb := UserRequestToDBModel(userdata) 
+	// if (!middleware.IsValidPassword(userdata.Password)) {
+	// 	errCustom := errors.New("user password doesn't satisfy minimum requirement").Error()
+	// 	middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	// 	return
+	// }
+
 	userdataDb.Password, err = middleware.HashPassword(userdataDb.Password)
 	if (err != nil) {
 		errCustom := errors.New("invalid user password provided").Error()
@@ -129,14 +136,14 @@ func (base *Controller) GetProfile(ctx *gin.Context) {
 }
 
 func (base *Controller) UpdateProfile(ctx *gin.Context) {
-	var newUserData UserProfile
+	var newUserData UpdateUserProfile
 	var currentUserData models.User
 
 	uid := middleware.GetUidFromToken(ctx)
 	if uid == 0 {
 		return
 	}
-	log.Print("Got request to Update User profile", uid)
+	log.Print("Got request to Update User profile ", uid)
 
 	err := models.GetUserProfile(base.DB, &currentUserData, uid)
 	if err != nil {
@@ -146,21 +153,22 @@ func (base *Controller) UpdateProfile(ctx *gin.Context) {
 	}
 
 	if currentUserData.ID != uid {
-		errCustom := errors.New("profile doesn't belong to the given user").Error()
-		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
+		errCustom := errors.New("profile doesn't belong to the given user")
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom.Error(), errCustom)
 		return
 	}
 	
 	err = ctx.ShouldBindJSON(&newUserData);
 	if err != nil {
-		errCustom := errors.New("unable to retrieve user profile with given id").Error()
+		errCustom := errors.New("invalid profile object provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return
 	}
 	
-	if (newUserData.OldPassword != "" && newUserData.OldPassword != currentUserData.Password) {
-		errCustom := errors.New("unable to update password, password didn't match").Error()
-		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+	// fmt.Printf("%+v\n",newUserData)
+	if (!middleware.CheckPasswordHash(currentUserData.Password, newUserData.OldPassword)) {
+		errCustom := errors.New("unable to update password, password didn't match")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
 	}
 
@@ -171,9 +179,10 @@ func (base *Controller) UpdateProfile(ctx *gin.Context) {
 		Zipcode: newUserData.Zipcode,
 		Avatar: newUserData.Avatar,
 	}
+	updatedUserData.ID = currentUserData.ID
 
 	if (newUserData.OldPassword != "") {
-		updatedUserData.Password = newUserData.Password
+		updatedUserData.Password, err = middleware.HashPassword(newUserData.Password)
 	} else {
 		updatedUserData.Password = currentUserData.Password
 	}
