@@ -7,8 +7,17 @@ type UserProfile struct {
 	Firstname string `json:"firstname" binding:"required"`
 	Lastname  string `json:"lastname" binding:"required"`
 	Email     string `json:"email" binding:"required"`
-	OldPassword  string `json:"oldPassword"`
 	Password  string `json:"password" binding:"required"`
+	Zipcode	  uint   `json:"zipcode"`
+	Avatar    string `json:"avatar"`
+}
+
+type UpdateUserProfile struct {
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Email     string `json:"email"`
+	OldPassword  string `json:"oldPassword"`
+	Password  string `json:"password" validate:"min=8,max=40,regexp=^(?=.*[0-9])(?=.*[a-z]).{8,32}$"`
 	Zipcode	  uint   `json:"zipcode"`
 	Avatar    string `json:"avatar"`
 }
@@ -30,7 +39,7 @@ type Post struct {
 	Participants uint  	 `json:"participants"`
 	Expiry       float32 `json:"expiry"`
 	ViewCount    int64   `json:"viewCount"`
-	UserLimit    uint     `json:"userLimit" binding:"required"`
+	UserLimit    uint    `json:"userLimit" binding:"required"`
 	Status       int     `json:"status" binding:"required"`
 	Categories   string
 	Tags         string
