@@ -226,3 +226,22 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
 	}
 }
+
+
+func (base *Controller) RefreshToken(ctx *gin.Context) {
+	token := middleware.ExtractToken(ctx)
+	if token == "" {
+		errCustom := errors.New("Unable to unravel token, invalid token provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+	}
+
+	newToken := middleware.RefreshToken(token)
+	if token == "" {
+		errCustom := errors.New("Token expired, please login again")
+		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom.Error(), errCustom)
+		return
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, newToken, nil)
+}
