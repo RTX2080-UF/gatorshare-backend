@@ -2,13 +2,24 @@ package controllers
 
 import "gatorshare/models"
 
-type UserRegister struct {
+type UserProfile struct {
 	Username  string `json:"username" binding:"required"`
 	Firstname string `json:"firstname" binding:"required"`
 	Lastname  string `json:"lastname" binding:"required"`
 	Email     string `json:"email" binding:"required"`
 	Password  string `json:"password" binding:"required"`
-	Zipcode	  uint `json:"zipcode"`
+	Zipcode	  uint   `json:"zipcode"`
+	Avatar    string `json:"avatar"`
+}
+
+type UpdateUserProfile struct {
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Email     string `json:"email"`
+	OldPassword  string `json:"oldPassword"`
+	Password  string `json:"password" validate:"min=8,max=40,regexp=^(?=.*[0-9])(?=.*[a-z]).{8,32}$"`
+	Zipcode	  uint   `json:"zipcode"`
+	Avatar    string `json:"avatar"`
 }
 
 type User struct {
@@ -23,13 +34,12 @@ type User struct {
 }
 
 type Post struct {
-	UserID       uint     `json:"userId" binding:"required"`
 	Title        string  `json:"title" binding:"required"`
 	Description  string  `json:"description"`
 	Participants uint  	 `json:"participants"`
 	Expiry       float32 `json:"expiry"`
 	ViewCount    int64   `json:"viewCount"`
-	UserLimit    uint     `json:"userLimit" binding:"required"`
+	UserLimit    uint    `json:"userLimit" binding:"required"`
 	Status       int     `json:"status" binding:"required"`
 	Categories   string
 	Tags         string
@@ -53,9 +63,9 @@ type Login struct {
 	Password string `json:"password"`
 }
 
-func PostRequestToDBModel(req Post) models.Post {
+func PostRequestToDBModel(req Post, UserID uint) models.Post {
 	return models.Post {
-		UserID:       req.UserID,  
+		UserID:       UserID,  
 		Title:        req.Title,
 		Description:  req.Description,  		
 		UserLimit:    req.UserLimit,
@@ -67,9 +77,9 @@ func PostRequestToDBModel(req Post) models.Post {
 	}
 }
 
-func CommentRequestToDBModel(req Comment) models.Comment {
+func CommentRequestToDBModel(req Comment, UserID uint) models.Comment {
 	return models.Comment {
-		UserID:   req.UserID,
+		UserID:   UserID,
 		PostID:   req.PostID,
 		Message:  req.Message,
 		ParentId: req.ParentId,
@@ -77,7 +87,7 @@ func CommentRequestToDBModel(req Comment) models.Comment {
 	}
 }
 
-func UserRequestToDBModel(req UserRegister) models.User {
+func UserRequestToDBModel(req UserProfile) models.User {
 	return models.User {
 		Username: req.Username,
 		Firstname: req.Firstname,

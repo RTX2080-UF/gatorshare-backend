@@ -25,7 +25,7 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 	v1 := router.Group("/v1")
 	{
 		posts := v1.Group("/posts"); {
-			posts.GET("getAll/:userId", api.Listpost)
+			posts.GET("getAll", api.Listpost)
 			posts.GET("getOne/:id", api.GetOnepost)
 			posts.POST("create", api.AddNewpost)
 			posts.PATCH("update/:id", api.UpdatePost)
@@ -41,9 +41,10 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 		users := v1.Group("/users"); {
 			users.POST("register", api.Register)
 			users.POST("login", api.Login)
-			users.GET("getProfile/:id", api.GetProfile)
-			users.DELETE("deleteProfile/:id", api.DeleteUser)
-			users.PATCH("updateProfile/:id", api.UpdateProfile)
+			users.GET("getProfile", api.GetProfile)
+			users.GET("getUserProfile/:id", api.GetProfileGeneric)
+			users.DELETE("deleteProfile", api.DeleteUser)
+			users.PATCH("updateProfile", api.UpdateProfile)
 		}
 	}
 

@@ -22,18 +22,27 @@
 		{
 			"name": "Get All user post",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}/v1/posts/getAll/1",
+					"raw": "{{HOST_URL}}/v1/posts/getAll",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"posts",
-						"getAll",
-						"1"
+						"getAll"
 					]
 				}
 			},
@@ -42,6 +51,16 @@
 		{
 			"name": "Create Post",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -85,6 +104,16 @@
 		{
 			"name": "Delete Post",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
@@ -129,6 +158,16 @@
 		{
 			"name": "Get All User Comments",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -149,6 +188,16 @@
 		{
 			"name": "Create Comment",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -192,6 +241,16 @@
 		{
 			"name": "Delete Comment",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
@@ -282,18 +341,56 @@
 		{
 			"name": "Get user profile",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}/v1/users/getProfile/1",
+					"raw": "{{HOST_URL}}/v1/users/getProfile",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"users",
-						"getProfile",
-						"1"
+						"getProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user profile Generic",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/getProfile",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"getProfile"
 					]
 				}
 			},
@@ -302,6 +399,16 @@
 		{
 			"name": "Update User profile",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PATCH",
 				"header": [],
 				"body": {
@@ -309,15 +416,14 @@
 					"raw": "{\r\n   \r\n}"
 				},
 				"url": {
-					"raw": "{{HOST_URL}}/v1/users/updateProfile/1",
+					"raw": "{{HOST_URL}}/v1/users/updateProfile",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"users",
-						"updateProfile",
-						"1"
+						"updateProfile"
 					]
 				}
 			},
@@ -326,18 +432,27 @@
 		{
 			"name": "Delete user profile",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}/v1/users/deleteProfile/1",
+					"raw": "{{HOST_URL}}/v1/users/deleteProfile",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"users",
-						"deleteProfile",
-						"1"
+						"deleteProfile"
 					]
 				}
 			},
