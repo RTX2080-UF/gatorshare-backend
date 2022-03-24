@@ -122,10 +122,20 @@ func GetUidFromToken(ctx *gin.Context) uint {
 }
 
 func RefreshToken(token string) string {
-	// err := TokenValid(token)
-	// if (err != nil) {
-	// 	RespondJSON(ctx, http.StatusForbidden, errCustom, err)
-	// 	return 0
-	// }
-	return ""
+	err := TokenValid(token)
+	if (err != nil) {
+		return ""
+	}
+
+	uid, err := ExtractTokenID(token)
+	if (err != nil) {
+		return ""
+	}
+
+	newtoken, err := CreateToken(uid)
+	if (err != nil) {
+		return ""
+	}
+
+	return newtoken
 }
