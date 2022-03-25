@@ -80,7 +80,7 @@ func ExtractToken(ctx *gin.Context) string {
 	}
 
 	bearerToken := ctx.Request.Header["Authorization"]
-	if len(strings.Split(bearerToken[0], " ")) == 2 {
+	if len(bearerToken) > 0 && len(strings.Split(bearerToken[0], " ")) == 2 {
 		return strings.Split(bearerToken[0], " ")[1]
 	}
 
