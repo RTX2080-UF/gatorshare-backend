@@ -237,7 +237,7 @@ func (base *Controller) RefreshToken(ctx *gin.Context) {
 	}
 
 	newToken := middleware.RefreshToken(token)
-	if token == "" {
+	if newToken == "" {
 		errCustom := errors.New("Token expired, please login again")
 		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom.Error(), errCustom)
 		return
