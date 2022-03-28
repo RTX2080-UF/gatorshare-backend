@@ -42,3 +42,26 @@ type Comment struct {
 	Votes    int     `json:"votes" gorm:"default:0"`
 }
 
+type Tag struct {
+	gorm.Model
+	Name        string  `json:"name"`
+	CreatorId   uint    `json:"creator"` 
+	Votes       int     `json:"votes" gorm:"default:0"`
+	Description string  `json:"description"`
+}
+
+type TagUser struct {
+	gorm.Model
+	UserID   uint    `json:"userId"`
+	User	 User
+	TagID    uint    `json:"tagId"`
+	Tag	 	 Tag
+}
+
+type TagPost struct {
+	gorm.Model
+	PostID   uint    `json:"postId"`
+	Post	 Post
+	TagID    uint    `json:"tagId"`
+	Tag	 	 Tag
+}
