@@ -46,7 +46,13 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			users.GET("getUserProfile/:id", api.GetProfileGeneric)
 			users.DELETE("deleteProfile", api.DeleteUser)
 			users.PATCH("updateProfile", api.UpdateProfile)
-		}
+		};
+		tags := v1.Group("/tags"); {
+			tags.GET("getAll/:tagId", api.GetTag)
+			tags.POST("create", api.AddTag)
+			tags.DELETE("delete/:id", api.DeleteTag)
+			tags.PATCH("update/:id", api.UpdateTag)
+		};
 	}
 
 	return router
