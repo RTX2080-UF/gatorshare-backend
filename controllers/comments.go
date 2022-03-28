@@ -11,18 +11,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (base *Controller) GetAllcomment(ctx *gin.Context) {
+func (base *Controller) GetAllComment(ctx *gin.Context) {
 	var comments []models.Comment
+	var pid uint
 	pid_str := ctx.Params.ByName("postId")
 	
-	pid, err := strconv.Atoi(pid_str)
+	pidParam, err := strconv.Atoi(pid_str)
     if err != nil {
 		errCustom := errors.New("invalid post Id provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return    
 	}
 
-	err = models.GetAllcomment(base.DB, &comments, pid)
+	if pidParam <= 0  {
+		errCustom := errors.New("invalid tag id provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+    } else {
+		pid = uint(pidParam)
+	}
+
+
+	err = models.GetAllComment(base.DB, &comments, uint(pid))
 	if err != nil {
 		errCustom := errors.New("unable to retrieve comment for given post").Error()
 		middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
@@ -31,7 +41,7 @@ func (base *Controller) GetAllcomment(ctx *gin.Context) {
 	}
 }
 
-func (base *Controller) AddNewcomment(ctx *gin.Context) {
+func (base *Controller) AddNewComment(ctx *gin.Context) {
 	var comment Comment
 
 	log.Print("Got request to add new comment")
@@ -48,7 +58,7 @@ func (base *Controller) AddNewcomment(ctx *gin.Context) {
 	}
 
 	commentDbObj := CommentRequestToDBModel(comment, uid)
-	CommentId, err := models.AddNewcomment(base.DB, &commentDbObj)
+	CommentId, err := models.AddNewComment(base.DB, &commentDbObj)
 	if err != nil {
 		errCustom := errors.New("unable to add new comment").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
@@ -57,10 +67,11 @@ func (base *Controller) AddNewcomment(ctx *gin.Context) {
 	}
 }
 
-func (base *Controller) GetOnecomment(ctx *gin.Context) {
+func (base *Controller) GetOneComment(ctx *gin.Context) {
 	commentIdStr := ctx.Params.ByName("id")
 	var comment models.Comment
-	CommentId, err := strconv.Atoi(commentIdStr)
+	var commentId uint
+	commentIdParam, err := strconv.Atoi(commentIdStr)
 
     if err != nil {
 		errCustom := errors.New("invalid comment id provided").Error()
@@ -68,7 +79,15 @@ func (base *Controller) GetOnecomment(ctx *gin.Context) {
 		return
     }
 
-	err = models.GetOnecomment(base.DB, &comment, CommentId)
+	if commentIdParam <= 0  {
+		errCustom := errors.New("invalid tag id provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+    } else {
+		commentId = uint(commentIdParam)
+	}
+
+	err = models.GetOneComment(base.DB, &comment, commentId)
 	if err != nil {
 		errCustom := errors.New("unable to retrieve comment with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
@@ -77,18 +96,27 @@ func (base *Controller) GetOnecomment(ctx *gin.Context) {
 	}
 }
 
-func (base *Controller) Updatecomment(ctx *gin.Context) {
+func (base *Controller) UpdateComment(ctx *gin.Context) {
 	var comment models.Comment
 	id := ctx.Params.ByName("id")
-	
-	CommentId, err := strconv.Atoi(id)
+	var commentId uint
+
+	commentIdParam, err := strconv.Atoi(id)
     if err != nil {
 		errCustom := errors.New("invalid comment id provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return    
 	}
 	
-	err = models.GetOnecomment(base.DB, &comment, CommentId)
+	if commentIdParam <= 0  {
+		errCustom := errors.New("invalid tag id provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+    } else {
+		commentId = uint(commentIdParam)
+	}
+
+	err = models.GetOneComment(base.DB, &comment, commentId)
 	if err != nil {
 		errCustom := errors.New("unable to find comment with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
@@ -113,7 +141,7 @@ func (base *Controller) Updatecomment(ctx *gin.Context) {
 		return
 	}
 
-	err = models.Updatecomment(base.DB, &comment)
+	err = models.UpdateComment(base.DB, &comment)
 	if err != nil {
 		errCustom := errors.New("unable to update the comment").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
@@ -122,20 +150,31 @@ func (base *Controller) Updatecomment(ctx *gin.Context) {
 	}
 }
 
-func (base *Controller) Deletecomment(ctx *gin.Context) {
+func (base *Controller) DeleteComment(ctx *gin.Context) {
 	var comment models.Comment
 	id := ctx.Params.ByName("id")
-	
-	CommentId, err := strconv.Atoi(id)
+	var commentId uint
+
+	commentIdParam, err := strconv.Atoi(id)
     if err != nil {
 		errCustom := errors.New("invalid comment id provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
     }
 
-	err = models.GetOnecomment(base.DB, &comment, CommentId)
+	if commentIdParam <= 0  {
+		errCustom := errors.New("invalid tag id provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+    } else {
+		commentId = uint(commentIdParam)
+	}
+
+	err = models.GetOneComment(base.DB, &comment, commentId)
 	if err != nil {
 		errCustom := errors.New("unable to find comment with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
 	}
 	ctx.BindJSON(&comment)
 
@@ -150,7 +189,7 @@ func (base *Controller) Deletecomment(ctx *gin.Context) {
 		return
 	}
 
-	err = models.Deletecomment(base.DB, &comment, CommentId)
+	err = models.DeleteComment(base.DB, &comment, commentId)
 	if err != nil {
 		errCustom := errors.New("unable to delete the comment").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
