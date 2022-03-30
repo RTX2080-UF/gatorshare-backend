@@ -12,9 +12,9 @@ func TestRegisterNewUserUnique(t *testing.T){
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 
 	user := &models.User{
-	  Username: "TestUser1" + fmt.Sprint(rnum),
+	  Username: "TestUser" + fmt.Sprint(rnum),
 	  Firstname: "Test User",
-	  Email: "TestUser1" + fmt.Sprint(rnum) + "@gatorshare.com",
+	  Email: "TestUser" + fmt.Sprint(rnum) + "@gatorshare.com",
 	  Lastname: "1",
 	  Password: "Test",
   } 
@@ -34,9 +34,9 @@ func createUser(t *testing.T)(users *models.User, username string){
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 
 	user := &models.User{
-	  Username: "TestUser1" + fmt.Sprint(rnum),
+	  Username: "TestUser2" + fmt.Sprint(rnum),
 	  Firstname: "Test User",
-	  Email: "TestUser1" + fmt.Sprint(rnum) + "@gatorshare.com",
+	  Email: "TestUser2" + fmt.Sprint(rnum) + "@gatorshare.com",
 	  Lastname: "1",
 	  Password: "Test",
   } 

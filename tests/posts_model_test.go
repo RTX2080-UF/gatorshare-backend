@@ -44,9 +44,9 @@ func TestAddNewpost(t *testing.T) {
 func createPost(t *testing.T)(post *models.Post){
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 	user := &models.User{
-		Username: "TestUser17" + fmt.Sprint(rnum),
+		Username: "TestUserxy" + fmt.Sprint(rnum),
 		Firstname: "Test User",
-		Email: "TestUser17" + fmt.Sprint(rnum)+ "@gatorshare.com",
+		Email: "TestUserxy" + fmt.Sprint(rnum)+ "@gatorshare.com",
 		Lastname: "1",
 		Password: "Test",
 	} 

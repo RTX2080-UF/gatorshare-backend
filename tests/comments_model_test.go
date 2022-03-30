@@ -12,9 +12,9 @@ func TestCreateNewComment(t *testing.T) {
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 
 	user := &models.User{
-		Username: "TestUser1" + fmt.Sprint(rnum),
+		Username: "TestUser99ab" + fmt.Sprint(rnum),
 		Firstname: "Test User",
-		Email: "TestUser1" + fmt.Sprint(rnum) + "@gatorshare.com",
+		Email: "TestUser99ab" + fmt.Sprint(rnum) + "@gatorshare.com",
 		Lastname: "1",
 		Password: "Test",
 	} 
@@ -43,9 +43,9 @@ func TestCreateNewComment(t *testing.T) {
 	  t.Log("Succesfully able to create post")	  
   }
  
-//   testobj.DB.Delete(user)
-//   testobj.DB.Delete(post)
 //   testobj.DB.Delete(comment)
+//   testobj.DB.Delete(post)
+//   testobj.DB.Delete(user)
   print(res)
 }
 
@@ -54,7 +54,7 @@ func createComment(t *testing.T)(comment *models.Comment){
 	user := &models.User{
 		Username: "TestUser123" + fmt.Sprint(rnum),
 		Firstname: "Test User",
-		Email: "TestUser17" + fmt.Sprint(rnum)+ "@gatorshare.com",
+		Email: "TestUser123" + fmt.Sprint(rnum)+ "@gatorshare.com",
 		Lastname: "1",
 		Password: "Test",
 	} 
@@ -110,9 +110,9 @@ func TestGetOnecomment(t *testing.T){
 func createcomments(t *testing.T)(comment *[]models.Comment, postID uint){
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 	user := &models.User{
-		Username: "TestUser17" + fmt.Sprint(rnum),
+		Username: "TestUserxyz" + fmt.Sprint(rnum),
 		Firstname: "Test User",
-		Email: "TestUser17" + fmt.Sprint(rnum)+ "@gatorshare.com",
+		Email: "TestUserxyz" + fmt.Sprint(rnum)+ "@gatorshare.com",
 		Lastname: "1",
 		Password: "Test",
 	} 
@@ -185,4 +185,18 @@ func TestDeletecomment(t *testing.T){
 			t.Error("Unable to delete comment!")
 		}
 	}
+}
+
+
+func TestUpdatecomment(t *testing.T){
+	comment := createComment(t)
+	if(comment.ID != 0){
+		res := models.Updatecomment(testobj.DB, comment)
+		if res == nil {
+			t.Log("Succesfully able to update comment")
+		}else {
+			t.Error("Unable to update comment!")
+		}
+	}
+//   testobj.DB.Delete(comment)
 }
