@@ -49,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\" : 3,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"Test Message\",\r\n    \"userLimit\" : 4,\r\n    \"participantNum\" : 1,\r\n    \"Expiry\" : 24,\r\n    \"viewCount\" : 0,\r\n    \"status\" : 2,\r\n    \"categories\" : {},\r\n    \"tags\" : {},\r\n}",
+					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}",
 					"options": {
 						"raw": {
 							"language": "text"
@@ -374,6 +374,36 @@
 					"raw": "{\r\n    \"Username\": \"AdamSmith\",\r\n    \"Firstname\": \"Adam\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"Adams@gatorshare.com\",\r\n    \"Password\": \"password123\"\r\n}"
 				},
 				"url": "http://localhost:8080/v1/users/register"
+			},
+			"response": []
+		},
+		{
+			"name": "User Login Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"user id was assigned\", function(){ \r",
+							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"AdamS\",\r\n    \"password\": \"password123\"\r\n}"
+				},
+				"url": "http://localhost:8080/v1/users/login"
 			},
 			"response": []
 		}
