@@ -48,10 +48,11 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			users.PATCH("updateProfile", api.UpdateProfile)
 		};
 		tags := v1.Group("/tags"); {
-			tags.GET("getAll/:tagId", api.GetTag)
+			tags.GET("getOne/:tagId", api.GetTag)
 			tags.POST("create", api.AddTag)
 			tags.DELETE("delete/:id", api.DeleteTag)
 			tags.PATCH("update/:id", api.UpdateTag)
+			tags.POST("follow/:tagId", api.FollowTagsByUser)
 		};
 	}
 
