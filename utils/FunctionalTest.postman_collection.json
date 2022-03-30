@@ -353,6 +353,9 @@
 							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
 							"});\r",
 							"\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"});\r",
 							""
 						],
 						"type": "text/javascript"
