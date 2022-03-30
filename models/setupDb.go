@@ -70,6 +70,10 @@ func Init(envSrc bool) {
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Post{})
 	db.AutoMigrate(&Comment{})
+	db.AutoMigrate(&Tag{})
+	db.AutoMigrate(&TagPost{})
+	db.AutoMigrate(&TagUser{})
+	db.AutoMigrate(&Follower{})
 }
 
 func GetDB() *gorm.DB {
