@@ -96,4 +96,5 @@ func TestUpdateUserProfile(t *testing.T){
 			t.Error("Unable to update user!")
 		}
 	}
+	
 }

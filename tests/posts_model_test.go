@@ -165,3 +165,15 @@ func TestDeletepost(t *testing.T){
 		}
 	}
 }
+
+func TestUpdatePost(t *testing.T){
+	post := createPost(t)
+	if(post.ID != 0){
+		res := models.UpdatePost(testobj.DB, post)
+		if res == nil {
+			t.Log("Succesfully able to update post")
+		}else {
+			t.Error("Unable to update post!")
+		}
+	}
+}
