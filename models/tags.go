@@ -1,8 +1,10 @@
 package models
 
 import (
-	"gorm.io/gorm/clause"
+	"fmt"
+
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 func AddNewTag(db *gorm.DB, tag *Tag) (uint, error) {
@@ -27,4 +29,19 @@ func DeleteTag(db *gorm.DB, id uint) error {
 func UpdateTag(db *gorm.DB, tag *Tag) (error) {
 	res := db.Model(tag).Clauses(clause.Returning{}).Updates(tag)
 	return res.Error
+}
+
+func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
+	var usersTags = TagUser {
+		UserID: userId,
+		TagID: tagId,
+	}
+
+	fmt.Print(usersTags)
+	err := db.Create(&usersTags).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return usersTags.ID, nil
 }
