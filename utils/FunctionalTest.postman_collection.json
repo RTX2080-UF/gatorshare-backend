@@ -356,6 +356,10 @@
 							"pm.test(\"Body matches the String\", function(){\r",
 							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
 							"});\r",
+							"\r",
+							"pm.test(\"Status code name has String\", function(){\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
 							""
 						],
 						"type": "text/javascript"
@@ -369,7 +373,7 @@
 					"mode": "raw",
 					"raw": "{\r\n    \"Username\": \"AdamSmith\",\r\n    \"Firstname\": \"Adam\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"Adams@gatorshare.com\",\r\n    \"Password\": \"password123\"\r\n}"
 				},
-				"url": "{{HOST_URL}}/v1/users/register"
+				"url": "http://localhost:8080/v1/users/register"
 			},
 			"response": []
 		}
