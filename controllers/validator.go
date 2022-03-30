@@ -55,8 +55,7 @@ type Comment struct {
 
 type Tag struct {
 	Name        string  `json:"name" binding:"required"`
-	CreatorId   uint    `json:"creator" binding:"required"` 
-	Votes       int     `json:"votes" gorm:"default:0"`
+	Votes       int     `json:"votes"`
 	Description string  `json:"description"`
 }
 
@@ -104,6 +103,7 @@ func TagRequestToDBModel(req Tag, UserID uint) models.Tag {
 	return models.Tag {
 		Name: req.Name,
 		CreatorId: UserID,
+		Votes: req.Votes,
 		Description: req.Description,
 	}
 }
