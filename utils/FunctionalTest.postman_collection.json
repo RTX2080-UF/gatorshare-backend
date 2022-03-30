@@ -390,7 +390,18 @@
 							"pm.test(\"user id was assigned\", function(){ \r",
 							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
 							"});\r",
-							""
+							"\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000s\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has String\", function(){\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
