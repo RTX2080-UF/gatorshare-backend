@@ -26,7 +26,7 @@ func TestRegisterNewUserUnique(t *testing.T){
 	  t.Log("Succesfully able to create post")	  
   }
 
-  testobj.DB.Delete(user)
+//   testobj.DB.Delete(user)
   print(res)
   
 }
@@ -86,3 +86,14 @@ func TestDeleteUser(t *testing.T){
 	}
 }
 
+func TestUpdateUserProfile(t *testing.T){
+	user, _ := createUser(t)
+	if(user.ID != 0){
+		res := models.UpdateUserProfile(testobj.DB, user)
+		if res == nil {
+			t.Log("Succesfully able to update user")
+		}else {
+			t.Error("Unable to update user!")
+		}
+	}
+}
