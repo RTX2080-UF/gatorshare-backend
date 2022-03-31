@@ -180,7 +180,12 @@ func (base *Controller) PopularTags(ctx *gin.Context){
 	countTags, err := strconv.Atoi(count)
 	if( err != nil && count != "0" ){
 		err := models.PopularTags(base.DB, &tag, uint(countTags))
-		print(err)
+		if (err != nil){
+			errCustom := errors.New("unable to find tags with the provided frequency count").Error()
+			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
+		}else{
+			middleware.RespondJSON(ctx, http.StatusOK, tag, nil)
+		}
 	}else {
 		errCustom := errors.New("invalid count, it must be a number greater than zero").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
