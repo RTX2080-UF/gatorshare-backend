@@ -312,6 +312,15 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"// pm.test(\"response is ok\", function () {\r",
+							"//     pm.response.to.have.status(200);\r",
+							"// });\r",
+							"\r",
+							"// pm.test(\"response json data should not have errors\", function () {\r",
+							"//     pm.response.to.have.jsonBody();\r",
+							"//     pm.response.to.not.have.jsonBody('error');\r",
+							"// });\r",
+							"\r",
 							"pm.test(\"Status Code 400\", function(){\r",
 							"    pm.response.to.have.status(400);\r",
 							"});\r",
@@ -322,9 +331,15 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
 				"method": "DELETE",
 				"header": [],
-				"url": "http://localhost:8080/v1/posts/delete/4"
+				"url": "http://localhost:8080/v1/posts/delete/2"
 			},
 			"response": []
 		},
@@ -344,6 +359,12 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": "http://localhost:8080/v1/comments/delete/2"
@@ -444,7 +465,23 @@
 							"     pm.response.to.be.ok;\r",
 							"     pm.response.to.be.withBody;\r",
 							"     pm.response.to.be.json;\r",
-							"});"
+							"});\r",
+							"pm.test(\"Body matches the String\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript"
 					}
