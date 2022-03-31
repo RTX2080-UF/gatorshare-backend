@@ -175,17 +175,17 @@ func (base *Controller) FollowTagsByUser(ctx *gin.Context) {
 }
 
 func (base *Controller) PopularTags(ctx *gin.Context){
-	var tag models.Tag
+	var tags []models.Tag
 	count := ctx.Params.ByName("count")
 	countTags, err := strconv.Atoi(count)
 	if( err == nil ){
 		if (countTags > 0){
-			err := models.PopularTags(base.DB, &tag, uint(countTags))
+			err := models.PopularTags(base.DB, &tags, countTags)
 			if (err != nil){
 				errCustom := errors.New("unable to find tags with the provided frequency count").Error()
 				middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
 			}else{
-				middleware.RespondJSON(ctx, http.StatusOK, tag, nil)
+				middleware.RespondJSON(ctx, http.StatusOK, tags, nil)
 			}
 		}else {
 			errCustom := errors.New("Number should be greater than zero")
