@@ -528,7 +528,11 @@
 							"pm.test(\"Status Code 200\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							""
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
