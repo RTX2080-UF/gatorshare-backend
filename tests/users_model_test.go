@@ -52,7 +52,7 @@ func createUser(t *testing.T)(users *models.User, username string){
 func TestGetUserProfile(t *testing.T){
 	user, _:= createUser(t)
 	if(user.ID != 0){
-		res := models.GetUserProfile(testobj.DB,user,int(user.ID))
+		res := models.GetUserProfile(testobj.DB,user,uint(user.ID))
 		if(res == nil){
 			t.Log("Succesfully able to return user")
 		}else {
