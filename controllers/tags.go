@@ -178,16 +178,22 @@ func (base *Controller) PopularTags(ctx *gin.Context){
 	var tag models.Tag
 	count := ctx.Params.ByName("count")
 	countTags, err := strconv.Atoi(count)
-	if( err != nil && count != "0" ){
-		err := models.PopularTags(base.DB, &tag, uint(countTags))
-		if (err != nil){
-			errCustom := errors.New("unable to find tags with the provided frequency count").Error()
-			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
-		}else{
-			middleware.RespondJSON(ctx, http.StatusOK, tag, nil)
+	if( err == nil ){
+		if (countTags > 0){
+			err := models.PopularTags(base.DB, &tag, uint(countTags))
+			if (err != nil){
+				errCustom := errors.New("unable to find tags with the provided frequency count").Error()
+				middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
+			}else{
+				middleware.RespondJSON(ctx, http.StatusOK, tag, nil)
+			}
+		}else {
+			errCustom := errors.New("Number should be greater than zero")
+			middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+			return
 		}
 	}else {
-		errCustom := errors.New("invalid count, it must be a number greater than zero").Error()
+		errCustom := errors.New("Invalid Number").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return
 	}
