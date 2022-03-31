@@ -173,3 +173,8 @@ func (base *Controller) FollowTagsByUser(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusOK, usertagMapping, nil)
 	}
 }
+
+func (base *Controller) PopularTags(ctx *gin.Context){
+	
+	
+}

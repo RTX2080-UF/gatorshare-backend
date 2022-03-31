@@ -53,6 +53,7 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			tags.DELETE("delete/:id", api.DeleteTag)
 			tags.PATCH("update/:id", api.UpdateTag)
 			tags.POST("follow/:tagId", api.FollowTagsByUser)
+			tags.GET("popularTags/:count",api.PopularTags)
 		};
 	}
 
