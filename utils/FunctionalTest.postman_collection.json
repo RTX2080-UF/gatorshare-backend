@@ -198,15 +198,27 @@
 							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
 							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
 							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"User\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
 							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
 							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
 							"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"participants\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"expiry\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"participantNum\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Expiry\");\r",
 							"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
 							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Categories\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Tags\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"categories\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
 							"});\r",
 							""
 						],
@@ -215,9 +227,15 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:8080/v1/posts/getAll/5"
+				"url": "http://localhost:8080/v1/posts/getAll"
 			},
 			"response": []
 		},
@@ -497,6 +515,35 @@
 				"method": "GET",
 				"header": [],
 				"url": "{{HOST_URL}}/v1/users/getProfile/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Profile Generic Tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{HOST_URL}}/v1/users/getUserProfile/1"
 			},
 			"response": []
 		}
