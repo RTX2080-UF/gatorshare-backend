@@ -36,7 +36,7 @@ func TestCreateNewComment(t *testing.T) {
 		Message: "Test comment" + fmt.Sprint(rnum),
   	} 
 
-  res, _ := models.AddNewcomment(testobj.DB, comment)
+  res, _ := models.AddNewComment(testobj.DB, comment)
   if res == 0 {
 	  t.Error("Unable to create post!")
 	} else {
@@ -77,7 +77,7 @@ func createComment(t *testing.T)(comment *models.Comment){
 				PostID: post.ID,
 				Message: "Test Commment"+fmt.Sprint(rnum),
 			}
-			res, _ := models.AddNewcomment(testobj.DB, comment)
+			res, _ := models.AddNewComment(testobj.DB, comment)
 			if res != 0 {
 				return comment
 			}else {
@@ -98,7 +98,7 @@ func createComment(t *testing.T)(comment *models.Comment){
 func TestGetOnecomment(t *testing.T){
 	comment := createComment(t)
 	if comment.ID != 0{
-		res := models.GetOnecomment(testobj.DB, comment, int(comment.ID))
+		res := models.GetOneComment(testobj.DB, comment, uint(comment.ID))
 		print(res)
 		if  comment.ID != 0 && res == nil{
 			t.Log("Succesfully able to return comment")	
@@ -148,9 +148,9 @@ func createcomments(t *testing.T)(comment *[]models.Comment, postID uint){
 				PostID: post.ID,
 				Message: "Test Commment2"+fmt.Sprint(rnum),
 			}
-			res, _ := models.AddNewcomment(testobj.DB, comment)
-			res1, _ := models.AddNewcomment(testobj.DB, comment1)
-			res2, _ := models.AddNewcomment(testobj.DB, comment2)
+			res, _ := models.AddNewComment(testobj.DB, comment)
+			res1, _ := models.AddNewComment(testobj.DB, comment1)
+			res2, _ := models.AddNewComment(testobj.DB, comment2)
 			if res != 0 && res1 !=0 && res2!=0 {
 				comments := &[]models.Comment{*comment,*comment1,*comment2}	
 				return comments,post.ID
@@ -167,7 +167,7 @@ func createcomments(t *testing.T)(comment *[]models.Comment, postID uint){
 func TestGetAllcomment(t *testing.T){
 	comments,ID := createcomments(t)
 	if((*comments)[0].PostID != ID){
-		res := models.GetAllcomment(testobj.DB,comments,int(ID))
+		res := models.GetAllComment(testobj.DB,comments,uint(ID))
 		if res == nil {
 			t.Log("Succesfully able to return comments")
 		}else {
@@ -178,7 +178,7 @@ func TestGetAllcomment(t *testing.T){
 func TestDeletecomment(t *testing.T){
 	comment := createComment(t)
 	if comment.ID != 0 && comment.PostID != 0 && comment.UserID != 0{
-		res := models.Deletecomment(testobj.DB,comment,int(comment.ID))
+		res := models.DeleteComment(testobj.DB, comment, uint(comment.ID))
 		if res == nil {
 			t.Log("Succesfully able to delete comment")
 		}else {
@@ -191,7 +191,7 @@ func TestDeletecomment(t *testing.T){
 func TestUpdatecomment(t *testing.T){
 	comment := createComment(t)
 	if(comment.ID != 0){
-		res := models.Updatecomment(testobj.DB, comment)
+		res := models.UpdateComment(testobj.DB, comment)
 		if res == nil {
 			t.Log("Succesfully able to update comment")
 		}else {

@@ -146,7 +146,7 @@ func TestGetAllpost(t *testing.T){
 	post, ID := createPosts(t)
 
 	if((*post)[0].UserID == ID ){
-		res := models.GetAllpost(testobj.DB, post, int(ID))
+		res := models.GetAllpost(testobj.DB, post, uint(ID))
 		if res == nil {
 			t.Log("Succesfully able to return posts")
 		}else {
