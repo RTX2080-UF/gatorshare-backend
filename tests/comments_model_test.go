@@ -36,7 +36,7 @@ func TestCreateNewComment(t *testing.T) {
 		Message: "Test comment" + fmt.Sprint(rnum),
   	} 
 
-  res, _ := models.AddNewcomment(testobj.DB, comment)
+  res, _ := models.AddNewComment(testobj.DB, comment)
   if res == 0 {
 	  t.Error("Unable to create post!")
 	} else {

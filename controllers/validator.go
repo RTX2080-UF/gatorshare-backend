@@ -54,8 +54,9 @@ type Comment struct {
 }
 
 type Tag struct {
-	Name      string `json:"tagName" binding:"required"`
-	Frequency int    `json:"count"`
+	Name        string  `json:"name" binding:"required"`
+	Votes       int     `json:"votes"`
+	Description string  `json:"description"`
 }
 
 type Login struct {
@@ -95,5 +96,14 @@ func UserRequestToDBModel(req UserProfile) models.User {
 		Email: req.Email,
 		Password: req.Password,
 		Zipcode: req.Zipcode,
+	}
+}
+
+func TagRequestToDBModel(req Tag, UserID uint) models.Tag {
+	return models.Tag {
+		Name: req.Name,
+		CreatorId: UserID,
+		Votes: req.Votes,
+		Description: req.Description,
 	}
 }

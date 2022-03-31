@@ -32,11 +32,11 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			posts.DELETE("delete/:id", api.Deletepost)
 		};
 		comments := v1.Group("/comments"); {
-			comments.GET("getAll/:postId", api.GetAllcomment)
-			comments.GET("getOne/:id", api.GetOnecomment)
-			comments.POST("create", api.AddNewcomment)
-			comments.DELETE("delete/:id", api.Deletecomment)
-			comments.PATCH("update/:id", api.Updatecomment)
+			comments.GET("getAll/:postId", api.GetAllComment)
+			comments.GET("getOne/:id", api.GetOneComment)
+			comments.POST("create", api.AddNewComment)
+			comments.DELETE("delete/:id", api.DeleteComment)
+			comments.PATCH("update/:id", api.UpdateComment)
 		};
 		users := v1.Group("/users"); {
 			users.POST("register", api.Register)
@@ -46,7 +46,14 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			users.GET("getUserProfile/:id", api.GetProfileGeneric)
 			users.DELETE("deleteProfile", api.DeleteUser)
 			users.PATCH("updateProfile", api.UpdateProfile)
-		}
+		};
+		tags := v1.Group("/tags"); {
+			tags.GET("getOne/:tagId", api.GetTag)
+			tags.POST("create", api.AddTag)
+			tags.DELETE("delete/:id", api.DeleteTag)
+			tags.PATCH("update/:id", api.UpdateTag)
+			tags.POST("follow/:tagId", api.FollowTagsByUser)
+		};
 	}
 
 	return router
