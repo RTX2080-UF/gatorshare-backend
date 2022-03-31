@@ -20,7 +20,7 @@
 			"response": []
 		},
 		{
-			"name": "Get All user post",
+			"name": "Get All User Post",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -82,7 +82,7 @@
 			"response": []
 		},
 		{
-			"name": "Get post by ID",
+			"name": "Get Post by ID",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -132,7 +132,7 @@
 			"response": []
 		},
 		{
-			"name": "Update post",
+			"name": "Update Post",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -322,7 +322,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"johndoe\",\r\n    \"password\": \"password123\"\r\n}"
+					"raw": "{\r\n    \"username\": \"alicesmith\",\r\n    \"password\": \"P1234\"\r\n}"
 				},
 				"url": {
 					"raw": "{{HOST_URL}}/v1/users/login",
@@ -339,7 +339,43 @@
 			"response": []
 		},
 		{
-			"name": "Get user profile",
+			"name": "Refresh Token",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/refreshToken",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"refreshToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Profile",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -368,7 +404,7 @@
 			"response": []
 		},
 		{
-			"name": "Get user profile Generic",
+			"name": "Get User Profile Generic",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -383,14 +419,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}/v1/users/getProfile",
+					"raw": "{{HOST_URL}}/v1/users/getUserProfile/1",
 					"host": [
 						"{{HOST_URL}}"
 					],
 					"path": [
 						"v1",
 						"users",
-						"getProfile"
+						"getUserProfile",
+						"1"
 					]
 				}
 			},
@@ -413,7 +450,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \r\n}"
+					"raw": "{\r\n    \"Firstname\": \"John\",\r\n    \"OldPassword\": \"Password123\",\r\n    \"Password\": \"Password123\" \r\n}"
 				},
 				"url": {
 					"raw": "{{HOST_URL}}/v1/users/updateProfile",
@@ -430,7 +467,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete user profile",
+			"name": "Delete User profile",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -453,6 +490,164 @@
 						"v1",
 						"users",
 						"deleteProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tag",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/tags/getOne/1",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"tags",
+						"getOne",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Tag",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"GatorShare\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Default tag for all post\"\r\n}"
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/v1/tags/create",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"tags",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Tag",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Firstname\": \"John\",\r\n    \"OldPassword\": \"Password123\",\r\n    \"Password\": \"Password123\" \r\n}"
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/updateProfile",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"updateProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Tag",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/v1/users/deleteProfile",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"deleteProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow Tags",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"GatorShare\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Default tag for all post\"\r\n}"
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/v1/tags/create",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"v1",
+						"tags",
+						"create"
 					]
 				}
 			},
