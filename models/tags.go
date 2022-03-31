@@ -26,15 +26,15 @@ func DeleteTag(db *gorm.DB, id uint) error {
 	return res.Error
 }
 
-func UpdateTag(db *gorm.DB, tag *Tag) (error) {
+func UpdateTag(db *gorm.DB, tag *Tag) error {
 	res := db.Model(tag).Clauses(clause.Returning{}).Updates(tag)
 	return res.Error
 }
 
 func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
-	var usersTags = TagUser {
+	var usersTags = TagUser{
 		UserID: userId,
-		TagID: tagId,
+		TagID:  tagId,
 	}
 
 	fmt.Print(usersTags)
@@ -46,7 +46,8 @@ func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
 	return usersTags.ID, nil
 }
 
-func PopularTags(db *gorm.DB, tag *Tag, countTags uint) (error){
-	res:= db.Select("name").Find(&tag, "votes = ?", countTags)
+func PopularTags(db *gorm.DB, tags *[]Tag, countTags int) error {
+	res := db.Limit(countTags).Order("votes desc").Find(&tags)
+
 	return res.Error
 }
