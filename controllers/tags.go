@@ -175,6 +175,16 @@ func (base *Controller) FollowTagsByUser(ctx *gin.Context) {
 }
 
 func (base *Controller) PopularTags(ctx *gin.Context){
-	
-	
+	var tag models.Tag
+	count := ctx.Params.ByName("count")
+	countTags, err := strconv.Atoi(count)
+	if( err != nil && count != "0" ){
+		err := models.PopularTags(base.DB, &tag, uint(countTags))
+		print(err)
+	}else {
+		errCustom := errors.New("invalid count, it must be a number greater than zero").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+	}
+
 }

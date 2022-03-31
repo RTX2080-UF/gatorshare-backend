@@ -46,7 +46,7 @@ func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
 	return usersTags.ID, nil
 }
 
-func popularTags(db *gorm.DB, tag *Tag, countTags uint) (error){
+func PopularTags(db *gorm.DB, tag *Tag, countTags uint) (error){
 	res:= db.Select("name").Find(&tag, "votes = ?", countTags)
 	return res.Error
 }
