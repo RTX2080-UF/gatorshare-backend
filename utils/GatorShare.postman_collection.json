@@ -6,657 +6,743 @@
 	},
 	"item": [
 		{
-			"name": "Gatorshare home",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}",
-					"host": [
-						"{{HOST_URL}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All User Post",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+			"name": "Post",
+			"item": [
+				{
+					"name": "Get All User Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/getAll",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"getAll"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/posts/getAll",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"posts",
-						"getAll"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Post",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+				{
+					"name": "Get Post by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/getOne/2",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"getOne",
+								"2"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/posts/create",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"posts",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Post by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/posts/getOne/1",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"posts",
-						"getOne",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Post",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+				{
+					"name": "Create Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/create",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"create"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/posts/delete/7",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"posts",
-						"delete",
-						"7"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Post",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"description\" : \"My first post updated 2\",\r\n    \"userLimit\" : 5\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/posts/update/1",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"posts",
-						"update",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All User Comments",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+				{
+					"name": "Delete Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/delete/7",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"delete",
+								"7"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/comments/getAll/1",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"comments",
-						"getAll",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Comment",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\" : \"My first post updated 2\",\r\n    \"userLimit\" : 5\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/update/1",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"update",
+								"1"
+							]
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"userId\" : 1,\n\t\"postId\" : 1,\n\t\"message\" : \"I Love Gatoshare again\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/comments/create",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"comments",
-						"create"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get Comment by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/comments/getOne/1",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"comments",
-						"getOne",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Comment",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Get All Post Comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/comments/getAll/2",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"comments",
+								"getAll",
+								"2"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/comments/delete/2",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"comments",
-						"delete",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Comment",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"userId\" : 1,\r\n\t\"postId\" : 1,\r\n\t\"message\" : \"Working update 3\"\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/comments/update/1",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"comments",
-						"update",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Register User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Username\": \"johndoe\",\r\n    \"Firstname\": \"John\",\r\n    \"Lastname\": \"Doe\",\r\n    \"Email\": \"johndoe@gatorshare.com\",\r\n    \"Password\": \"password123\"\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/users/register",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"users",
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"alicesmith\",\r\n    \"password\": \"P1234\"\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/users/login",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"users",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Refresh Token",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+				{
+					"name": "Create Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\" : 1,\n\t\"postId\" : 1,\n\t\"message\" : \"I Love Gatoshare again\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/comments/create",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"comments",
+								"create"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+				{
+					"name": "Get Comment by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/comments/getOne/1",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"comments",
+								"getOne",
+								"1"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/users/refreshToken",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"users",
-						"refreshToken"
-					]
+				{
+					"name": "Delete Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/comments/delete/2",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"comments",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"userId\" : 1,\r\n\t\"postId\" : 1,\r\n\t\"message\" : \"Working update 3\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/comments/update/1",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"comments",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get User Profile",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/getProfile",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"getProfile"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/users/getProfile",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"users",
-						"getProfile"
-					]
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"alicesmith\",\r\n    \"Firstname\": \"Alice\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"alicesmith@gatorshare.com\",\r\n    \"Password\": \"Password123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/register",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"alicesmith\",\r\n    \"Firstname\": \"Alice\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"alicesmith@gatorshare.com\",\r\n    \"Password\": \"Password123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/follow/1",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"follow",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Followers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"alicesmith\",\r\n    \"Firstname\": \"Alice\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"alicesmith@gatorshare.com\",\r\n    \"Password\": \"Password123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/listFollowers/1",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"listFollowers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile Generic",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/getUserProfile/1",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"getUserProfile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Firstname\": \"John\",\r\n    \"OldPassword\": \"Password123\",\r\n    \"Password\": \"Password123\" \r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/updateProfile",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"updateProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/deleteProfile",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"deleteProfile"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get User Profile Generic",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+			"name": "Tag",
+			"item": [
+				{
+					"name": "Get Tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/tags/getOne/3",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"tags",
+								"getOne",
+								"3"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/users/getUserProfile/1",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"users",
-						"getUserProfile",
-						"1"
-					]
+				{
+					"name": "Create Tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Test tag\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Test tag\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/tags/create",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"tags",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Test tag\",\r\n    \"CreatorId\": 2,\r\n    \"Description\": \"Test tag\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/tags/update/3",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"tags",
+								"update",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/tags/delete/2",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"tags",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow Tags",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"GatorShare\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Default tag for all post\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/tags/follow/5",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"tags",
+								"follow",
+								"5"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Update User profile",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+			"name": "General",
+			"item": [
+				{
+					"name": "Gatorshare home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}",
+							"host": [
+								"{{HOST_URL}}"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Firstname\": \"John\",\r\n    \"OldPassword\": \"Password123\",\r\n    \"Password\": \"Password123\" \r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/users/updateProfile",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"users",
-						"updateProfile"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete User profile",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"alicesmith\",\r\n    \"password\": \"P1234\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/login",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"login"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/users/deleteProfile",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"users",
-						"deleteProfile"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Tag",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
+				{
+					"name": "Refresh Token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/refreshToken",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"refreshToken"
+							]
 						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/tags/getOne/3",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"tags",
-						"getOne",
-						"3"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Tag",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Name\": \"Test tag\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Test tag\"\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/tags/create",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"tags",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Tag",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Name\": \"Test tag\",\r\n    \"CreatorId\": 2,\r\n    \"Description\": \"Test tag\"\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/tags/update/3",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"tags",
-						"update",
-						"3"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Tag",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{HOST_URL}}/v1/tags/delete/2",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"tags",
-						"delete",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Follow Tags",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Name\": \"GatorShare\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Default tag for all post\"\r\n}"
-				},
-				"url": {
-					"raw": "{{HOST_URL}}/v1/tags/follow/5",
-					"host": [
-						"{{HOST_URL}}"
-					],
-					"path": [
-						"v1",
-						"tags",
-						"follow",
-						"5"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -681,6 +767,11 @@
 		{
 			"key": "HOST_URL",
 			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
 			"type": "string"
 		}
 	]
