@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"gorm.io/gorm"
@@ -61,3 +62,19 @@ func CheckTagsExist(db *gorm.DB, tags []uint) bool {
 	return true
 }
 
+func AddUserTags(db *gorm.DB, uid uint, tags []uint) ([]uint,error){
+	// type tagUser []TagUser
+	var response []uint
+	for i:=0;i<len(tags);i++ { 
+		var obj = TagUser{UserID : uid , TagID : tags[i]}
+		err := db.Create(&obj).Error
+		if err != nil {
+			response[i] = 0
+		}else{
+			response[i] = obj.ID
+		}		
+		
+	}
+	return response, nil
+	// res := db.CreateInBatches()
+}
