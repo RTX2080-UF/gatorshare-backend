@@ -54,6 +54,7 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			tags.PATCH("update/:id", api.UpdateTag)
 			tags.POST("follow/:tagId", api.FollowTagsByUser)
 			tags.GET("popularTags/:count",api.PopularTags)
+			tags.POST("selectTags",api.SelectTags)
 		};
 	}
 
