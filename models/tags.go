@@ -26,15 +26,15 @@ func DeleteTag(db *gorm.DB, id uint) error {
 	return res.Error
 }
 
-func UpdateTag(db *gorm.DB, tag *Tag) (error) {
+func UpdateTag(db *gorm.DB, tag *Tag) error {
 	res := db.Model(tag).Clauses(clause.Returning{}).Updates(tag)
 	return res.Error
 }
 
 func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
-	var usersTags = TagUser {
+	var usersTags = TagUser{
 		UserID: userId,
-		TagID: tagId,
+		TagID:  tagId,
 	}
 
 	fmt.Print(usersTags)
@@ -45,3 +45,39 @@ func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
 
 	return usersTags.ID, nil
 }
+
+func PopularTags(db *gorm.DB, tags *[]Tag, countTags int) error {
+	res := db.Limit(countTags).Order("votes desc").Find(&tags)
+	return res.Error
+}
+
+func CheckTagsExist(db *gorm.DB, tags []uint) bool {
+	for i:=0;i<len(tags);i++{
+		res := db.First(&Tag{},tags[i])
+		if( res.Error != nil){
+			return false
+		}
+	}
+	return true
+}
+
+func AddUserTags(db *gorm.DB, uid uint, tags []uint) ([]uint,error){
+	// type tagUser []TagUser
+	
+	var response []uint
+	print("-----------------",tags)
+	for i:=0;i<len(tags);i++ { 
+		var obj = TagUser{UserID : uid , TagID : tags[i]}
+		err := db.Create(&obj).Error
+		if err != nil {
+			response = append(response,0)
+		}else{
+			print("----------response-------",response)
+			response = append(response,obj.ID)
+		}				
+	}
+	
+
+	return response, nil
+	// res := db.CreateInBatches()
+} 
