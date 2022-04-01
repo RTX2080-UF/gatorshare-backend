@@ -87,7 +87,7 @@ func (base *Controller) UpdateTag(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom.Error(), errCustom)
 		return
 	}
-
+ 
 	err = ctx.ShouldBindJSON(&tag);
 	if err != nil {
 		errCustom := errors.New("invalid tag object provided").Error()
@@ -197,5 +197,34 @@ func (base *Controller) PopularTags(ctx *gin.Context){
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return
 	}
+
+}
+
+func (base *Controller) SelectTags(ctx *gin.Context){
+	// array of ids for the tags selected
+	
+	var tags []uint
+
+	log.Print("Got request to add user tags")
+	err := ctx.ShouldBindJSON(&tags);
+	if err != nil {
+		errCustom := errors.New("invalid tag object provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+	}
+
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+
+	res := models.CheckTagsExist(base.DB,tags)
+
+	if(res == false){
+		errCustom := errors.New("All Tag ids are not valid.")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+	}	
+
 
 }
