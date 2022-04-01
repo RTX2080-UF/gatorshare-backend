@@ -224,7 +224,13 @@ func (base *Controller) SelectTags(ctx *gin.Context){
 		errCustom := errors.New("All Tag ids are not valid.")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
-	}	
-
-
+	}else{
+		res, err := models.AddUserTags(base.DB,uid,tags)
+		if err != nil {
+			errCustom := errors.New("unable to associate tag with given id").Error()
+			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
+		} else {
+			middleware.RespondJSON(ctx, http.StatusOK, res, nil)
+		}
+	}
 }
