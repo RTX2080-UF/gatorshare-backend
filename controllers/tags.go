@@ -177,36 +177,27 @@ func (base *Controller) FollowTagsByUser(ctx *gin.Context) {
 func (base *Controller) PopularTags(ctx *gin.Context){
 	var tags []models.Tag
 	count := ctx.Params.ByName("count")
-	countTags, err := strconv.Atoi(count)
-	if( err == nil ){
-		if (countTags > 0){
-			err := models.PopularTags(base.DB, &tags, countTags)
-			if (err != nil){
-				errCustom := errors.New("unable to find tags with the provided frequency count").Error()
-				middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
-			}else{
-				middleware.RespondJSON(ctx, http.StatusOK, tags, nil)
-			}
-		}else {
-			errCustom := errors.New("Number should be greater than zero")
-			middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
-			return
-		}
-	}else {
+	countTags, err := middleware.ConvertStrToInt(count)
+	if( err != nil ){
 		errCustom := errors.New("Invalid Number").Error()
-		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
-		return
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)		
+	} else {
+		err := models.PopularTags(base.DB, &tags, int(countTags))
+		if (err != nil){
+			errCustom := errors.New("unable to find tags with the provided frequency count").Error()
+			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
+		} else {
+			middleware.RespondJSON(ctx, http.StatusOK, tags, nil)
+		}
 	}
-
 }
 
 func (base *Controller) SelectTags(ctx *gin.Context){
 	// array of ids for the tags selected
-	
-	var tags []uint
+	var tagIds []uint
 
 	log.Print("Got request to add user tags")
-	err := ctx.ShouldBindJSON(&tags);
+	err := ctx.ShouldBindJSON(&tagIds);
 	if err != nil {
 		errCustom := errors.New("invalid tag object provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
@@ -218,19 +209,18 @@ func (base *Controller) SelectTags(ctx *gin.Context){
 		return
 	}
 
-	res := models.CheckTagsExist(base.DB,tags)
-
-	if(res == false){
+	verifiedTagIds := models.CheckTagsExist(base.DB,tagIds)
+	if (len(verifiedTagIds) == 0) {
 		errCustom := errors.New("All Tag ids are not valid.")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
-	}else{
-		res, err := models.AddUserTags(base.DB,uid,tags)
+	} else {
+		err := models.AddUserTags(base.DB,uid,tagIds)
 		if err != nil {
 			errCustom := errors.New("unable to associate tag with given id").Error()
 			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
 		} else {
-			middleware.RespondJSON(ctx, http.StatusOK, res, nil)
+			middleware.RespondJSON(ctx, http.StatusOK, verifiedTagIds, nil)
 		}
 	}
 }

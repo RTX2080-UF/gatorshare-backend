@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"log"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -51,33 +52,26 @@ func PopularTags(db *gorm.DB, tags *[]Tag, countTags int) error {
 	return res.Error
 }
 
-func CheckTagsExist(db *gorm.DB, tags []uint) bool {
-	for i:=0;i<len(tags);i++{
+func CheckTagsExist(db *gorm.DB, tags []uint) []uint {
+	var verifiedTagIds []uint
+	for i:=0; i<len(tags); i++{
 		res := db.First(&Tag{},tags[i])
-		if( res.Error != nil){
-			return false
+		if (res.Error == nil) {
+			verifiedTagIds = append(verifiedTagIds, tags[i])
+		} else {
+			log.Print("Tag with id %i doesn't exist", tags[i])
 		}
 	}
-	return true
+	return verifiedTagIds
 }
 
-func AddUserTags(db *gorm.DB, uid uint, tags []uint) ([]uint,error){
-	// type tagUser []TagUser
-	
-	var response []uint
-	print("-----------------",tags)
-	for i:=0;i<len(tags);i++ { 
+func AddUserTags(db *gorm.DB, uid uint, tags []uint) error{
+	var inputObj []TagUser
+	for i:=0; i<len(tags); i++ { 
 		var obj = TagUser{UserID : uid , TagID : tags[i]}
-		err := db.Create(&obj).Error
-		if err != nil {
-			response = append(response,0)
-		}else{
-			print("----------response-------",response)
-			response = append(response,obj.ID)
-		}				
+		inputObj = 	append(inputObj, obj)	
 	}
 	
-
-	return response, nil
-	// res := db.CreateInBatches()
+	err := db.Create(&inputObj).Error
+	return err
 } 
