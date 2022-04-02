@@ -61,5 +61,5 @@ Working snippets of Unit Tests
 
 
 # Functional test
-[Functional test](./utils/) are created with the help of postman and they are present in utils folder with 
-file name FunctionalTest.postman_collection.json
+![Functional test](./documentation/output_sprint3_functional_test.gif) 
+Functional test are created with the help of postman and they are present in utils folder with file name FunctionalTest.postman_collection.json
