@@ -1,13 +1,12 @@
 # User Comments
 
 ## Get User profile by user ID 
-Endpoint -POST- http://localhost:8080/v1/users/getProfile/1 <br>
+Endpoint -POST- http://localhost:8080/v1/users/getUserProfile/1 <br>
 Return data associated with user profile   
 
 Response
-```javascript
+```json
 // if the user with given id exists:
-{
 {
     "data": {
         "ID": 1,
@@ -36,7 +35,7 @@ Endpoint -Post- http://localhost:8080/v1/users/login/ <br>
 Return all comments associated with a post with given id
 
 ### Request params
-```javascript
+```json
 # Request
 {
     "username": "johndoe",
@@ -67,7 +66,7 @@ Register a user profile
 	password  string  required
 	zipcode	  string 
 
-```javascript
+```json
 # Request
 {
     "Username": "johndoe",
@@ -85,7 +84,7 @@ Register a user profile
 
 // if failed to register user
 {
-    "error": error message
+    "error": "error message"
 }
 ```
 
@@ -93,7 +92,7 @@ Register a user profile
 Endpoint -DELETE- http://localhost:8080/v1/users/delete/ <br>
 Delete user and his associated data with given id
 
-```javascript
+```json
 // If user profile get Successfully deleted
 {
   "data": {
@@ -122,7 +121,7 @@ Delete user and his associated data with given id
 Endpoint -Patch- http://localhost:8080/v1/users/updateProfile/1 <br>
 Update user details if user exists
 
-```javascript
+```json
 // If user profile get Successfully updated
 {
     "data": {
@@ -144,5 +143,160 @@ Update user details if user exists
 // If unable to update user profile
 {
     "error": "record not found"
+}
+```
+## Refresh user auth token 
+Endpoint -POST- http://localhost:8080/v1/users/refreshToken <br>
+Return new authentication with validity of 15 min   
+
+Response
+```json
+// if the user with given id exists:
+{
+    "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NDg4NjM2ODEsInVzZXJfaWQiOjJ9.dqRxryaxfSy6ix6EgKdhbJ1GUHI78V95BI9RIQRYQYk"
+}
+
+// if current token is invalid:
+{
+    "error": "Token expired, please login again",
+    "errorDetails": "Token expired, please login again"
+}
+```
+## Get current user profile 
+Endpoint -POST- http://localhost:8080/v1/users/getProfile <br>
+Return profile data associated with currently logged in user    
+
+Response
+```json
+// if the user with given id exists:
+{
+    "data": {
+        "ID": 2,
+        "CreatedAt": "2022-03-22T12:33:50.3682646-04:00",
+        "UpdatedAt": "2022-03-22T12:34:56.6777649-04:00",
+        "DeletedAt": null,
+        "userName": "alicesmith",
+        "firstName": "John",
+        "lastName": "Smith",
+        "Email": "alicesmith@gatorshare.com",
+        "zipcode": 0,
+        "avatar": "",
+        "password": "$2a$14$kH1wAUcCzmJrzwppLzJveOCRp..Riei0urFAdPwBflovtykr2.Woq",
+        "bookmark": ""
+    }
+}
+
+// if the user isn't found:
+{
+  "error": "record not found"
+}
+```
+
+## Follow another user  
+Endpoint -POST- http://localhost:8080/v1/users/follow/1 <br>
+Return created record id if succesfully able to follow else error message   
+
+Response
+```json
+// if succesfully able to follow user
+{
+    "data": 2
+}
+
+// if failed to follow user
+{
+    "error": "error message",
+    "errorDetails": "error message"
+}
+```
+
+## Follow another user  
+Endpoint -POST- http://localhost:8080/v1/users/listFollowers/1 <br>
+Return follower list for user with given id   
+
+Response
+```json
+// if succesfully able to get user follower
+{
+    "data": [
+        {
+            "ID": 1,
+            "CreatedAt": "2022-04-01T17:02:09.8321374-04:00",
+            "UpdatedAt": "2022-04-01T17:02:09.8321374-04:00",
+            "DeletedAt": null,
+            "userId": 1,
+            "User": {
+                "ID": 0,
+                "CreatedAt": "0001-01-01T00:00:00Z",
+                "UpdatedAt": "0001-01-01T00:00:00Z",
+                "DeletedAt": null,
+                "userName": "",
+                "firstName": "",
+                "lastName": "",
+                "Email": "",
+                "zipcode": 0,
+                "avatar": "",
+                "password": "",
+                "bookmark": ""
+            },
+            "followerId": 2,
+            "Follower": {
+                "ID": 0,
+                "CreatedAt": "0001-01-01T00:00:00Z",
+                "UpdatedAt": "0001-01-01T00:00:00Z",
+                "DeletedAt": null,
+                "userName": "",
+                "firstName": "",
+                "lastName": "",
+                "Email": "",
+                "zipcode": 0,
+                "avatar": "",
+                "password": "",
+                "bookmark": ""
+            }
+        },
+        {
+            "ID": 2,
+            "CreatedAt": "2022-04-01T17:29:28.2380571-04:00",
+            "UpdatedAt": "2022-04-01T17:29:28.2380571-04:00",
+            "DeletedAt": null,
+            "userId": 1,
+            "User": {
+                "ID": 0,
+                "CreatedAt": "0001-01-01T00:00:00Z",
+                "UpdatedAt": "0001-01-01T00:00:00Z",
+                "DeletedAt": null,
+                "userName": "",
+                "firstName": "",
+                "lastName": "",
+                "Email": "",
+                "zipcode": 0,
+                "avatar": "",
+                "password": "",
+                "bookmark": ""
+            },
+            "followerId": 2,
+            "Follower": {
+                "ID": 0,
+                "CreatedAt": "0001-01-01T00:00:00Z",
+                "UpdatedAt": "0001-01-01T00:00:00Z",
+                "DeletedAt": null,
+                "userName": "",
+                "firstName": "",
+                "lastName": "",
+                "Email": "",
+                "zipcode": 0,
+                "avatar": "",
+                "password": "",
+                "bookmark": ""
+            }
+        }
+    ]
+}
+
+// if failed to get followers list
+{
+    "error": "error message",
+    "errorDetails": "error message"
 }
 ```
