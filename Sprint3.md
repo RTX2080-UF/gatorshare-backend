@@ -12,7 +12,7 @@ Stack:
 - Backend: GoLang
 - Database: Postgres and sqlite
 
-## Sprint 2 Deliverables
+## Sprint 3 Deliverables
 We have attached git (#issue number) with corresponding feature implementation
 
 - Extended functional and unit test cases (#71).
@@ -25,7 +25,8 @@ We have attached git (#issue number) with corresponding feature implementation
 - Add Documentation for Sprint 3.
 
 ## Issues Resolved
-
+- Fixed comment api to return all post comment instead of user comment
+- Fixed issue with refresh token endpoint by adding extra checks
 ## Api Endpoints features
 GET- http://localhost:8080/ <br>
 Json Response received- <br>
