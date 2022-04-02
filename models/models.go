@@ -53,24 +53,24 @@ type Tag struct {
 
 type TagUser struct {
 	gorm.Model
-	UserID   uint    `json:"userId"`
+	UserID   uint    `json:"userId" gorm:"primaryKey"`
 	User	 User
-	TagID    uint    `json:"tagId"`
+	TagID    uint    `json:"tagId" gorm:"primaryKey"`
 	Tag	 	 Tag
 }
 
 type TagPost struct {
 	gorm.Model
-	PostID   uint    `json:"postId"`
+	PostID   uint    `json:"postId" gorm:"primaryKey"`
 	Post	 Post
-	TagID    uint    `json:"tagId"`
+	TagID    uint    `json:"tagId" gorm:"primaryKey"`
 	Tag	 	 Tag
 }
 
 type Follower struct {
 	gorm.Model
-	UserID       uint    `json:"userId"`
+	UserID       uint    `json:"userId" gorm:"primaryKey"`
 	User	     User
-	FollowerID   uint    `json:"followerId"`
+	FollowerID   uint    `json:"followerId" gorm:"primaryKey"`
 	Follower	 User
 }
