@@ -507,7 +507,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{HOST_URL}}/v1/tags/getOne/3",
+							"raw": "{{HOST_URL}}/v1/tags/getOne/2",
 							"host": [
 								"{{HOST_URL}}"
 							],
@@ -515,7 +515,37 @@
 								"v1",
 								"tags",
 								"getOne",
-								"3"
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Popular tags",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/tags/getOne/2",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"tags",
+								"getOne",
+								"2"
 							]
 						}
 					},
@@ -538,7 +568,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\": \"Test tag\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Test tag\"\r\n}"
+							"raw": "{\r\n    \"Name\": \"Test tag\",\r\n    \"Description\": \"Test tag\"\r\n}"
 						},
 						"url": {
 							"raw": "{{HOST_URL}}/v1/tags/create",
@@ -571,10 +601,10 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\": \"Test tag\",\r\n    \"CreatorId\": 2,\r\n    \"Description\": \"Test tag\"\r\n}"
+							"raw": "{\r\n    \"Name\": \"Test tag update\",\r\n    \"Description\": \"Test tag update\"\r\n}"
 						},
 						"url": {
-							"raw": "{{HOST_URL}}/v1/tags/update/3",
+							"raw": "{{HOST_URL}}/v1/tags/update/2",
 							"host": [
 								"{{HOST_URL}}"
 							],
@@ -582,7 +612,7 @@
 								"v1",
 								"tags",
 								"update",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -604,7 +634,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{HOST_URL}}/v1/tags/delete/2",
+							"raw": "{{HOST_URL}}/v1/tags/delete/1",
 							"host": [
 								"{{HOST_URL}}"
 							],
@@ -612,7 +642,7 @@
 								"v1",
 								"tags",
 								"delete",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -638,7 +668,7 @@
 							"raw": "{\r\n    \"Name\": \"GatorShare\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Default tag for all post\"\r\n}"
 						},
 						"url": {
-							"raw": "{{HOST_URL}}/v1/tags/follow/5",
+							"raw": "{{HOST_URL}}/v1/tags/follow/2",
 							"host": [
 								"{{HOST_URL}}"
 							],
@@ -646,7 +676,36 @@
 								"v1",
 								"tags",
 								"follow",
-								"5"
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow Tags (onboarding)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/tags/selectTags",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"tags",
+								"selectTags"
 							]
 						}
 					},
@@ -749,7 +808,8 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					""
+					"pm.environment.set(\"variable_key\", \"variable_value\");",
+					"pm.environment.get(\"variable_key\");"
 				]
 			}
 		},
