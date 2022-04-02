@@ -109,9 +109,18 @@ $ go run ./tests
 | Delete | `/v1/comments/delete/:id` | Delete a user comment | Active |
 | POST | `/v1/users/register` | Register new users | Active |
 | POST | `/v1/users/login` | Authenticate and create user session | Active |
-| GET | `/v1/users/getProfile/:id` | Get user profile by Id | Active |
+| GET | `/v1/users/getUserProfile/:id` | Get user profile by Id | Active |
 | DELETE | `/v1/users/deleteProfile/:id` | Delete user and associated resource | Active |
 | PATCH | `/v1/users/updateProfile/:id` | Update user details | Active |
+| GET | `/v1/users/refreshToken` | Reissue new authentication token | Active |
+| GET | `/v1/users/getProfile` | Get current user profile | Active |
+| POST | `/v1/users/follow/:userId` | Follow user with given userId | Active |
+| GET | `/v1/users/listFollowers/:userId` | List follower of user with given userId | Active |
+| GET | `/v1/tags/getOne/:tagId` | Get tag with given tagId | Active |
+| POST | `/v1/tags/create` | Create a new tag | Active |
+| Patch | `/v1/tags/update/:id` | Update a tag details | Active |
+| Delete | `/v1/tags/delete/:id` | Delete a tag | Active |
+| POST | `/v1/tags/follow/:tagId` | User can follow a tag with given tagId | Active |
 
 # Unit test
 [Unit tests](./tests/) are present in tests folder and could be excuted using make test
