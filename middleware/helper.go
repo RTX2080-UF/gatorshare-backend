@@ -4,6 +4,8 @@ import (
 	"errors"
 	"log"
 	"os"
+	"strconv"
+
 	"github.com/joho/godotenv"
 )
 
@@ -35,4 +37,18 @@ func GetEnv(key, fallback string, fromFile bool) string {
 	}
 
 	return fallback
+}
+
+func ConvertStrToInt(idStr string) (uint, error) {
+	id, err := strconv.Atoi(idStr)
+    if err != nil {
+		return 0,err
+    }
+
+	if id <= 0 {
+		err := errors.New("invalid value for Id")
+		return 0, err
+	}
+
+	return uint(id), nil
 }

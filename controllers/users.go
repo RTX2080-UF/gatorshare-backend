@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	// "fmt"
 	"gatorshare/middleware"
 	"gatorshare/models"
 	"log"
@@ -121,16 +120,15 @@ func (base *Controller) GetProfile(ctx *gin.Context) {
 
 	err := models.GetUserProfile(base.DB, &userData, uid)
 
-	if userData.ID != uid {
-		errCustom := errors.New("profile doesn't belong to the given user").Error()
-		middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
-		return
-	}
-
 	if err != nil {
 		errCustom := errors.New("unable to retrieve user profile with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 	} else {
+		if userData.ID != uid {
+			errCustom := errors.New("profile doesn't belong to the given user").Error()
+			middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
+			return
+		}	
 		middleware.RespondJSON(ctx, http.StatusOK, userData, err)
 	}
 }
@@ -225,6 +223,82 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 	} else {
 		middleware.RespondJSON(ctx, http.StatusOK, userData, nil)
 	}
+}
+
+func (base *Controller) GetFollowers(ctx *gin.Context) {
+	var userData models.User
+	
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	log.Print("Got request to get User profile", uid)
+	
+	err := models.GetUserProfile(base.DB, &userData, uid)
+
+	userIdStr := ctx.Params.ByName("userId")
+	userId, err := middleware.ConvertStrToInt(userIdStr)
+	if (err != nil) {
+		middleware.RespondJSON(ctx, http.StatusBadGateway, err.Error(), err)
+		return
+	}
+	
+	var follower []models.Follower 
+	err = models.GetFollowers(base.DB, &follower, userId)
+	if (err != nil) {
+		errCustom := errors.New("unable to get user followers").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, follower, nil)
+}
+
+func (base *Controller) FollowUser(ctx *gin.Context) {
+	var userData models.User
+	
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	log.Print("Got request to get User profile", uid)
+	
+	err := models.GetUserProfile(base.DB, &userData, uid)
+
+	if err != nil {
+		errCustom := errors.New("unable to retrieve user profile with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		if userData.ID != uid {
+			errCustom := errors.New("profile doesn't belong to the given user").Error()
+			middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
+			return
+		}
+	}
+
+	userIdStr := ctx.Params.ByName("userId")
+	followerId, err := strconv.Atoi(userIdStr)
+    if err != nil {
+		errCustom := errors.New("invalid user id provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+    }
+
+	isExist, err := models.CheckUserExists(base.DB, uint(followerId))
+	if (!isExist || err != nil) {
+		errCustom := errors.New("User with given follower id doesn't exist")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+	}
+
+	relationId, err := models.FollowUserByUser(base.DB, uid, uint(followerId))
+	if (err != nil) {
+		errCustom := errors.New("unable to follow user").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, relationId, nil)
 }
 
 
