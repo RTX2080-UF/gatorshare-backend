@@ -5,7 +5,7 @@ Endpoint -GET- http://localhost:8080/v1/comments/getOne/2 <br>
 Return comment with a given id if exists else return error  
 
 Response
-```javascript
+```json
 // if the comment with given id exists:
 {
   "data": {
@@ -32,7 +32,7 @@ Endpoint -GET- http://localhost:8080/v1/comments/getAll/ <br>
 Return all comments associated with a post with given id
 
 Response
-```javascript
+```json
 // If post has comments 
 {
   "data": [
@@ -100,7 +100,7 @@ Create a comment on a post
 	parentId uint   
 	votes    int    
 
-```javascript
+```json
 # Request
 {
 	"userId" : 1,
@@ -118,7 +118,7 @@ Create a comment on a post
 
 // if failed to create comment
 {
-    "error": error message
+    "error": "error message"
 }
 ```
 
@@ -126,7 +126,7 @@ Create a comment on a post
 Endpoint -DELETE- http://localhost:8080/v1/posts/delete/ <br>
 Delete a comment with given id
 
-```javascript
+```json
 // If record get Successfully deleted
 {
     "data": {
@@ -153,7 +153,7 @@ Delete a comment with given id
 Endpoint -Patch- http://localhost:8080/v1/comments/update/1 <br>
 Update comment message if post exists and comment exist else return error
 
-```javascript
+```json
 // If user comment on a post get Successfully updated
 {
     "data": {

@@ -5,7 +5,7 @@ Endpoint -GET- http://localhost:8080/v1/posts/getOne/2 <br>
 Return details of the post with given id if it exists else return error  
 
 Response <br>
-```javascript
+```json
 // if the record exist:
 {
   "data": {
@@ -36,7 +36,7 @@ Response <br>
 Endpoint -GET- http://localhost:8080/v1/posts/getAll/1 <br>
 Retrieve all posts created by a user using user id
 
-```javascript
+```json
 // If user have any post
 {
   "data": [
@@ -113,7 +113,7 @@ Create a post with following post params
 	Categories   string
 	Tags         string
 
-```javascript
+```json
 # Request
 {
     "userId" : 1,
@@ -131,7 +131,7 @@ Create a post with following post params
 
 // if failed to create post
 {
-    "error": error message
+    "error": "error message"
 }
 ```
 
@@ -139,7 +139,7 @@ Create a post with following post params
 Endpoint -DELETE- http://localhost:8080/v1/posts/delete/1 <br>
 Delete a post with provided id
 
-```javascript
+```json
 // If record get Successfully deleted
 {
     "data": {
@@ -170,7 +170,7 @@ Delete a post with provided id
 Endpoint -Patch- http://localhost:8080/v1/posts/update/1 <br>
 Update post details if post exists else return error
 
-```javascript
+```json
 // If user profile get Successfully updated
 {
     "data": {

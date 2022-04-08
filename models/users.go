@@ -34,3 +34,33 @@ func GetUserDetailByUsername(db *gorm.DB, username string) (User, error){
 	res := db.Select("ID, Password").Where(&User{Username: username}).First(&user)
 	return user, res.Error
 }
+
+func CheckUserExists(db *gorm.DB, id uint) (bool, error) {
+	var count int64
+	res := db.Model(&User{}).Where("Id = ?", id).Count(&count)
+
+	if (count <= 0) {
+		return false, res.Error
+	}
+
+	return true, res.Error
+}
+
+func FollowUserByUser(db *gorm.DB, userId uint, followerId uint) (uint, error) {
+	var usersFollower = Follower {
+		UserID: followerId,
+		FollowerID: userId,
+	}
+
+	err := db.Create(&usersFollower).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return usersFollower.ID, nil
+}
+
+func GetFollowers(db *gorm.DB, follower *[]Follower, id uint) error {
+	res := db.Where("user_id=?", id).Find(&follower)
+	return res.Error
+}
