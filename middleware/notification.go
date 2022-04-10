@@ -13,7 +13,9 @@ func SendMail(fromTitle string,
 		subjectLine string, 
 		contentPlain string, 
 		contentHtml string) bool {
-	from := mail.NewEmail(fromTitle, "wasev74013@procowork.com")
+	log.Println("Sending mail to", toEmail,  toTitle,  fromTitle)
+	senderMail := os.Getenv("SENDER_MAIL")
+	from := mail.NewEmail(fromTitle, senderMail)
 	subject := subjectLine
 	to := mail.NewEmail(toTitle, toEmail)
 	plainTextContent := contentPlain
