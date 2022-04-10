@@ -16,6 +16,13 @@ type User struct {
 	Bookmarks string `json:"bookmark"`
 }
 
+type ResetPassword struct {
+	UserID       uint 	 `json:"userId" gorm:"not null"`
+	User         User
+	Status       bool	 `gorm:"default:false"`
+	UniqueRndStr string  `json:"uniqueRndStr" gorm:"not null"`
+}
+
 type Post struct {
 	gorm.Model
 	UserID       uint 	 `json:"userId" gorm:"not null"`
