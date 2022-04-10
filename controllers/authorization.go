@@ -1,11 +1,16 @@
 package controllers
 
 import (
+	"crypto/rand"
 	"errors"
+	"fmt"
 	"gatorshare/middleware"
 	"gatorshare/models"
 	"log"
+	"math/big"
 	"net/http"
+	"net/mail"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -96,4 +101,37 @@ func (base *Controller) RefreshToken(ctx *gin.Context) {
 }
 
 func (base *Controller) ResetPassword(ctx *gin.Context) {
+	emailStr := ctx.Params.ByName("emailId")
+	_, err := mail.ParseAddress(emailStr)
+	
+	if (err != nil) {
+		errCustom := errors.New("Invalid email address provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
+		return
+	}
+
+	userDetails, err := models.GetUserDetailByEmail(base.DB, emailStr)
+	if (err != nil) {
+		errCustom := errors.New("User doesn't exist")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+	}
+
+	rnum, _ := rand.Int(rand.Reader, big.NewInt(100000))
+	randStr, err := middleware.HashPassword(fmt.Sprint(time.Now().UnixNano()) + rnum.String() + fmt.Sprint(userDetails.ID))
+
+	var resetObj = models.ResetPassword {
+		UserID: userDetails.ID,
+		Status: true,
+		UniqueRndStr: randStr,
+	}
+
+	_, err = models.UpdatePasswordStatus(base.DB, resetObj)
+	if err != nil {
+		errCustom := errors.New("Unable to reset password")
+		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errCustom, err)
+		return
+	}
+
+	
 }
