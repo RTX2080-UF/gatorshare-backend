@@ -277,15 +277,15 @@ func (base *Controller) FollowUser(ctx *gin.Context) {
 	}
 
 	userIdStr := ctx.Params.ByName("userId")
-	followerId, err := strconv.Atoi(userIdStr)
-    if err != nil {
-		errCustom := errors.New("invalid user id provided").Error()
-		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+	followerId, err := middleware.ConvertStrToInt(userIdStr)
+	if (err != nil) {
+		middleware.RespondJSON(ctx, http.StatusBadGateway, err.Error(), err)
 		return
-    }
+	}
 
-	isExist, err := models.CheckUserExists(base.DB, uint(followerId))
-	if (!isExist || err != nil) {
+	var followee models.User
+	err = models.GetUserProfile(base.DB, &followee,  uint(followerId))
+	if (err != nil) {
 		errCustom := errors.New("User with given follower id doesn't exist")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
@@ -297,6 +297,14 @@ func (base *Controller) FollowUser(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 		return
 	}
+
+	middleware.SendMail(
+		"Notification", 
+		followee.Firstname, 
+		followee.Email, 
+		"You got a new follower",
+		"User" + userData.Username + "followed you recently check html link below to see the notification",
+		"")
 
 	middleware.RespondJSON(ctx, http.StatusOK, relationId, nil)
 }
