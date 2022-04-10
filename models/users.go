@@ -61,6 +61,6 @@ func FollowUserByUser(db *gorm.DB, userId uint, followerId uint) (uint, error) {
 }
 
 func GetFollowers(db *gorm.DB, follower *[]Follower, id uint) error {
-	res := db.Where("user_id=?", id).Find(&follower)
+	res := db.Preload("User").Where("user_id=?", id).Find(&follower)
 	return res.Error
 }
