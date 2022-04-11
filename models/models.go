@@ -17,7 +17,7 @@ type User struct {
 }
 
 type ResetPassword struct {
-	UserID       uint 	 `json:"userId" gorm:"not null"`
+	UserID       uint 	 `json:"userId" gorm:"uniqueIndex"`
 	User         User
 	Status       bool	 `gorm:"default:false"`
 	UniqueRndStr string  `json:"uniqueRndStr" gorm:"not null"`
