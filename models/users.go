@@ -31,13 +31,13 @@ func UpdateUserProfile(db *gorm.DB, user *User) (error) {
 
 func GetUserDetailByUsername(db *gorm.DB, username string) (User, error){
 	var user User
-	res := db.Select("ID, Password").Where(&User{Username: username}).First(&user)
+	res := db.Omit("User.Password").Where(&User{Username: username}).First(&user)
 	return user, res.Error
 }
 
 func GetUserDetailByEmail(db *gorm.DB, email string) (User, error){
 	var user User
-	res := db.Select("ID, Password").Where(&User{Email: email}).First(&user)
+	res := db.Omit("User.Password").Where(&User{Email: email}).First(&user)
 	return user, res.Error
 }
 
