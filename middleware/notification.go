@@ -25,10 +25,11 @@ func SendMail(fromTitle string,
 	response, err := client.Send(message)
 	
 	if err != nil {
-		return true
+		return false
 	} else {
 		log.Println(response.StatusCode, response.Body, response.Headers)
 		log.Println(err)
 	}
-	return false
+
+	return true
 }
