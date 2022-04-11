@@ -101,7 +101,7 @@ func (base *Controller) RefreshToken(ctx *gin.Context) {
 }
 
 func (base *Controller) ResetPassword(ctx *gin.Context) {
-	emailStr := ctx.Params.ByName("emailId")
+	emailStr := ctx.DefaultQuery("email", "")
 	_, err := mail.ParseAddress(emailStr)
 	
 	if (err != nil) {
@@ -126,12 +126,55 @@ func (base *Controller) ResetPassword(ctx *gin.Context) {
 		UniqueRndStr: randStr,
 	}
 
-	_, err = models.UpdatePasswordStatus(base.DB, resetObj)
+	response, err := models.UpdatePasswordStatus(base.DB, resetObj)
 	if err != nil {
 		errCustom := errors.New("Unable to reset password")
-		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errCustom, err)
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 		return
 	}
 
+	scheme := "http"
+	if ctx.Request.TLS != nil {
+		scheme = "https"
+	}
+	resetUrl := "<a href='" + scheme + "://" + ctx.Request.Host + "/v1/users/changePassword?email=" + userDetails.Email + "&token=" + randStr + "'> Reset Password </a>"
+
+	response = middleware.SendMail(
+		"Admin", 
+		userDetails.Firstname, 
+		userDetails.Email, 
+		"Password reset for Gatorshare ",
+		"You have requested password reset for" + userDetails.Username + "Please follow link below to reset your passowrd",
+		resetUrl)
+
+	if (!response) {
+		errCustom := errors.New("Unable to generate password reset link")
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom.Error(), errCustom)
+		return
+	}
 	
+	middleware.RespondJSON(ctx, http.StatusOK, response, nil)
+}
+
+func (base *Controller) ChangePassword(ctx *gin.Context) {
+	emailStr := ctx.DefaultQuery("email", "")
+	tokenStr := ctx.DefaultQuery("token", "")
+
+	_, err := mail.ParseAddress(emailStr)
+	
+	if (err != nil) {
+		errCustom := errors.New("Invalid email address provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
+		return
+	}
+	
+	if (len(tokenStr) >= 64 ) {
+		errCustom := errors.New("Invalid token provided")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+	}
+
+	// newPassword := ctx.PostForm("password")
+
+
 }
