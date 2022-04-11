@@ -236,7 +236,7 @@ func (base *Controller) FollowUser(ctx *gin.Context) {
 		followee.Firstname, 
 		followee.Email, 
 		"You got a new follower",
-		"User" + userData.Username + "followed you recently check html link below to see the notification",
+		"User " + userData.Username + " followed you recently check html link below to see the notification",
 		"")
 
 	middleware.RespondJSON(ctx, http.StatusOK, relationId, nil)
