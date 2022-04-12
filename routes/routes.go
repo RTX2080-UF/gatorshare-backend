@@ -8,7 +8,7 @@ import (
 	"github.com/gin-contrib/cors"
 )
 
-func InitializeRoutes(db *gorm.DB) *gin.Engine {
+func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 
 	router := gin.Default()
 
@@ -34,7 +34,8 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			users.PATCH("updateProfile", api.UpdateProfile)
 			users.POST("follow/:userId", api.FollowUser)
 			users.GET("listFollowers/:userId", api.GetFollowers)
-			users.GET("resetPassword/", api.ResetPassword)
+			users.GET("resetPassword", api.ResetPassword)
+			users.POST("updatePassword", api.UpdatePassword)
 		};
 		posts := v1.Group("/posts"); {
 			posts.GET("getAll", api.Listpost)
