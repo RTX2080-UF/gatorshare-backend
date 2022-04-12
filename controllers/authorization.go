@@ -19,14 +19,14 @@ func (base *Controller) Register(ctx *gin.Context) {
 	var userdata UserProfile
 
 	log.Print("Got request to add new User")
-	err := ctx.ShouldBindJSON(&userdata);
+	err := ctx.ShouldBindJSON(&userdata)
 	if err != nil {
 		errCustom := errors.New("invalid user object provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return
 	}
 
-	userdataDb := UserRequestToDBModel(userdata) 
+	userdataDb := UserRequestToDBModel(userdata)
 	// if (!middleware.IsValidPassword(userdata.Password)) {
 	// 	errCustom := errors.New("user password doesn't satisfy minimum requirement").Error()
 	// 	middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
@@ -34,7 +34,7 @@ func (base *Controller) Register(ctx *gin.Context) {
 	// }
 
 	userdataDb.Password, err = middleware.HashPassword(userdataDb.Password)
-	if (err != nil) {
+	if err != nil {
 		errCustom := errors.New("invalid user password provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 		return
@@ -55,11 +55,11 @@ func (base *Controller) Login(ctx *gin.Context) {
 	if err := ctx.ShouldBindJSON(&loginDetails); err != nil {
 		log.Println("Login", err.Error())
 		errCustom := errors.New("invalid input provided")
-		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errCustom ,err)
-	   	return
+		middleware.RespondJSON(ctx, http.StatusUnprocessableEntity, errCustom, err)
+		return
 	}
 	log.Print("Got request to get User profile")
-	
+
 	userObj, err := models.GetUserDetailByUsername(base.DB, loginDetails.Username)
 	isPasswordValid := middleware.CheckPasswordHash(userObj.Password, loginDetails.Password)
 	if err != nil || !isPasswordValid {
@@ -103,15 +103,17 @@ func (base *Controller) RefreshToken(ctx *gin.Context) {
 func (base *Controller) ResetPassword(ctx *gin.Context) {
 	emailStr := ctx.DefaultQuery("email", "")
 	_, err := mail.ParseAddress(emailStr)
-	
-	if (err != nil) {
+	envSrc := middleware.LoadEnv(".env")
+	hostPath := middleware.GetEnv("FRONTEND_HOST_PATH", "localhost:8080", envSrc)
+
+	if err != nil {
 		errCustom := errors.New("Invalid email address provided")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
 		return
 	}
 
 	userDetails, err := models.GetUserDetailByEmail(base.DB, emailStr)
-	if (err != nil) {
+	if err != nil {
 		errCustom := errors.New("User doesn't exist")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
@@ -126,7 +128,7 @@ func (base *Controller) ResetPassword(ctx *gin.Context) {
 		UniqueRndStr: randStr,
 	}
 
-	response, err := models.UpdatePasswordStatus(base.DB, resetObj)
+	response, err := models.UpdatResetPassword(base.DB, resetObj)
 	if err != nil {
 		errCustom := errors.New("Unable to reset password")
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
@@ -137,44 +139,81 @@ func (base *Controller) ResetPassword(ctx *gin.Context) {
 	if ctx.Request.TLS != nil {
 		scheme = "https"
 	}
-	resetUrl := "<a href='" + scheme + "://" + ctx.Request.Host + "/v1/users/changePassword?email=" + userDetails.Email + "&token=" + randStr + "'> Reset Password </a>"
+	resetUrl := "<a href='" + scheme + "://" + hostPath + "/v1/users/changePassword?email=" + userDetails.Email + "&token=" + randStr + "'> Reset Password </a>"
 
 	response = middleware.SendMail(
-		"Admin", 
-		userDetails.Firstname, 
-		userDetails.Email, 
+		"Admin",
+		userDetails.Firstname,
+		userDetails.Email,
 		"Password reset for Gatorshare ",
-		"You have requested password reset for" + userDetails.Username + "Please follow link below to reset your passowrd",
+		"You have requested password reset for"+userDetails.Username+"Please follow link below to reset your passowrd",
 		resetUrl)
 
-	if (!response) {
+	if !response {
 		errCustom := errors.New("Unable to generate password reset link")
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom.Error(), errCustom)
 		return
 	}
-	
+
 	middleware.RespondJSON(ctx, http.StatusOK, response, nil)
 }
 
-func (base *Controller) ChangePassword(ctx *gin.Context) {
-	emailStr := ctx.DefaultQuery("email", "")
-	tokenStr := ctx.DefaultQuery("token", "")
+func (base *Controller) UpdatePassword(ctx *gin.Context) {
+	emailStr := ctx.PostForm("email")
+	tokenStr := ctx.PostForm("token")
 
 	_, err := mail.ParseAddress(emailStr)
-	
-	if (err != nil) {
+
+	if err != nil {
 		errCustom := errors.New("Invalid email address provided")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
 		return
 	}
-	
-	if (len(tokenStr) >= 64 ) {
+
+	if len(tokenStr) >= 64 {
 		errCustom := errors.New("Invalid token provided")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
 	}
 
-	// newPassword := ctx.PostForm("password")
+	userData, err := models.GetUserDetailByEmail(base.DB, emailStr)
+	if err != nil {
+		errCustom := errors.New("Unable to get user details")
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom.Error(), err)
+		return
+	}
 
+	resp, err := models.VerifyPasswordReset(base.DB, userData.ID, tokenStr)
+	if err != nil {
+		errCustom := errors.New("Unable to authenticate user")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
+		return
+	} else if !resp {
+		errCustom := errors.New("Password reset request is invalid")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
+		return
+	}
 
+	newPassword := ctx.PostForm("password")
+	if len(newPassword) > 128 || len(newPassword) <= 6 {
+		errCustom := errors.New("Password must be between 6 and 128 characters ")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
+		return
+	}
+
+	newPassword, err = middleware.HashPassword(newPassword)
+	if err != nil {
+		errCustom := errors.New("invalid user password provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	}
+
+	err = models.UpdatPassword(base.DB, userData.ID, newPassword)
+	if err != nil {
+		errCustom := errors.New("Unable to update password").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, resp, nil)
 }
