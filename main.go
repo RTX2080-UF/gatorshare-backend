@@ -6,12 +6,12 @@ import (
 	"gatorshare/routes"
 )
 
+var EnvSrc = helper.LoadEnv(".env")
 
 func main() {
-  envsrc := helper.LoadEnv(".env")
-  models.Init(envsrc)
+  models.Init(EnvSrc)
   DB := models.GetDB()
-  router := routes.InitializeRoutes(DB)
-  hostport := helper.GetEnv("PORT", "8080", envsrc)
+  router := routes.InitializeRoutes(DB, EnvSrc)
+  hostport := helper.GetEnv("PORT", "8080", EnvSrc)
   router.Run(":"+hostport)
 }
