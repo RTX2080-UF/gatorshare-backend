@@ -9,7 +9,7 @@ import (
 )
 
 func AddNewTag(db *gorm.DB, tag *Tag) (uint, error) {
-	err := db.Create(tag).Error
+	err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(tag).Error
 	if err != nil {
 		return 0, err
 	}

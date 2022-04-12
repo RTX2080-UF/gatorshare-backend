@@ -8,7 +8,7 @@ import (
 	"github.com/gin-contrib/cors"
 )
 
-func InitializeRoutes(db *gorm.DB) *gin.Engine {
+func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 
 	router := gin.Default()
 
@@ -23,7 +23,20 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 	api := controllers.Controller{DB: db}
 
 	v1 := router.Group("/v1")
-	{
+	{	
+		users := v1.Group("/users"); {
+			users.POST("register", api.Register)
+			users.POST("login", api.Login)
+			users.GET("refreshToken", api.RefreshToken)
+			users.GET("getProfile", api.GetProfile)
+			users.GET("getUserProfile/:id", api.GetProfileGeneric)
+			users.DELETE("deleteProfile", api.DeleteUser)
+			users.PATCH("updateProfile", api.UpdateProfile)
+			users.POST("follow/:userId", api.FollowUser)
+			users.GET("listFollowers/:userId", api.GetFollowers)
+			users.GET("resetPassword", api.ResetPassword)
+			users.POST("updatePassword", api.UpdatePassword)
+		};
 		posts := v1.Group("/posts"); {
 			posts.GET("getAll", api.Listpost)
 			posts.GET("getOne/:id", api.GetOnepost)
@@ -37,17 +50,6 @@ func InitializeRoutes(db *gorm.DB) *gin.Engine {
 			comments.POST("create", api.AddNewComment)
 			comments.DELETE("delete/:id", api.DeleteComment)
 			comments.PATCH("update/:id", api.UpdateComment)
-		};
-		users := v1.Group("/users"); {
-			users.POST("register", api.Register)
-			users.POST("login", api.Login)
-			users.GET("refreshToken", api.RefreshToken)
-			users.GET("getProfile", api.GetProfile)
-			users.GET("getUserProfile/:id", api.GetProfileGeneric)
-			users.DELETE("deleteProfile", api.DeleteUser)
-			users.PATCH("updateProfile", api.UpdateProfile)
-			users.POST("follow/:userId", api.FollowUser)
-			users.GET("listFollowers/:userId", api.GetFollowers)
 		};
 		tags := v1.Group("/tags"); {
 			tags.GET("getOne/:tagId", api.GetTag)

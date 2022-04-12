@@ -16,6 +16,13 @@ type User struct {
 	Bookmarks string `json:"bookmark"`
 }
 
+type ResetPassword struct {
+	UserID       uint 	 `json:"userId" gorm:"uniqueIndex"`
+	User         User
+	Status       bool	 `gorm:"default:false"`
+	UniqueRndStr string  `json:"uniqueRndStr" gorm:"not null"`
+}
+
 type Post struct {
 	gorm.Model
 	UserID       uint 	 `json:"userId" gorm:"not null"`
@@ -44,7 +51,7 @@ type Comment struct {
 
 type Tag struct {
 	gorm.Model
-	Name        string  `json:"name"`
+	Name        string  `json:"name" gorm:"uniqueIndex"`
 	CreatorId   uint    `json:"creatorId"`
 	Creator		User
 	Votes       int     `json:"votes" gorm:"default:0"`
