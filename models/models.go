@@ -51,7 +51,7 @@ type Comment struct {
 
 type Tag struct {
 	gorm.Model
-	Name        string  `json:"name"`
+	Name        string  `json:"name" gorm:"uniqueIndex"`
 	CreatorId   uint    `json:"creatorId"`
 	Creator		User
 	Votes       int     `json:"votes" gorm:"default:0"`
