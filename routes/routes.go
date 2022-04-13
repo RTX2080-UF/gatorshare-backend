@@ -43,6 +43,7 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 			posts.POST("create", api.AddNewpost)
 			posts.PATCH("update/:id", api.UpdatePost)
 			posts.DELETE("delete/:id", api.Deletepost)
+			posts.POST("reactToPost", api.ReactToPost)
 		};
 		comments := v1.Group("/comments"); {
 			comments.GET("getAll/:postId", api.GetAllComment)
