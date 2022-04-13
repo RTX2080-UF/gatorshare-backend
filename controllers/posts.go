@@ -157,3 +157,34 @@ func (base *Controller) Deletepost(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusOK, post, nil)
 	}
 }
+
+func (base *Controller) ReactToPost(ctx *gin.Context) {
+	postIdStr := ctx.PostForm("postid")
+	reaction := ctx.PostForm("reaction")
+
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	
+	postId, err := middleware.ConvertStrToInt(postIdStr)
+	if err != nil {
+		errCustom := errors.New("Invalid post Id provided").Error()
+		middleware.RespondJSON(ctx, http.StatusForbidden, errCustom, err)
+		return
+	}
+
+	var post_reaction = models.UserPost {
+		UserID: uid,
+		PostID: uint(postId),
+		Reaction: models.ReactionType(reaction),
+	}
+
+	reactionId, err := models.ReactToPost(base.DB, &post_reaction)
+	if err != nil {
+		errCustom := errors.New("unable to add reaction to post").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		middleware.RespondJSON(ctx, http.StatusOK, reactionId, nil)
+	}
+}
