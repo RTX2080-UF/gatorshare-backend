@@ -75,6 +75,7 @@ func Init(envSrc bool) {
 	db.AutoMigrate(&TagUser{})
 	db.AutoMigrate(&Follower{})
 	db.AutoMigrate(&ResetPassword{})
+	db.AutoMigrate(&UserPost{})
 }
 
 func GetDB() *gorm.DB {
