@@ -41,3 +41,8 @@ func ReactToPost(db *gorm.DB, postReaction *UserPost) (uint, error) {
 
 	return postReaction.ID, nil
 }
+
+func GetReactions(db *gorm.DB, postId uint, postReaction *[]UserPost) (error) {
+	err := db.Preload("User").Omit("users.password").Where("post_id=?", postId).Find(&postReaction).Error
+	return err
+}
