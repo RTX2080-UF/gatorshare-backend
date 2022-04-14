@@ -3,6 +3,13 @@ package models
 import (
 	"gorm.io/gorm"
 )
+type ReactionType string
+
+const (
+    INTERESTED  	ReactionType = "INTERESTED"
+    MAYBE 			ReactionType = "MAYBE"
+    NOTINTERESTED 	ReactionType = "NOTINTERESTED"
+)
 
 type User struct {
 	gorm.Model
@@ -72,6 +79,15 @@ type TagPost struct {
 	Post	 Post
 	TagID    uint    `json:"tagId" gorm:"primaryKey"`
 	Tag	 	 Tag
+}
+
+type UserPost struct {
+	gorm.Model
+	PostID   uint    `json:"postId"`
+	Post	 Post
+	UserID   uint    `json:"tagId"`
+	User	 User
+	Reaction ReactionType
 }
 
 type Follower struct {

@@ -32,3 +32,17 @@ func UpdatePost(db *gorm.DB, post *Post) error {
 	res := db.Model(post).Updates(post)
 	return res.Error
 }
+
+func ReactToPost(db *gorm.DB, postReaction *UserPost) (uint, error) {
+	err := db.Create(postReaction).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return postReaction.ID, nil
+}
+
+func GetReactions(db *gorm.DB, postId uint, postReaction *[]UserPost) (error) {
+	err := db.Preload("User").Omit("users.password").Where("post_id=?", postId).Find(&postReaction).Error
+	return err
+}
