@@ -108,6 +108,7 @@ type Follower struct {
 	Follower	 User
 }
 type FeedBack struct {
+	gorm.Model
 	UserID      uint   `json:"userId"`
 	User        User
 	Rating      uint   `json:"rating"`
