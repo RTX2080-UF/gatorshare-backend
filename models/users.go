@@ -70,3 +70,12 @@ func GetFollowers(db *gorm.DB, follower *[]Follower, id uint) error {
 	res := db.Preload("User").Omit("User.password").Where("user_id=?", id).Find(&follower)
 	return res.Error
 }
+
+func AddFeedback(db *gorm.DB, feedback *FeedBack) (uint,error){
+	err := db.Create(feedback).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return feedback.ID, nil
+}
