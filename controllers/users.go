@@ -279,3 +279,20 @@ func (base *Controller) FollowUser(ctx *gin.Context) {
 
 	middleware.RespondJSON(ctx, http.StatusOK, relationId, nil)
 }
+
+
+func (base *Controller) AddFeedback(ctx *gin.Context) {
+	var feedback models.FeedBack
+
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	err := ctx.ShouldBindJSON(&feedback);
+	if err != nil {
+		errCustom := errors.New("invalid feedback object provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+	}
+	
+}
