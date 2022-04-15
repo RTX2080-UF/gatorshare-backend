@@ -65,6 +65,15 @@ type Tag struct {
 	Description string  `json:"description"`
 }
 
+type Notification struct {
+	gorm.Model
+	UserID      uint    `json:"userId" gorm:"primaryKey"`
+	User	    User
+	Link	    string  `json:"link"`
+	ReadStatus  bool	`json:"seen" gorm:"default:false"`
+	Description string  `json:"description"`
+}
+
 type TagUser struct {
 	gorm.Model
 	UserID   uint    `json:"userId" gorm:"primaryKey"`
