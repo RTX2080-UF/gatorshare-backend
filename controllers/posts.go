@@ -204,12 +204,6 @@ func (base *Controller) GetPostReaction(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to get reaction for post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-		return
-	} 
-
-	if err != nil {
-		errCustom := errors.New("unable to get reaction for post").Error()
-		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 	} else {
 		middleware.RespondJSON(ctx, http.StatusOK, reactionList, nil)
 	}
