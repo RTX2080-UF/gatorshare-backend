@@ -79,7 +79,13 @@ func (base *Controller) Login(ctx *gin.Context) {
 		return
 	}
 
-	middleware.RespondJSON(ctx, http.StatusOK, token, nil)
+	userObj.Password = ""
+	var respose = LoginResponse{
+		Data:  userObj,
+		Token: token,
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, respose, nil)
 }
 
 func (base *Controller) RefreshToken(ctx *gin.Context) {
@@ -122,9 +128,9 @@ func (base *Controller) ResetPassword(ctx *gin.Context) {
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(100000))
 	randStr, err := middleware.HashPassword(fmt.Sprint(time.Now().UnixNano()) + rnum.String() + fmt.Sprint(userDetails.ID))
 
-	var resetObj = models.ResetPassword {
-		UserID: userDetails.ID,
-		Status: true,
+	var resetObj = models.ResetPassword{
+		UserID:       userDetails.ID,
+		Status:       true,
 		UniqueRndStr: randStr,
 	}
 

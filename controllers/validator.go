@@ -64,6 +64,11 @@ type Login struct {
 	Password string `json:"password"`
 }
 
+type LoginResponse struct {
+	Data  models.User `json:"userDetails"`
+	Token string 	  `json:"token"`
+}
+
 func PostRequestToDBModel(req Post, UserID uint) models.Post {
 	return models.Post {
 		UserID:       UserID,  
