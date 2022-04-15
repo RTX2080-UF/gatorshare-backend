@@ -294,5 +294,10 @@ func (base *Controller) AddFeedback(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
 		return
 	}
-	
+	fid, err := models.AddFeedback(base.DB, &feedback)
+	if(err != nil){
+		print("error")
+	}else {
+		print(fid)
+	}
 }
