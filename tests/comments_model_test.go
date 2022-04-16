@@ -29,7 +29,7 @@ func TestCreateNewComment(t *testing.T) {
 		Status: 2,
 	}
 
-	models.AddNewpost(testobj.DB, post)
+	models.AddNewPost(testobj.DB, post)
 	comment := &models.Comment {
 		PostID: post.ID,
 		UserID: user.ID,
@@ -70,7 +70,7 @@ func createComment(t *testing.T)(comment *models.Comment){
 			UserLimit: 4,
 			Status: 2,
 		}
-		res, _ := models.AddNewpost(testobj.DB, post)
+		res, _ := models.AddNewPost(testobj.DB, post)
 		if res != 0 {
 			comment := &models.Comment{
 				UserID: user.ID,
@@ -128,7 +128,7 @@ func createcomments(t *testing.T)(comment *[]models.Comment, postID uint){
 			Status: 2,
 		}
 
-		res, _ := models.AddNewpost(testobj.DB, post)
+		res, _ := models.AddNewPost(testobj.DB, post)
 
 		if res == 0  {
 			t.Error("Unable to create post!")

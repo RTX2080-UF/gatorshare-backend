@@ -62,9 +62,41 @@ func (base *Controller) AddNewComment(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to add new comment").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, CommentId, nil)
+		return
 	}
+
+	var userData models.User
+	err = models.GetUserProfile(base.DB, &userData, uid)
+	if err != nil {
+		log.Println("Unable to retrieve userdetails")
+	}
+
+	var post models.Post
+	err = models.GetOnePost(base.DB, &post, int(commentDbObj.PostID))
+	if err != nil {
+		log.Println("Unable to retrieve post")
+	}
+
+	notif_message := "User " + userData.Username + " commented to your post"
+	middleware.SendMail(
+		"Notification", 
+		post.User.Firstname, 
+		post.User.Email, 
+		"Your post got a new comment",
+		notif_message,
+		"")
+
+	var notification = models.Notification {
+		UserID: userData.ID,
+		Description: notif_message,
+	}
+
+	_, err = models.AddNotification(base.DB, &notification)
+	if (err != nil) {
+		log.Printf("unable to add notification %v",err)
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, CommentId, nil)
 }
 
 func (base *Controller) GetOneComment(ctx *gin.Context) {

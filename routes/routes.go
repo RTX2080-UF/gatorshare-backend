@@ -38,10 +38,10 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 			users.POST("updatePassword", api.UpdatePassword)
 		};
 		posts := v1.Group("/posts"); {
-			posts.GET("getAll", api.Listpost)
+			posts.GET("getAll", api.ListPost)
 			posts.GET("getOne/:id", api.GetOnePost)
 			posts.GET("getReactions/:postId", api.GetPostReaction)
-			posts.POST("create", api.AddNewpost)
+			posts.POST("create", api.AddNewPost)
 			posts.PATCH("update/:id", api.UpdatePost)
 			posts.DELETE("delete/:id", api.DeletePost)
 			posts.POST("reactToPost", api.ReactToPost)
@@ -61,6 +61,10 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 			tags.POST("follow/:tagId", api.FollowTagsByUser)
 			tags.GET("popularTags/:count",api.PopularTags)
 			tags.POST("selectTags",api.SelectTags)
+		};
+		notifications := v1.Group("/notifications"); {
+			notifications.GET("getNew", api.GetNewNotifications)
+			notifications.GET("updateStatus", api.UpdateNotifications)
 		};
 	}
 

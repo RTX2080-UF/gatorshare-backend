@@ -11,14 +11,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (base *Controller) Listpost(ctx *gin.Context) {
+func (base *Controller) ListPost(ctx *gin.Context) {
 	uid := middleware.GetUidFromToken(ctx)
 	if uid == 0 {
 		return
 	}
 
 	var posts []models.Post
-	err := models.GetAllpost(base.DB, &posts, uid)
+	err := models.GetAllPost(base.DB, &posts, uid)
 	if err != nil {
 		errCustom := errors.New("no post exist for given user").Error()
 		middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
@@ -27,7 +27,7 @@ func (base *Controller) Listpost(ctx *gin.Context) {
 	}
 }
 
-func (base *Controller) AddNewpost(ctx *gin.Context) {
+func (base *Controller) AddNewPost(ctx *gin.Context) {
 	var post Post
 	log.Print("Got request to add new post")
 	err := ctx.ShouldBindJSON(&post);
@@ -43,13 +43,26 @@ func (base *Controller) AddNewpost(ctx *gin.Context) {
 	}
 	post_model := PostRequestToDBModel(post, uid)
 
-	postId, err := models.AddNewpost(base.DB, &post_model)
+	postId, err := models.AddNewPost(base.DB, &post_model)
 	if err != nil {
 		errCustom := errors.New("unable to add new post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, postId, nil)
+		return
 	}
+
+	var tagsList []models.Tag
+	for _, element := range post.Tags {
+		var obj = models.Tag{CreatorId : uid , Name : element}	
+		tagsList = append(tagsList, obj)		
+	}
+	err = models.InsertTags(base.DB, tagsList)
+	if err != nil {
+		errCustom := errors.New("unable to associate tags with the post").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, postId, nil)
 }
 
 func (base *Controller) GetOnePost(ctx *gin.Context) {
@@ -64,7 +77,7 @@ func (base *Controller) GetOnePost(ctx *gin.Context) {
 		return
     }
 
-	err = models.GetOnepost(base.DB, &post, postId)
+	err = models.GetOnePost(base.DB, &post, postId)
 	post.User.Password = ""  
 	if err != nil {
 		errCustom := errors.New("not able to retrieve post with given id").Error()
@@ -90,7 +103,7 @@ func (base *Controller) UpdatePost(ctx *gin.Context) {
 		return    
 	}
 	
-	err = models.GetOnepost(base.DB, &post, PostId)
+	err = models.GetOnePost(base.DB, &post, PostId)
 	if err != nil {
 		errCustom := errors.New("unable to get post with given ID").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
@@ -135,7 +148,7 @@ func (base *Controller) DeletePost(ctx *gin.Context) {
 		return
     }
 
-	err = models.GetOnepost(base.DB, &post, PostId)
+	err = models.GetOnePost(base.DB, &post, PostId)
 	if err != nil {
 		errCustom := errors.New("unable to retrieve post with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
@@ -149,7 +162,7 @@ func (base *Controller) DeletePost(ctx *gin.Context) {
 		return
 	}
 
-	err = models.Deletepost(base.DB, &post, PostId)
+	err = models.DeletePost(base.DB, &post, PostId)
 	if err != nil {
 		errCustom := errors.New("unable to delete the post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
@@ -184,9 +197,41 @@ func (base *Controller) ReactToPost(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to add reaction to post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, reactionId, nil)
+		return
+	} 
+	
+	var userData models.User
+	err = models.GetUserProfile(base.DB, &userData, uid)
+	if err != nil {
+		log.Println("Unable to retrieve userdetails")
 	}
+
+	var post models.Post
+	err = models.GetOnePost(base.DB, &post, int(postId))
+	if err != nil {
+		log.Println("Unable to retrieve post")
+	}
+
+	notif_message := "User " + userData.Username + " reacted on your post"
+	middleware.SendMail(
+		"Notification", 
+		post.User.Firstname, 
+		post.User.Email, 
+		"Your post got a new reaction",
+		notif_message,
+		"")
+
+	var notification = models.Notification {
+		UserID: userData.ID,
+		Description: notif_message,
+	}
+
+	_, err = models.AddNotification(base.DB, &notification)
+	if (err != nil) {
+		log.Printf("unable to add notification %v",err)
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, reactionId, nil)
 }
 
 func (base *Controller) GetPostReaction(ctx *gin.Context) {

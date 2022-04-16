@@ -17,6 +17,11 @@ func AddNewTag(db *gorm.DB, tag *Tag) (uint, error) {
 	return tag.ID, nil
 }
 
+func InsertTags(db *gorm.DB, tags[] Tag) (error) {
+	err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(tags).Error
+	return err
+}
+
 func GetTag(db *gorm.DB, tag *Tag, id uint) error {
 	res := db.First(&tag, id)
 	return res.Error
@@ -59,7 +64,7 @@ func CheckTagsExist(db *gorm.DB, tags []uint) []uint {
 		if (res.Error == nil) {
 			verifiedTagIds = append(verifiedTagIds, tags[i])
 		} else {
-			log.Print("Tag with id %i doesn't exist", tags[i])
+			log.Println("Tag with id %i doesn't exist", tags[i])
 		}
 	}
 	return verifiedTagIds

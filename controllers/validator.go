@@ -42,11 +42,10 @@ type Post struct {
 	UserLimit    uint    `json:"userLimit" binding:"required"`
 	Status       int     `json:"status" binding:"required"`
 	Categories   string
-	Tags         string
+	Tags         []string
 }
 
 type Comment struct {
-	UserID   uint   `json:"userId" binding:"required"`
 	PostID   uint   `json:"postId" binding:"required"`
 	Message  string `json:"message" binding:"required"`
 	ParentId uint   `json:"parentId"`

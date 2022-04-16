@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+
 func (base *Controller) GetProfileGeneric(ctx *gin.Context) {
 	var userData models.User
 
@@ -42,6 +43,7 @@ func (base *Controller) GetProfileGeneric(ctx *gin.Context) {
 	}
 }
 
+
 func (base *Controller) GetProfile(ctx *gin.Context) {
 	var userData models.User
 	
@@ -65,6 +67,7 @@ func (base *Controller) GetProfile(ctx *gin.Context) {
 		middleware.RespondJSON(ctx, http.StatusOK, userData, err)
 	}
 }
+
 
 func (base *Controller) UpdateProfile(ctx *gin.Context) {
 	var newUserData UpdateUserProfile
@@ -122,10 +125,32 @@ func (base *Controller) UpdateProfile(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to update user profile with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, updatedUserData, nil)
+		return
 	}
+	
+	
+	notif_message := "User " + updatedUserData.Username + " profile has been updated"
+	middleware.SendMail(
+		"Updates", 
+		updatedUserData.Firstname, 
+		updatedUserData.Email, 
+		"Your profile has been updated",
+		notif_message,
+		"")
+
+	var notification = models.Notification {
+		UserID: updatedUserData.ID,
+		Description: notif_message,
+	}
+
+	_, err = models.AddNotification(base.DB, &notification)
+	if (err != nil) {
+		log.Printf("unable to add notification %v",err)
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, updatedUserData, nil)
 }
+
 
 func (base *Controller) DeleteUser(ctx *gin.Context) {
 	var userData models.User
@@ -158,6 +183,7 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 	}
 }
 
+
 func (base *Controller) GetFollowers(ctx *gin.Context) {
 	var userData models.User
 	
@@ -186,6 +212,7 @@ func (base *Controller) GetFollowers(ctx *gin.Context) {
 
 	middleware.RespondJSON(ctx, http.StatusOK, follower, nil)
 }
+
 
 func (base *Controller) FollowUser(ctx *gin.Context) {
 	var userData models.User
@@ -231,13 +258,24 @@ func (base *Controller) FollowUser(ctx *gin.Context) {
 		return
 	}
 
+	notif_message := "User " + userData.Username + " followed you recently check html link below to see the notification"
 	middleware.SendMail(
 		"Notification", 
 		followee.Firstname, 
 		followee.Email, 
 		"You got a new follower",
-		"User " + userData.Username + " followed you recently check html link below to see the notification",
+		notif_message,
 		"")
+
+	var notification = models.Notification {
+		UserID: followee.ID,
+		Description: notif_message,
+	}
+
+	_, err = models.AddNotification(base.DB, &notification)
+	if (err != nil) {
+		log.Printf("unable to add notification %v",err)
+	}
 
 	middleware.RespondJSON(ctx, http.StatusOK, relationId, nil)
 }
