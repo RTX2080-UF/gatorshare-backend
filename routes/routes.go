@@ -62,6 +62,10 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 			tags.GET("popularTags/:count",api.PopularTags)
 			tags.POST("selectTags",api.SelectTags)
 		};
+		notifications := v1.Group("/notifications"); {
+			notifications.GET("getNew", api.GetNewNotifications)
+			notifications.GET("updateStatus", api.UpdateNotifications)
+		};
 	}
 
 	return router
