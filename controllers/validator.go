@@ -42,7 +42,7 @@ type Post struct {
 	UserLimit    uint    `json:"userLimit" binding:"required"`
 	Status       int     `json:"status" binding:"required"`
 	Categories   string
-	Tags         string
+	Tags         []string
 }
 
 type Comment struct {
