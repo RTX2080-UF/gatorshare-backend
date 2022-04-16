@@ -295,9 +295,11 @@ func (base *Controller) AddFeedback(ctx *gin.Context) {
 		return
 	}
 	fid, err := models.AddFeedback(base.DB, &feedback)
-	if(err != nil){
-		print("error")
-	}else {
-		print(fid)
+	if err != nil {
+		errCustom := errors.New("unable to add user feedback").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		middleware.RespondJSON(ctx, http.StatusOK, fid, nil)
 	}
 }
+
