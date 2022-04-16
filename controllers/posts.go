@@ -212,12 +212,12 @@ func (base *Controller) ReactToPost(ctx *gin.Context) {
 		log.Println("Unable to retrieve post")
 	}
 
-	notif_message := "User " + userData.Username + "commented on your post"
+	notif_message := "User " + userData.Username + " reacted on your post"
 	middleware.SendMail(
 		"Notification", 
 		post.User.Firstname, 
 		post.User.Email, 
-		"Your post got a new comment",
+		"Your post got a new reaction",
 		notif_message,
 		"")
 

@@ -77,12 +77,12 @@ func (base *Controller) AddNewComment(ctx *gin.Context) {
 		log.Println("Unable to retrieve post")
 	}
 
-	notif_message := "User " + userData.Username + "reacted to your post"
+	notif_message := "User " + userData.Username + " commented to your post"
 	middleware.SendMail(
 		"Notification", 
 		post.User.Firstname, 
 		post.User.Email, 
-		"Your post got a new reaction",
+		"Your post got a new comment",
 		notif_message,
 		"")
 

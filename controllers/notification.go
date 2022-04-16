@@ -20,14 +20,16 @@ func (base *Controller) GetNewNotifications(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to get new notifications").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		if (len(notifications) == 0) {
-			errCustom := errors.New("no new notifications for user").Error()
-			middleware.RespondJSON(ctx, http.StatusNoContent, errCustom, err)
-		} else {
-			middleware.RespondJSON(ctx, http.StatusOK, notifications, nil)
-		}
+		return
 	}
+ 
+	if (len(notifications) == 0) {
+		errCustom := errors.New("no new notifications for user")
+		middleware.RespondJSON(ctx, http.StatusNoContent, errCustom.Error(), errCustom)
+		return
+	}
+	
+	middleware.RespondJSON(ctx, http.StatusOK, notifications, nil)
 }
 
 func (base *Controller) UpdateNotifications(ctx *gin.Context) {
