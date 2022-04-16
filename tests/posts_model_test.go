@@ -29,7 +29,7 @@ func TestAddNewpost(t *testing.T) {
 		Status: 2,
 	}
 
-	res, _ := models.AddNewpost(testobj.DB, post)
+	res, _ := models.AddNewPost(testobj.DB, post)
 	if res == 0 {
 		t.Error("Unable to create post!")
   	} else {
@@ -62,7 +62,7 @@ func createPost(t *testing.T)(post *models.Post){
 			UserLimit: 4,
 			Status: 2,
 		}
-		res, _ := models.AddNewpost(testobj.DB, post)
+		res, _ := models.AddNewPost(testobj.DB, post)
 		if res == 0 {
 			t.Error("Unable to create post!")
 		} else {
@@ -79,7 +79,7 @@ func TestGetOnepost(t *testing.T){
 
 	post := createPost(t)
 	if(post.ID  != 0){
-		res:= models.GetOnepost(testobj.DB, post, int(post.ID))
+		res:= models.GetOnePost(testobj.DB, post, int(post.ID))
 		print(res)
 		if post.ID != 0 && res == nil {
 			t.Log("Succesfully able to return post")
@@ -124,9 +124,9 @@ func createPosts(t *testing.T)(post *[]models.Post, userID uint){
 			Status: 2,	
 		}
 
-		res, _ := models.AddNewpost(testobj.DB, post)
-		res1, _ := models.AddNewpost(testobj.DB, post1)
-		res2, _ := models.AddNewpost(testobj.DB, post2)
+		res, _ := models.AddNewPost(testobj.DB, post)
+		res1, _ := models.AddNewPost(testobj.DB, post1)
+		res2, _ := models.AddNewPost(testobj.DB, post2)
 
 
 		if res == 0 && res1 == 0 && res2 == 0 {
@@ -146,7 +146,7 @@ func TestGetAllpost(t *testing.T){
 	post, ID := createPosts(t)
 
 	if((*post)[0].UserID == ID ){
-		res := models.GetAllpost(testobj.DB, post, uint(ID))
+		res := models.GetAllPost(testobj.DB, post, uint(ID))
 		if res == nil {
 			t.Log("Succesfully able to return posts")
 		}else {
@@ -157,7 +157,7 @@ func TestGetAllpost(t *testing.T){
 func TestDeletepost(t *testing.T){
 	post := createPost(t)
 	if(post.ID != 0){
-		res := models.Deletepost(testobj.DB,post,int(post.ID))
+		res := models.DeletePost(testobj.DB,post,int(post.ID))
 		if res == nil {
 			t.Log("Succesfully able to delete post")
 		}else {
