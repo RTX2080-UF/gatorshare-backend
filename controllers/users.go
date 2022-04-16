@@ -125,9 +125,30 @@ func (base *Controller) UpdateProfile(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to update user profile with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, updatedUserData, nil)
+		return
 	}
+	
+	
+	notif_message := "User " + updatedUserData.Username + " profile has been updated"
+	middleware.SendMail(
+		"Updates", 
+		updatedUserData.Firstname, 
+		updatedUserData.Email, 
+		"Your profile has been updated",
+		notif_message,
+		"")
+
+	var notification = models.Notification {
+		UserID: updatedUserData.ID,
+		Description: notif_message,
+	}
+
+	_, err = models.AddNotification(base.DB, &notification)
+	if (err != nil) {
+		log.Printf("unable to add notification %v",err)
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, updatedUserData, nil)
 }
 
 
