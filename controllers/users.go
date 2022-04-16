@@ -158,7 +158,7 @@ func (base *Controller) DeleteUser(ctx *gin.Context) {
 	uid := middleware.GetUidFromToken(ctx)
 	if uid == 0 {
 		return
-	}
+	}A
 	log.Print("Got request to delete User profile", uid)
 
 	err := models.GetUserProfile(base.DB, &userData, uid)
@@ -303,3 +303,23 @@ func (base *Controller) AddFeedback(ctx *gin.Context) {
 	}
 }
 
+func (base *Controller) GetFeedback(ctx *gin.Context) {
+	var feedback models.FeedBack
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	err := models.GetUserProfile(base.DB, &feedback, uid)
+
+	if err != nil {
+		errCustom := errors.New("unable to retrieve user feedback with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+	} else {
+		if feedback.ID != uid {
+			errCustom := errors.New("feedback doesn't belong to the given user").Error()
+			middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
+			return
+		}	
+		middleware.RespondJSON(ctx, http.StatusOK, feedback, err)
+	}
+}
