@@ -154,6 +154,7 @@ func (base *Controller) DeleteTag(ctx *gin.Context) {
 func (base *Controller) FollowTagsByUser(ctx *gin.Context) {
 	tid_str := ctx.Params.ByName("tagId")
 	tid, err := strconv.Atoi(tid_str)
+
     if err != nil {
 		errCustom := errors.New("invalid tag Id provided").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
@@ -178,18 +179,21 @@ func (base *Controller) PopularTags(ctx *gin.Context){
 	var tags []models.Tag
 	count := ctx.Params.ByName("count")
 	countTags, err := middleware.ConvertStrToInt(count)
-	if( err != nil ){
+
+	if ( err != nil ) {
 		errCustom := errors.New("Invalid Number").Error()
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)		
-	} else {
-		err := models.PopularTags(base.DB, &tags, int(countTags))
-		if (err != nil){
-			errCustom := errors.New("unable to find tags with the provided frequency count").Error()
-			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
-		} else {
-			middleware.RespondJSON(ctx, http.StatusOK, tags, nil)
-		}
-	}
+		return
+	} 
+
+	err = models.PopularTags(base.DB, &tags, int(countTags))
+	if (err != nil){
+		errCustom := errors.New("unable to find tags with the provided frequency count").Error()
+		middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	
+		return
+	} 
+
+	middleware.RespondJSON(ctx, http.StatusOK, tags, nil)
 }
 
 func (base *Controller) SelectTags(ctx *gin.Context){
@@ -214,13 +218,14 @@ func (base *Controller) SelectTags(ctx *gin.Context){
 		errCustom := errors.New("All Tag ids are not valid.")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
-	} else {
-		err := models.AddUserTags(base.DB,uid,tagIds)
-		if err != nil {
-			errCustom := errors.New("unable to associate tag with given id").Error()
-			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
-		} else {
-			middleware.RespondJSON(ctx, http.StatusOK, verifiedTagIds, nil)
-		}
 	}
+
+	err = models.AddUserTags(base.DB,uid,tagIds)
+	if err != nil {
+		errCustom := errors.New("unable to associate tag with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
+		return
+	} 
+
+	middleware.RespondJSON(ctx, http.StatusOK, verifiedTagIds, nil)
 }
