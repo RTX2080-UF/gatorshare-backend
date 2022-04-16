@@ -64,7 +64,7 @@ func CheckTagsExist(db *gorm.DB, tags []uint) []uint {
 		if (res.Error == nil) {
 			verifiedTagIds = append(verifiedTagIds, tags[i])
 		} else {
-			log.Print("Tag with id %i doesn't exist", tags[i])
+			log.Println("Tag with id %i doesn't exist", tags[i])
 		}
 	}
 	return verifiedTagIds
