@@ -52,10 +52,17 @@ func (base *Controller) AddNewPost(ctx *gin.Context) {
 
 	var tagsList []models.Tag
 	for _, element := range post.Tags {
-		var obj = models.Tag{CreatorId : uid , Name : element}	
-		tagsList = append(tagsList, obj)		
+		var tagObj = models.Tag{CreatorId : uid , Name : element}	
+		tagsList = append(tagsList, tagObj)	
 	}
-	err = models.InsertTags(base.DB, tagsList)
+	tagsIDs, err := models.InsertTags(base.DB, tagsList)
+	if err != nil {
+		errCustom := errors.New("unable to add tags present in the post").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	}
+	
+	err = models.AddPostTags(base.DB, postId, tagsIDs)
 	if err != nil {
 		errCustom := errors.New("unable to associate tags with the post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
