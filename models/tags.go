@@ -17,9 +17,15 @@ func AddNewTag(db *gorm.DB, tag *Tag) (uint, error) {
 	return tag.ID, nil
 }
 
-func InsertTags(db *gorm.DB, tags[] Tag) (error) {
+func InsertTags(db *gorm.DB, tags[] Tag) ([] uint, error) {
 	err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(tags).Error
-	return err
+
+	var tagsId []uint
+	for _, element := range tags {
+		tagsId = 	append(tagsId, element.ID)	
+	}
+
+	return tagsId, err
 }
 
 func GetTag(db *gorm.DB, tag *Tag, id uint) error {
@@ -80,3 +86,14 @@ func AddUserTags(db *gorm.DB, uid uint, tags []uint) error{
 	err := db.Create(&inputObj).Error
 	return err
 } 
+
+func AddPostTags(db *gorm.DB, pid uint, tags []uint) (error){
+	var tagsPost []TagPost
+	for i:=0; i<len(tags); i++ { 
+		var tagPostObj = TagPost{PostID : pid , TagID : tags[i]}
+		tagsPost = 	append(tagsPost, tagPostObj)	
+	}
+	
+	err := db.Create(&tagsPost).Error
+	return err
+}
