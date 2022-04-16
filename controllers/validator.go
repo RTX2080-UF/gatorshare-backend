@@ -46,7 +46,6 @@ type Post struct {
 }
 
 type Comment struct {
-	UserID   uint   `json:"userId" binding:"required"`
 	PostID   uint   `json:"postId" binding:"required"`
 	Message  string `json:"message" binding:"required"`
 	ParentId uint   `json:"parentId"`
