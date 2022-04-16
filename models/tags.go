@@ -17,6 +17,11 @@ func AddNewTag(db *gorm.DB, tag *Tag) (uint, error) {
 	return tag.ID, nil
 }
 
+func InsertTags(db *gorm.DB, tags[] Tag) (error) {
+	err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(tags).Error
+	return err
+}
+
 func GetTag(db *gorm.DB, tag *Tag, id uint) error {
 	res := db.First(&tag, id)
 	return res.Error
