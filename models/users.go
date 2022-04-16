@@ -79,3 +79,7 @@ func AddFeedback(db *gorm.DB, feedback *FeedBack) (uint,error){
 
 	return feedback.ID, nil
 }
+func GetFeedback(db *gorm.DB, feedback *FeedBack, id uint) error {
+	res := db.Where("user_id =?", id).Find(&feedback)
+	return res.Error
+}
