@@ -4,12 +4,12 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetAllpost(db *gorm.DB, posts *[]Post, id uint) error {
+func GetAllPost(db *gorm.DB, posts *[]Post, id uint) error {
 	res := db.Where("user_id = ?", id).Find(&posts)
 	return res.Error
 }
 
-func AddNewpost(db *gorm.DB, posts *Post) (uint, error) {
+func AddNewPost(db *gorm.DB, posts *Post) (uint, error) {
 	err := db.Create(posts).Error
 	if err != nil {
 		return 0, err
@@ -18,12 +18,12 @@ func AddNewpost(db *gorm.DB, posts *Post) (uint, error) {
 	return posts.ID, nil
 }
 
-func GetOnepost(db *gorm.DB, post *Post, id int) error {
+func GetOnePost(db *gorm.DB, post *Post, id int) error {
 	res := db.Omit("User.Password").Joins("User").First(&post, id)
 	return res.Error
 }
 
-func Deletepost(db *gorm.DB, post *Post, id int) error {
+func DeletePost(db *gorm.DB, post *Post, id int) error {
 	res := db.Delete(&Post{}, id)
 	return res.Error
 }
