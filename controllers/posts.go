@@ -47,9 +47,22 @@ func (base *Controller) AddNewPost(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to add new post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, postId, nil)
+		return
 	}
+
+	var tagsList []models.Tag
+	for _, element := range post.Tags {
+		var obj = models.Tag{CreatorId : uid , Name : element}	
+		tagsList = append(tagsList, obj)		
+	}
+	err = models.InsertTags(base.DB, tagsList)
+	if err != nil {
+		errCustom := errors.New("unable to associate tags with the post").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	}
+
+	middleware.RespondJSON(ctx, http.StatusOK, postId, nil)
 }
 
 func (base *Controller) GetOnePost(ctx *gin.Context) {
