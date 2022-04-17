@@ -24,7 +24,7 @@ func (base *Controller) GetUserHome(ctx *gin.Context) {
 		return
 	}
  
-	if (len(posts) == 0) {
+	if (len(tagPosts) == 0) {
 		errCustom := errors.New("no new posts for user")
 		middleware.RespondJSON(ctx, http.StatusNoContent, errCustom.Error(), errCustom)
 		return
