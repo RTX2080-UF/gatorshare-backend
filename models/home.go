@@ -1,8 +1,6 @@
 package models
 
 import (
-	"log"
-
 	"gorm.io/gorm"
 )
 
