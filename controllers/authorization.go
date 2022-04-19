@@ -206,7 +206,7 @@ func (base *Controller) UpdatePassword(ctx *gin.Context) {
 		return
 	} else if !resp {
 		errCustom := errors.New("Password reset request is invalid")
-		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
 	}
 
