@@ -94,7 +94,108 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\r\n    \"title\" : \"Lets checkout notification feature\",\r\n    \"description\" : \"Notification for all pizza lovers\",\r\n    \"userLimit\" : 8,\r\n    \"status\" : 1,\r\n    \"tags\" : [\r\n        \"pizza\",\r\n        \"party\",\r\n        \"Sell Item\",\r\n        \"Bath n Body Works\"\r\n    ]\r\n}"
+=======
+
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/reactToPost",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"reactToPost"
+							],
+							"query": [
+								{
+									"key": "postid",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "reaction",
+									"value": "INTERESTED",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\" : \"Pizza party at Niche on Sunday\",\r\n    \"description\" : \"Come and join us for pizza party on this Sunday\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2,\r\n    \"tags\" : [\r\n        \"pizza\",\r\n        \"party\"\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "{{HOST_URL}}/v1/posts/create",
+									"host": [
+										"{{HOST_URL}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 16 Apr 2022 15:54:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "10"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "React to Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "postid",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "reaction",
+									"value": "INTERESTED",
+									"type": "text"
+								}
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 						},
 						"url": {
 							"raw": "{{HOST_URL}}/v1/posts/create",
@@ -350,7 +451,12 @@
 							]
 						},
 						"method": "GET",
+<<<<<<< HEAD
 						"header": [],
+=======
+
+						"url": "{{HOST_URL}}/v1/comments/getAll/1"
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 						"url": {
 							"raw": "{{HOST_URL}}/v1/comments/getAll/1",
 							"host": [
@@ -362,7 +468,11 @@
 								"getAll",
 								"1"
 							]
+<<<<<<< HEAD
 						}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 					},
 					"response": [
 						{
@@ -370,7 +480,11 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
+<<<<<<< HEAD
 								"url": {
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 									"raw": "{{HOST_URL}}/v1/comments/getAll/1",
 									"host": [
 										"{{HOST_URL}}"
@@ -382,6 +496,10 @@
 										"1"
 									]
 								}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -445,7 +563,11 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\n\t\"postId\" : 1,\n\t\"message\" : \"I Love Gatoshare\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+<<<<<<< HEAD
 								},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/comments/create",
 									"host": [
@@ -455,9 +577,13 @@
 										"v1",
 										"comments",
 										"create"
+<<<<<<< HEAD
 									]
 								}
 							},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							"status": "OK",
 							"code": 200,
 							"_postman_previewlanguage": "json",
@@ -503,7 +629,11 @@
 							"name": "Get Comment by ID",
 							"originalRequest": {
 								"method": "GET",
+<<<<<<< HEAD
 								"header": [],
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/comments/getOne/1",
 									"host": [
@@ -516,7 +646,11 @@
 										"1"
 									]
 								}
+<<<<<<< HEAD
 							},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							"status": "OK",
 							"code": 200,
 							"_postman_previewlanguage": "json",
@@ -626,7 +760,11 @@
 						}
 					},
 					"response": [
+<<<<<<< HEAD
 						{
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							"name": "Get User Profile",
 							"originalRequest": {
 								"method": "GET",
@@ -664,6 +802,133 @@
 							"body": "{\n    \"data\": {\n        \"ID\": 3,\n        \"CreatedAt\": \"2022-04-09T23:26:06.4215922-04:00\",\n        \"UpdatedAt\": \"2022-04-12T09:17:24.6526641-04:00\",\n        \"DeletedAt\": null,\n        \"userName\": \"AnujK\",\n        \"firstName\": \"Anuj\",\n        \"lastName\": \"Koli\",\n        \"Email\": \"anuj.singh.koli@gmail.com\",\n        \"zipcode\": 0,\n        \"avatar\": \"\",\n        \"password\": \"$2a$14$yg4DugFPWNWD/tfkL18kQu.x9BRap3ga.bNu0EC9wTNVk9/2CHZMu\",\n        \"bookmark\": \"\"\n    }\n}"
 						}
 					]
+<<<<<<< HEAD
+=======
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/users/resetPassword?email=anuj.singh.koli@gmail.com",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"resetPassword"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "anuj.singh.koli@gmail.com"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+
+									"host": [
+										"{{HOST_URL}}"
+									],
+									"path": [
+										"v1",
+										"users",
+
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+
+								{
+									"key": "Content-Length",
+									"value": "334"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"ID\": 3,\n        \"CreatedAt\": \"2022-04-09T23:26:06.4215922-04:00\",\n        \"UpdatedAt\": \"2022-04-12T09:17:24.6526641-04:00\",\n        \"DeletedAt\": null,\n        \"userName\": \"AnujK\",\n        \"firstName\": \"Anuj\",\n        \"lastName\": \"Koli\",\n        \"Email\": \"anuj.singh.koli@gmail.com\",\n        \"zipcode\": 0,\n        \"avatar\": \"\",\n        \"password\": \"$2a$14$yg4DugFPWNWD/tfkL18kQu.x9BRap3ga.bNu0EC9wTNVk9/2CHZMu\",\n        \"bookmark\": \"\"\n    }\n}"
+						}
+
+									"value": "Fri, 15 Apr 2022 21:17:38 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "13"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "anuj.singh.koli@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "$2a$14$aJia6YKg5cqBcl.r2sJVNO4mjzLj1FWxHlI6fEkbroDOUTCxr4TBq",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "reset123",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{HOST_URL}}/v1/users/updatePassword"
+					},
+
+									"value": "Fri, 15 Apr 2022 21:17:24 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "334"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"ID\": 3,\n        \"CreatedAt\": \"2022-04-09T23:26:06.4215922-04:00\",\n        \"UpdatedAt\": \"2022-04-12T09:17:24.6526641-04:00\",\n        \"DeletedAt\": null,\n        \"userName\": \"AnujK\",\n        \"firstName\": \"Anuj\",\n        \"lastName\": \"Koli\",\n        \"Email\": \"anuj.singh.koli@gmail.com\",\n        \"zipcode\": 0,\n        \"avatar\": \"\",\n        \"password\": \"$2a$14$yg4DugFPWNWD/tfkL18kQu.x9BRap3ga.bNu0EC9wTNVk9/2CHZMu\",\n        \"bookmark\": \"\"\n    }\n}"
+						}
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 				},
 				{
 					"name": "Reset Password",
@@ -749,6 +1014,7 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
+
 							"bearer": [
 								{
 									"key": "token",
@@ -823,7 +1089,11 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"Username\": \"allensolley\",\r\n    \"Firstname\": \"allen\",\r\n    \"Lastname\": \"solley\",\r\n    \"Email\": \"allensolley@gatorshare.com\",\r\n    \"Password\": \"Password123\"\r\n}"
+<<<<<<< HEAD
 								},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/users/register",
 									"host": [
@@ -833,8 +1103,12 @@
 										"v1",
 										"users",
 										"register"
+<<<<<<< HEAD
 									]
 								}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -917,6 +1191,10 @@
 									"mode": "raw",
 									"raw": "{\r\n    \"Username\": \"alicesmith\",\r\n    \"Firstname\": \"Alice\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"alicesmith@gatorshare.com\",\r\n    \"Password\": \"Password123\"\r\n}"
 								},
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/users/listFollowers/3",
 									"host": [
@@ -928,7 +1206,11 @@
 										"listFollowers",
 										"3"
 									]
+<<<<<<< HEAD
 								}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -984,8 +1266,12 @@
 						{
 							"name": "Get User Profile Generic",
 							"originalRequest": {
+<<<<<<< HEAD
 								"method": "GET",
 								"header": [],
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/users/getUserProfile/1",
 									"host": [
@@ -997,7 +1283,11 @@
 										"getUserProfile",
 										"1"
 									]
+<<<<<<< HEAD
 								}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -1061,7 +1351,11 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"Firstname\": \"Anuj-1\",\r\n    \"OldPassword\": \"reset123\",\r\n    \"Password\": \"Password123\" \r\n}"
+<<<<<<< HEAD
 								},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/users/updateProfile",
 									"host": [
@@ -1073,6 +1367,10 @@
 										"updateProfile"
 									]
 								}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -1162,6 +1460,10 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"ID\": 16,\n        \"CreatedAt\": \"2022-04-20T00:42:41.31954Z\",\n        \"UpdatedAt\": \"2022-04-20T04:36:58.979033Z\",\n        \"DeletedAt\": null,\n        \"userName\": \"anuj123\",\n        \"firstName\": \"anuj\",\n        \"lastName\": \"k\",\n        \"Email\": \"dvalasala@ufl.edu\",\n        \"zipcode\": 0,\n        \"avatar\": \"\",\n        \"password\": \"$2a$14$hbkPcON8yBOkeAcoRmqBguGOUrQkUBvmD.XMw23NlrG2gU45XE9uO\",\n        \"bookmark\": \"\"\n    }\n}"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 						}
 					]
 				},
@@ -1246,6 +1548,10 @@
 						}
 					},
 					"response": []
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 				}
 			],
 			"event": [
@@ -1306,6 +1612,10 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/tags/getOne/2",
 									"host": [
@@ -1318,6 +1628,10 @@
 										"2"
 									]
 								}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -1340,6 +1654,143 @@
 							"body": "{\n    \"data\": {\n        \"ID\": 2,\n        \"CreatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n        \"UpdatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n        \"DeletedAt\": null,\n        \"name\": \"Test tag 2\",\n        \"creatorId\": 3,\n        \"Creator\": {\n            \"ID\": 0,\n            \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n            \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n            \"DeletedAt\": null,\n            \"userName\": \"\",\n            \"firstName\": \"\",\n            \"lastName\": \"\",\n            \"Email\": \"\",\n            \"zipcode\": 0,\n            \"avatar\": \"\",\n            \"password\": \"\",\n            \"bookmark\": \"\"\n        },\n        \"votes\": 0,\n        \"description\": \"Test tag 2\"\n    }\n}"
 						}
 					]
+<<<<<<< HEAD
+=======
+				},
+				{
+					"name": "Get Popular tags",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{HOST_URL}}/v1/tags/popularTags/5"
+					},
+					"response": [
+						{
+							"name": "Get Popular tags",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": "{{HOST_URL}}/v1/tags/popularTags/5"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Apr 2022 21:15:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "816"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"ID\": 1,\n            \"CreatedAt\": \"2022-04-12T10:55:27.5658785-04:00\",\n            \"UpdatedAt\": \"2022-04-12T10:55:27.5658785-04:00\",\n            \"DeletedAt\": null,\n            \"name\": \"Test tag\",\n            \"creatorId\": 3,\n            \"Creator\": {\n                \"ID\": 0,\n                \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n                \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n                \"DeletedAt\": null,\n                \"userName\": \"\",\n                \"firstName\": \"\",\n                \"lastName\": \"\",\n                \"Email\": \"\",\n                \"zipcode\": 0,\n                \"avatar\": \"\",\n                \"password\": \"\",\n                \"bookmark\": \"\"\n            },\n            \"votes\": 0,\n            \"description\": \"Test tag\"\n        },\n        {\n            \"ID\": 2,\n            \"CreatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n            \"UpdatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n            \"DeletedAt\": null,\n            \"name\": \"Test tag 2\",\n            \"creatorId\": 3,\n            \"Creator\": {\n                \"ID\": 0,\n                \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n                \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n                \"DeletedAt\": null,\n                \"userName\": \"\",\n                \"firstName\": \"\",\n                \"lastName\": \"\",\n                \"Email\": \"\",\n                \"zipcode\": 0,\n                \"avatar\": \"\",\n                \"password\": \"\",\n                \"bookmark\": \"\"\n            },\n            \"votes\": 0,\n            \"description\": \"Test tag 2\"\n        }\n    ]\n}"
+						}
+
+				},
+				{
+					"name": "Get Popular tags",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{HOST_URL}}/v1/tags/popularTags/5"
+					},
+					"response": [
+						{
+							"name": "Get Tag",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_URL}}/v1/tags/getOne/2",
+									"host": [
+										"{{HOST_URL}}"
+									],
+									"path": [
+										"v1",
+										"tags",
+										"getOne",
+										"2"
+									]
+								}
+
+							"name": "Get Popular tags",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": "{{HOST_URL}}/v1/tags/popularTags/5"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Apr 2022 21:15:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "413"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"ID\": 2,\n        \"CreatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n        \"UpdatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n        \"DeletedAt\": null,\n        \"name\": \"Test tag 2\",\n        \"creatorId\": 3,\n        \"Creator\": {\n            \"ID\": 0,\n            \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n            \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n            \"DeletedAt\": null,\n            \"userName\": \"\",\n            \"firstName\": \"\",\n            \"lastName\": \"\",\n            \"Email\": \"\",\n            \"zipcode\": 0,\n            \"avatar\": \"\",\n            \"password\": \"\",\n            \"bookmark\": \"\"\n        },\n        \"votes\": 0,\n        \"description\": \"Test tag 2\"\n    }\n}"
+									"value": "Fri, 15 Apr 2022 21:15:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "816"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"ID\": 1,\n            \"CreatedAt\": \"2022-04-12T10:55:27.5658785-04:00\",\n            \"UpdatedAt\": \"2022-04-12T10:55:27.5658785-04:00\",\n            \"DeletedAt\": null,\n            \"name\": \"Test tag\",\n            \"creatorId\": 3,\n            \"Creator\": {\n                \"ID\": 0,\n                \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n                \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n                \"DeletedAt\": null,\n                \"userName\": \"\",\n                \"firstName\": \"\",\n                \"lastName\": \"\",\n                \"Email\": \"\",\n                \"zipcode\": 0,\n                \"avatar\": \"\",\n                \"password\": \"\",\n                \"bookmark\": \"\"\n            },\n            \"votes\": 0,\n            \"description\": \"Test tag\"\n        },\n        {\n            \"ID\": 2,\n            \"CreatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n            \"UpdatedAt\": \"2022-04-12T10:56:53.4286454-04:00\",\n            \"DeletedAt\": null,\n            \"name\": \"Test tag 2\",\n            \"creatorId\": 3,\n            \"Creator\": {\n                \"ID\": 0,\n                \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n                \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n                \"DeletedAt\": null,\n                \"userName\": \"\",\n                \"firstName\": \"\",\n                \"lastName\": \"\",\n                \"Email\": \"\",\n                \"zipcode\": 0,\n                \"avatar\": \"\",\n                \"password\": \"\",\n                \"bookmark\": \"\"\n            },\n            \"votes\": 0,\n            \"description\": \"Test tag 2\"\n        }\n    ]\n}"
+						}
+					]
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 				},
 				{
 					"name": "Get Popular tags",
@@ -1461,7 +1912,11 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"Name\": \"Test tag 2\",\r\n    \"Description\": \"Test tag 2\"\r\n}"
+<<<<<<< HEAD
 								},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/tags/create",
 									"host": [
@@ -1473,7 +1928,11 @@
 										"create"
 									]
 								}
+<<<<<<< HEAD
 							},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							"status": "OK",
 							"code": 200,
 							"_postman_previewlanguage": "json",
@@ -1536,8 +1995,12 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
+<<<<<<< HEAD
 									"raw": "{\r\n    \"Name\": \"Test tag update\",\r\n    \"Description\": \"Test tag update\"\r\n}"
 								},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/tags/update/2",
 									"host": [
@@ -1550,7 +2013,11 @@
 										"2"
 									]
 								}
+<<<<<<< HEAD
 							},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							"status": "OK",
 							"code": 200,
 							"_postman_previewlanguage": "json",
@@ -1607,6 +2074,10 @@
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/tags/delete/1",
 									"host": [
@@ -1618,7 +2089,11 @@
 										"delete",
 										"1"
 									]
+<<<<<<< HEAD
 								}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "Bad Request",
 							"code": 400,
@@ -1660,7 +2135,11 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"Name\": \"GatorShare\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Default tag for all post\"\r\n}"
+<<<<<<< HEAD
 						},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 						"url": {
 							"raw": "{{HOST_URL}}/v1/tags/follow/4",
 							"host": [
@@ -1671,8 +2150,12 @@
 								"tags",
 								"follow",
 								"4"
+<<<<<<< HEAD
 							]
 						}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 					},
 					"response": []
 				},
@@ -1832,7 +2315,11 @@
 							"name": "Gatorshare home",
 							"originalRequest": {
 								"method": "GET",
+<<<<<<< HEAD
 								"header": [],
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}",
 									"host": [
@@ -1952,7 +2439,11 @@
 									"host": [
 										"{{HOST_URL}}"
 									]
+<<<<<<< HEAD
 								}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -1982,8 +2473,12 @@
 						"method": "POST",
 						"header": [],
 						"body": {
+<<<<<<< HEAD
 							"mode": "raw",
 							"raw": "{\r\n    \"username\": \"alicesmith\",\r\n    \"password\": \"Password123\"\r\n}"
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 						},
 						"url": {
 							"raw": "{{HOST_URL}}/v1/users/login",
@@ -2005,8 +2500,12 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
+<<<<<<< HEAD
 									"raw": "{\r\n    \"username\": \"AnujK\",\r\n    \"password\": \"reset123\"\r\n}"
 								},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/users/login",
 									"host": [
@@ -2016,8 +2515,12 @@
 										"v1",
 										"users",
 										"login"
+<<<<<<< HEAD
 									]
 								}
+=======
+	
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -2084,7 +2587,11 @@
 								"body": {
 									"mode": "raw",
 									"raw": ""
+<<<<<<< HEAD
 								},
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 								"url": {
 									"raw": "{{HOST_URL}}/v1/users/refreshToken",
 									"host": [
@@ -2095,7 +2602,11 @@
 										"users",
 										"refreshToken"
 									]
+<<<<<<< HEAD
 								}
+=======
+
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 							},
 							"status": "OK",
 							"code": 200,
@@ -2117,6 +2628,210 @@
 							"cookie": [],
 							"body": "{\n    \"data\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTAwNTgyMzMsInVzZXJfaWQiOjN9.xqWpKIjudd5zShsBAhr6boLfkH5p-M0o7fD6A36FGOk\"\n}"
 						}
+<<<<<<< HEAD
+=======
+
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Get New Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/notifications/getNew",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"notifications",
+								"getNew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/notifications/updateStatus",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"notifications",
+								"updateStatus"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Notifications",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_URL}}/v1/notifications/updateStatus",
+									"host": [
+										"{{HOST_URL}}"
+									],
+									"path": [
+										"v1",
+										"notifications",
+										"updateStatus"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 16 Apr 2022 16:30:33 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "13"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": true\n}"
+
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Get New Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/notifications/getNew",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"notifications",
+								"getNew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/notifications/updateStatus",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"notifications",
+								"updateStatus"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Notifications",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_URL}}/v1/notifications/updateStatus",
+									"host": [
+										"{{HOST_URL}}"
+									],
+									"path": [
+										"v1",
+										"notifications",
+										"updateStatus"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 16 Apr 2022 16:30:33 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "13"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": true\n}"
+						}
+>>>>>>> 30cd735 (Updated postmen collection with latest endpoints)
 					]
 				}
 			]
