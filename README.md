@@ -96,32 +96,41 @@ $ go run ./tests
 
 | Type | Api Endpoint | Description | Status |
 | ----------- | ----------- | ----------- | ----------- |
-| Get | `/` | Home (Provide Server Status) | Active |
-| Get | `/v1/posts/getAll/:userId` | Get all user post from user post ID | Active |
-| Get | `/v1/posts/getOne/:id` | Get a single post by post ID | Active |
-| Post | `/v1/posts/create` | Create a user post | Active |
-| Patch | `/v1/posts/update/:id`   | Update an existing post | Active |
-| Delete | `/v1/posts/delete/:id`  | Delete an existing post by post ID | Active |
-| Get | `/v1/comments/getAll/:userId` | Get all user comments from user comment Id | Active |
-| Get | `/v1/comments/getOne/:id` | Get a single comment from user by Id | Active |
-| Post | `/v1/comments/create` | Create a user comment | Active |
-| Patch |  `/v1/comments/update/:id` | Update an existing comment | Active |
-| Delete | `/v1/comments/delete/:id` | Delete a user comment | Active |
-| POST | `/v1/users/register` | Register new users | Active |
-| POST | `/v1/users/login` | Authenticate and create user session | Active |
-| GET | `/v1/users/getUserProfile/:id` | Get user profile by Id | Active |
-| DELETE | `/v1/users/deleteProfile/:id` | Delete user and associated resource | Active |
-| PATCH | `/v1/users/updateProfile/:id` | Update user details | Active |
-| GET | `/v1/users/refreshToken` | Reissue new authentication token | Active |
-| GET | `/v1/users/getProfile` | Get current user profile | Active |
-| POST | `/v1/users/follow/:userId` | Follow user with given userId | Active |
-| GET | `/v1/users/listFollowers/:userId` | List follower of user with given userId | Active |
-| GET | `/v1/tags/getOne/:tagId` | Get tag with given tagId | Active |
-| POST | `/v1/tags/create` | Create a new tag | Active |
-| Patch | `/v1/tags/update/:id` | Update a tag details | Active |
-| Delete | `/v1/tags/delete/:id` | Delete a tag | Active |
-| POST | `/v1/tags/follow/:tagId` | User can follow a tag with given tagId | Active |
-
+| Get    | `/` | Home (Provide Server Status) | Active |
+| Get    | `/v1/posts/getAll/:userId`       | Get all user post from user post ID | Active |
+| Get    | `/v1/posts/getOne/:id`           | Get a single post by post ID | Active |
+| Post   | `/v1/posts/create`               | Create a user post | Active |
+| Patch  | `/v1/posts/update/:id`           | Update an existing post | Active |
+| Delete | `/v1/posts/delete/:id`           | Delete an existing post by post ID | Active |
+| Get    | `/v1/comments/getAll/:userId`    | Get all user comments from user comment Id | Active |
+| Get    | `/v1/comments/getOne/:id`        | Get a single comment from user by Id | Active |
+| Post   | `/v1/comments/create`            | Create a user comment | Active |
+| Patch  |  `/v1/comments/update/:id`       | Update an existing comment | Active |
+| Delete | `/v1/comments/delete/:id`        | Delete a user comment | Active |
+| POST   | `/v1/users/register`             | Register new users | Active |
+| POST   | `/v1/users/login`                | Authenticate and create user session | Active |
+| GET    | `/v1/users/getUserProfile/:id`   | Get user profile by Id | Active |
+| DELETE | `/v1/users/deleteProfile/:id`    | Delete user and associated resource | Active |
+| PATCH  | `/v1/users/updateProfile/:id`    | Update user details | Active |
+| GET    | `/v1/users/refreshToken`         | Reissue new authentication token | Active |
+| GET    | `/v1/users/getProfile`           | Get current user profile | Active |
+| POST   | `/v1/users/follow/:userId`       | Follow user with given userId | Active |
+| GET    | `/v1/users/listFollowers/:userId`| List follower of user with given userId | Active |
+| GET    | `/v1/tags/getOne/:tagId`         | Get tag with given tagId | Active |
+| POST   | `/v1/tags/create`                | Create a new tag | Active |
+| Patch  | `/v1/tags/update/:id`            | Update a tag details | Active |
+| Delete | `/v1/tags/delete/:id`            | Delete a tag | Active |
+| POST   | `/v1/tags/follow/:tagId`         | User can follow a tag with given tagId | Active |
+| GET    | `/v1/users/resetPassword`        | Request for password reset for given email ID | Active |
+| POST   | `/v1/users/updatePassword`       | Update forgotten password using reset token   | Active |
+| GET    | `/v1/posts/getReactions/:postId` | Get user reactions/Interest on a Post         | Active |
+| POST   | `/v1/posts/reactToPost`          | Allow user to add reaction/Interest to a Post | Active |
+| GET    | `/v1/tags/popularTags/:count`    | Get N(count) most popular tags                | Active |
+| GET    | `/v1/tags/selectTags`            | Select users Interest tags during on-boarding | Active |
+| GET    | `/v1/notifications/getNew`       | Get latest notifications for User             | Active |
+| GET    | `/v1/notifications/updateStatus` | Update notification read status               | Active |
+| GET    | `/v1/home/user`                  | Get latest relevant post for user             | Active |
+| GET    | `/v1/home/latest`                | Get latest common post                        | Active |
 # Unit test
 [Unit tests](./tests/) are present in tests folder and could be excuted using make test
 
