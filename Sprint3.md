@@ -53,7 +53,7 @@ Json Response received- <br>
 | POST | `/v1/tags/follow/:tagId` | User can follow a tag with given tagId | Active |
 
 # Unit test
-[Unit tests](./documentation/) are present in tests folder and could be excuted using make test
+[Unit tests](./tests/) are present in tests folder and could be excuted using make test
 
 Working snippets of Unit Tests
 ![User Test](./documentation/screenshots/UsersTest1.PNG)
