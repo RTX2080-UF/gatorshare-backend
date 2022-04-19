@@ -94,7 +94,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\" : \"Lets checkout notification feature\",\r\n    \"description\" : \"Notification for all pizza lovers\",\r\n    \"userLimit\" : 8,\r\n    \"status\" : 1,\r\n    \"tags\" : [\r\n        \"pizza\",\r\n        \"party\"\r\n    ]\r\n}"
+							"raw": "{\r\n    \"title\" : \"Lets checkout notification feature\",\r\n    \"description\" : \"Notification for all pizza lovers\",\r\n    \"userLimit\" : 8,\r\n    \"status\" : 1,\r\n    \"tags\" : [\r\n        \"pizza\",\r\n        \"party\",\r\n        \"Sell Item\",\r\n        \"Bath n Body Works\"\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "{{HOST_URL}}/v1/posts/create",
@@ -257,6 +257,75 @@
 								"posts",
 								"update",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User Post (Generic)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/getAllUserPost/3",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"getAllUserPost",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tags\" : [\"Sell Item\",\"Bath n Body Works\",\"SheIn\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_URL}}/v1/posts/searchPost/",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"searchPost",
+								""
 							]
 						}
 					},
@@ -612,7 +681,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{HOST_URL}}/v1/users/resetPassword?email=anuj.singh.koli@gmail.com",
+							"raw": "{{HOST_URL}}/v1/users/resetPassword?email=dvalasala@ufl.edu",
 							"host": [
 								"{{HOST_URL}}"
 							],
@@ -624,7 +693,7 @@
 							"query": [
 								{
 									"key": "email",
-									"value": "anuj.singh.koli@gmail.com"
+									"value": "dvalasala@ufl.edu"
 								}
 							]
 						}
@@ -1219,7 +1288,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{HOST_URL}}/v1/tags/getOne/2",
+							"raw": "{{HOST_URL}}/v1/tags/getOne/3",
 							"host": [
 								"{{HOST_URL}}"
 							],
@@ -1227,7 +1296,7 @@
 								"v1",
 								"tags",
 								"getOne",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -1646,35 +1715,6 @@
 			"name": "Notifications",
 			"item": [
 				{
-					"name": "Get New Notifications",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{TOKEN}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{HOST_URL}}/v1/notifications/getNew",
-							"host": [
-								"{{HOST_URL}}"
-							],
-							"path": [
-								"v1",
-								"notifications",
-								"getNew"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update Notifications",
 					"request": {
 						"auth": {
@@ -1740,6 +1780,35 @@
 							"body": "{\n    \"data\": true\n}"
 						}
 					]
+				},
+				{
+					"name": "Get New Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/notifications/getNew",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"notifications",
+								"getNew"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
