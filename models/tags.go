@@ -17,9 +17,24 @@ func AddNewTag(db *gorm.DB, tag *Tag) (uint, error) {
 	return tag.ID, nil
 }
 
-func InsertTags(db *gorm.DB, tags[] Tag) (error) {
-	err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(tags).Error
-	return err
+func InsertTags(db *gorm.DB, tags[] Tag) ([] uint, error) {
+	
+	var tagsId []uint
+	var err error
+	for _, tag := range tags {
+		err = db.Create(&tag).Error
+		if (err != nil) {
+			err = nil
+			err = db.Clauses(
+				clause.OnConflict{
+					Columns:   []clause.Column{{Name: "name"}},
+					DoUpdates: clause.Assignments(map[string]interface{}{"votes": tag.Votes + 1}),
+				}).Create(&tag).Error
+		}
+		tagsId = append(tagsId, tag.ID)	
+	}
+
+	return tagsId, err
 }
 
 func GetTag(db *gorm.DB, tag *Tag, id uint) error {
@@ -80,3 +95,14 @@ func AddUserTags(db *gorm.DB, uid uint, tags []uint) error{
 	err := db.Create(&inputObj).Error
 	return err
 } 
+
+func AddPostTags(db *gorm.DB, pid uint, tags []uint) (error){
+	var tagsPost []TagPost
+	for i:=0; i<len(tags); i++ { 
+		var tagPostObj = TagPost{PostID : pid , TagID : tags[i]}
+		tagsPost = 	append(tagsPost, tagPostObj)	
+	}
+
+	err := db.Create(&tagsPost).Error
+	return err
+}

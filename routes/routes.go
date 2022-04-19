@@ -24,6 +24,10 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 
 	v1 := router.Group("/v1")
 	{	
+		home := v1.Group("/home"); { 
+			home.GET("/user", api.GetUserHome);
+			home.GET("/latest", api.GetLatestPost);
+		};
 		users := v1.Group("/users"); {
 			users.POST("register", api.Register)
 			users.POST("login", api.Login)
