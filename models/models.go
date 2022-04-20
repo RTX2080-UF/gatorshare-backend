@@ -112,7 +112,7 @@ type FeedBack struct {
 	UserID      uint   `json:"userId"`
 	User        User
 	Rating      uint   `json:"rating"`
-	Description string `json:"decription"`
+	Description string `json:"description"`
 	RaterID     uint   `json:"raterId"`
 	Rater       User
 }
