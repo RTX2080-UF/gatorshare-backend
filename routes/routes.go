@@ -2,10 +2,12 @@ package routes
 
 import (
 	"gatorshare/controllers"
-	"gorm.io/gorm"
+	"gatorshare/middleware"
 	"net/http"
+
+	// "github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-contrib/cors"
+	"gorm.io/gorm"
 )
 
 func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
@@ -18,7 +20,8 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 	  responseCtx.JSON(http.StatusOK, gin.H{"data": "Welcome to Gatorshare made with the help of Go and Gin!"})    
 	})
 
-	router.Use(cors.Default())
+	// router.Use(cors.Default())
+	router.Use(middleware.CORS())
 
 	api := controllers.Controller{DB: db}
 
