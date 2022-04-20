@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+
 	"gorm.io/gorm"
 )
 
@@ -44,5 +46,18 @@ func ReactToPost(db *gorm.DB, postReaction *UserPost) (uint, error) {
 
 func GetReactions(db *gorm.DB, postId uint, postReaction *[]UserPost) (error) {
 	err := db.Preload("User").Omit("users.password").Where("post_id=?", postId).Find(&postReaction).Error
+	return err
+}
+
+func SearchPost(db *gorm.DB, posts *[]Post, tagIds []uint) error {
+	var err error
+	for _ , elem := range tagIds {
+		var tp TagPost
+		err = db.Preload("Post").Where("tag_id=?",elem).Find(&tp).Error
+		if(err == nil){
+			*posts = append(*posts, tp.Post)
+			fmt.Printf("%v" , posts)
+		}
+	}
 	return err
 }
