@@ -86,7 +86,7 @@ func AddFeedback(db *gorm.DB, feedback *FeedBack) (uint,error){
 	db.Model(user).Find("user_id=?",uid).Updates(User{Rating: uint(avg)})
 	return feedback.ID, nil
 }
-func GetFeedback(db *gorm.DB, feedback *FeedBack, id uint) error {
+func GetFeedback(db *gorm.DB, feedback *FeedBack, id int) error {
 	res := db.Where("user_id =?", id).Find(&feedback)
 	return res.Error
 }
