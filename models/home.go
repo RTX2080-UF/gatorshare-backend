@@ -38,11 +38,11 @@ func GetUserHomePosts(db *gorm.DB, id uint) ([]TagPost, error) {
 	}
 	
 	var tagPosts []TagPost
-	res = db.Preload("Post").Order("created_at desc, updated_at desc").Where("tag_id IN(?)", tagIDs).Find(&tagPosts)
+	res = db.Preload("Post,User").Order("created_at desc, updated_at desc").Where("tag_id IN(?)", tagIDs).Find(&tagPosts)
 	return tagPosts, res.Error
 }
 
 func GetLatestPost(db *gorm.DB, ctx *gin.Context, post *[]Post, id uint) (error) {
-	res := db.Scopes(Paginate(ctx.Request)).Order("created_at desc, updated_at desc").Find(&post)
+	res := db.Preload("User").Scopes(Paginate(ctx.Request)).Order("created_at desc, updated_at desc").Find(&post)
 	return res.Error
 }
