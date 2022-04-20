@@ -13,13 +13,13 @@ type UserProfile struct {
 }
 
 type UpdateUserProfile struct {
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-	Email     string `json:"email"`
+	Firstname    string `json:"firstname"`
+	Lastname     string `json:"lastname"`
+	Email        string `json:"email"`
 	OldPassword  string `json:"oldPassword"`
-	Password  string `json:"password" validate:"min=8,max=40,regexp=^(?=.*[0-9])(?=.*[a-z]).{8,32}$"`
-	Zipcode	  uint   `json:"zipcode"`
-	Avatar    string `json:"avatar"`
+	Password     string `json:"password" validate:"min=8,max=40,regexp=^(?=.*[0-9])(?=.*[a-z]).{8,32}$"`
+	Zipcode	     uint   `json:"zipcode"`
+	Avatar       string `json:"avatar"`
 }
 
 type User struct {
@@ -66,6 +66,7 @@ type Login struct {
 type LoginResponse struct {
 	Data  models.User `json:"userDetails"`
 	Token string 	  `json:"token"`
+	Tag	  []models.Tag		  `json:"tag"`	
 }
 
 func PostRequestToDBModel(req Post, UserID uint) models.Post {

@@ -74,7 +74,7 @@ func PopularTags(db *gorm.DB, tags *[]Tag, countTags int) error {
 
 func CheckTagsExist(db *gorm.DB, tags []uint) []uint {
 	var verifiedTagIds []uint
-	for i:=0; i<len(tags); i++{
+	for i:=0; i<len(tags); i++ {
 		res := db.First(&Tag{},tags[i])
 		if (res.Error == nil) {
 			verifiedTagIds = append(verifiedTagIds, tags[i])
@@ -105,4 +105,16 @@ func AddPostTags(db *gorm.DB, pid uint, tags []uint) (error){
 
 	err := db.Create(&tagsPost).Error
 	return err
+}
+
+func GetUserLikedTags(db *gorm.DB, uid uint)([]Tag, error) {
+	var usertags []TagUser
+	err := db.Preload("Tag").Omit("users.password").Where("user_id=?", uid).Find(&usertags).Error
+
+	var tagsArr []Tag
+	for _, elem := range usertags {
+		tagsArr = append(tagsArr, elem.Tag)
+	}
+
+	return tagsArr, err
 }

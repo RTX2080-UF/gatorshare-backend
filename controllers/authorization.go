@@ -79,10 +79,13 @@ func (base *Controller) Login(ctx *gin.Context) {
 		return
 	}
 
+	userLikedTags, _ := models.GetUserLikedTags(base.DB, userObj.ID)
+
 	userObj.Password = ""
 	var respose = LoginResponse{
 		Data:  userObj,
 		Token: token,
+		Tag: userLikedTags,
 	}
 
 	middleware.RespondJSON(ctx, http.StatusOK, respose, nil)
