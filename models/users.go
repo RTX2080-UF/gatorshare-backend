@@ -70,3 +70,23 @@ func GetFollowers(db *gorm.DB, follower *[]Follower, id uint) error {
 	res := db.Preload("User").Omit("User.password").Where("user_id=?", id).Find(&follower)
 	return res.Error
 }
+
+func AddFeedback(db *gorm.DB, feedback *FeedBack) (uint,error){
+	var user User
+	err := db.Create(feedback).Error
+	if err != nil {
+		return 0, err
+	}
+	uid := feedback.UserID
+	var count int64
+	var sum int64
+	db.Model(feedback).Where("user_id=?",uid).Count(&count)
+	db.Model(feedback).Select("sum(rating)").Row().Scan(&sum)
+	avg := sum / count
+	db.Model(user).Find("user_id=?",uid).Updates(User{Rating: uint(avg)})
+	return feedback.ID, nil
+}
+func GetFeedback(db *gorm.DB, feedback *FeedBack, id int) error {
+	res := db.Where("user_id =?", id).Find(&feedback)
+	return res.Error
+}

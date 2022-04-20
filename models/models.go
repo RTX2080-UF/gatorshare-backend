@@ -21,6 +21,7 @@ type User struct {
 	Avatar    string `json:"avatar"`
 	Password  string `json:"password" gorm:"not null"`
 	Bookmarks string `json:"bookmark"`
+	Rating    uint	 `json:"rating"`
 }
 
 type ResetPassword struct {
@@ -105,4 +106,13 @@ type Follower struct {
 	User	     User
 	FollowerID   uint    `json:"followerId" gorm:"primaryKey"`
 	Follower	 User
+}
+type FeedBack struct {
+	gorm.Model
+	UserID      uint   `json:"userId"`
+	User        User
+	Rating      uint   `json:"rating"`
+	Description string `json:"description"`
+	RaterID     uint   `json:"raterId"`
+	Rater       User
 }

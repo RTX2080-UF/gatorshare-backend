@@ -43,6 +43,8 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 			users.GET("listFollowers/:userId", api.GetFollowers)
 			users.GET("resetPassword", api.ResetPassword)
 			users.POST("updatePassword", api.UpdatePassword)
+			users.POST("addFeedback",api.AddFeedback)
+			users.GET("getFeedback/:userId",api.GetFeedback)
 		};
 		posts := v1.Group("/posts"); {
 			posts.GET("getAll", api.ListPost)
