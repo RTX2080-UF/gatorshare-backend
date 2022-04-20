@@ -100,7 +100,7 @@ func (base *Controller) UpdateProfile(ctx *gin.Context) {
 	}
 	
 	// fmt.Printf("%+v\n",newUserData)
-	if (!middleware.CheckPasswordHash(currentUserData.Password, newUserData.OldPassword)) {
+	if (newUserData.OldPassword != "" && !middleware.CheckPasswordHash(currentUserData.Password, newUserData.OldPassword)) {
 		errCustom := errors.New("unable to update password, password didn't match")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
 		return
