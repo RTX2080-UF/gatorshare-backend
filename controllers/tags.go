@@ -58,7 +58,6 @@ func (base *Controller) AddTag(ctx *gin.Context) {
 }
 
 
-
 func (base *Controller) UpdateTag(ctx *gin.Context) {
 	var tag models.Tag
 	id := ctx.Params.ByName("id")
@@ -186,7 +185,7 @@ func (base *Controller) PopularTags(ctx *gin.Context){
 		return
 	} 
 
-	err = models.PopularTags(base.DB, &tags, int(countTags))
+	err = models.GetPopularTags(base.DB, &tags, int(countTags))
 	if (err != nil){
 		errCustom := errors.New("unable to find tags with the provided frequency count").Error()
 		middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)	

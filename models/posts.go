@@ -10,7 +10,7 @@ func GetAllPost(db *gorm.DB, posts *[]Post, id uint) error {
 }
 
 func AddNewPost(db *gorm.DB, posts *Post) (uint, error) {
-	err := db.Create(posts).Error
+	err := db.Create(&posts).Error
 	if err != nil {
 		return 0, err
 	}

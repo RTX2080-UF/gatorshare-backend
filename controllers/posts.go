@@ -173,9 +173,10 @@ func (base *Controller) DeletePost(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to delete the post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-	} else {
-		middleware.RespondJSON(ctx, http.StatusOK, post, nil)
+		return
 	}
+	
+	middleware.RespondJSON(ctx, http.StatusOK, post, nil)
 }
 
 func (base *Controller) ReactToPost(ctx *gin.Context) {

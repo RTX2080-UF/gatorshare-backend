@@ -52,22 +52,7 @@ func UpdateTag(db *gorm.DB, tag *Tag) error {
 	return res.Error
 }
 
-func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
-	var usersTags = TagUser{
-		UserID: userId,
-		TagID:  tagId,
-	}
-
-	fmt.Print(usersTags)
-	err := db.Create(&usersTags).Error
-	if err != nil {
-		return 0, err
-	}
-
-	return usersTags.ID, nil
-}
-
-func PopularTags(db *gorm.DB, tags *[]Tag, countTags int) error {
+func GetPopularTags(db *gorm.DB, tags *[]Tag, countTags int) error {
 	res := db.Limit(countTags).Order("votes desc").Find(&tags)
 	return res.Error
 }
@@ -117,4 +102,19 @@ func GetUserLikedTags(db *gorm.DB, uid uint)([]Tag, error) {
 	}
 
 	return tagsArr, err
+}
+
+func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
+	var usersTags = TagUser{
+		UserID: userId,
+		TagID:  tagId,
+	}
+
+	fmt.Print(usersTags)
+	err := db.Create(&usersTags).Error
+	if err != nil {
+		return 0, err
+	}
+
+	return usersTags.ID, nil
 }
