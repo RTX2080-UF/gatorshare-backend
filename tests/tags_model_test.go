@@ -20,17 +20,17 @@ func TestBootstrapTags(t *testing.T) {
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 
 	userBaseObj := models.User{
-		Username:  "TestUser99ab" + fmt.Sprint(rnum),
+		Username:  "Test_User_Tags" + fmt.Sprint(rnum),
 		Firstname: "Test User",
-		Email:     "TestUser99ab" + fmt.Sprint(rnum) + "@gatorshare.com",
-		Lastname:  "1",
+		Email:     "TestUserTags" + fmt.Sprint(rnum) + "@gatorshare.com",
+		Lastname:  "Tags",
 		Password:  "Test",
 	}
 
 	_, err := models.AddNewUser(testobj.DB, &userBaseObj)
 
 	postBaseObj := models.Post{
-		Title:       "Test post 1",
+		Title:       "Test post",
 		UserID:      userBaseObj.ID,
 		Description: "Test Message",
 		UserLimit:   4,
@@ -49,7 +49,7 @@ func TestBootstrapTags(t *testing.T) {
 	if err != nil || userBaseObj.ID == 0 || postBaseObj.ID == 0 || commentBaseObj.ID == 0 {
 		t.Error("Unable to create base Object aborting!")
 	} else {
-		t.Log("Succesfully able to create post")
+		t.Log("Succesfully able to create base object")
 	}
 
 	//   testobj.DB.Delete(comment)
@@ -91,12 +91,12 @@ func TestGetOneTag(t *testing.T) {
 }
 
 func TestCreateTags(t *testing.T) {
-	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 	numTags := 10
-
+	
 	for i:=0; i<numTags; i++ {
+		rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 		tagObjArr = append(tagObjArr, models.Tag{ 
-			Name: "Test Tag Bulk" + fmt.Sprint(i),
+			Name: "Test Tag Bulk" + fmt.Sprint(i) + fmt.Sprint(rnum),
 			Description: "Bulk Tags" + fmt.Sprint(i) + "Description" + fmt.Sprint(rnum),
 			Votes: numTags - i,
 			CreatorId: userBaseObj.ID,
