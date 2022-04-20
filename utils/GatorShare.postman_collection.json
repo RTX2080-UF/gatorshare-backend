@@ -790,6 +790,65 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"ID\": 3,\n        \"CreatedAt\": \"2022-04-09T23:26:06.4215922-04:00\",\n        \"UpdatedAt\": \"2022-04-15T17:19:56.1959388-04:00\",\n        \"DeletedAt\": null,\n        \"userName\": \"AnujK\",\n        \"firstName\": \"Anuj-1\",\n        \"lastName\": \"Koli\",\n        \"Email\": \"anuj.singh.koli@gmail.com\",\n        \"zipcode\": 0,\n        \"avatar\": \"\",\n        \"password\": \"$2a$14$nwt5hNC5nLANLI/6pFMuFO83XceDTisDQ0GuND5kf0jwBG6OXUEsC\",\n        \"bookmark\": \"\"\n    }\n}"
+						},
+						{
+							"name": "Update User profile",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"OldPassword\": \"password123\",\r\n    \"Password\": \"newpassword123\" \r\n}"
+								},
+								"url": "{{HOST_URL}}/v1/users/updateProfile"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Apr 2022 04:36:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "313"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"ID\": 16,\n        \"CreatedAt\": \"2022-04-20T00:42:41.31954Z\",\n        \"UpdatedAt\": \"2022-04-20T04:36:58.979033Z\",\n        \"DeletedAt\": null,\n        \"userName\": \"anuj123\",\n        \"firstName\": \"anuj\",\n        \"lastName\": \"k\",\n        \"Email\": \"dvalasala@ufl.edu\",\n        \"zipcode\": 0,\n        \"avatar\": \"\",\n        \"password\": \"$2a$14$hbkPcON8yBOkeAcoRmqBguGOUrQkUBvmD.XMw23NlrG2gU45XE9uO\",\n        \"bookmark\": \"\"\n    }\n}"
 						}
 					]
 				},
@@ -824,6 +883,15 @@
 							"raw": "{\r\n    \"userId\" : 1,\r\n    \"rating\" : 6,\r\n    \"description\" : \"Reliable User\",\r\n    \"raterId\" : 2\r\n}"
 						},
 						"url": "{{HOST_URL}}/v1/users/addFeedback"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feedback",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/users/getFeedback/1"
 					},
 					"response": []
 				}
