@@ -17,7 +17,7 @@ func ConnectDatabaseSqlLite(dbname string) *gorm.DB{
 		dbname = "gorm.db"
 	}
 
-	database, err := gorm.Open(sqlite.Open(dbname), &gorm.Config{Logger: logger.Default.LogMode(logger.Info),})
+	database, err := gorm.Open(sqlite.Open(dbname), &gorm.Config{Logger: logger.Default.LogMode(logger.Error),})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database!")
@@ -28,7 +28,7 @@ func ConnectDatabaseSqlLite(dbname string) *gorm.DB{
 }
 
 func ConnectDatabasePostgres(dbinfo string) *gorm.DB{
-	database, err := gorm.Open(postgres.Open(dbinfo), &gorm.Config{Logger: logger.Default.LogMode(logger.Info),})
+	database, err := gorm.Open(postgres.Open(dbinfo), &gorm.Config{Logger: logger.Default.LogMode(logger.Error),})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database!")
