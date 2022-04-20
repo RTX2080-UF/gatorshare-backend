@@ -305,8 +305,10 @@ func (base *Controller) AddFeedback(ctx *gin.Context) {
 
 func (base *Controller) GetFeedback(ctx *gin.Context) {
 	var feedback models.FeedBack
-	uid := middleware.GetUidFromToken(ctx)
-	if uid == 0 {
+	id := ctx.Params.ByName("userId")
+	// uid := middleware.GetUidFromToken(ctx)
+	uid, err1 := strconv.Atoi(id)
+	if err1 != nil  {
 		return
 	}
 	err := models.GetFeedback(base.DB, &feedback, uid)
@@ -315,7 +317,7 @@ func (base *Controller) GetFeedback(ctx *gin.Context) {
 		errCustom := errors.New("unable to retrieve user feedback with given id").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
 	} else {
-		if feedback.ID != uid {
+		if int(feedback.ID) != uid {
 			errCustom := errors.New("feedback doesn't belong to the given user").Error()
 			middleware.RespondJSON(ctx, http.StatusUnauthorized, errCustom, err)
 			return
