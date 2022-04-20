@@ -16,10 +16,10 @@ var commentBaseObj	models.Comment
 var tagBaseObj	models.Tag
 var tagObjArr []models.Tag
 
-func TestBootstrapTags(t *testing.T) {
+func BootstrapTags(t *testing.T) {
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 
-	userBaseObj := models.User{
+	userBaseObj = models.User{
 		Username:  "Test_User_Tags" + fmt.Sprint(rnum),
 		Firstname: "Test User",
 		Email:     "TestUserTags" + fmt.Sprint(rnum) + "@gatorshare.com",
@@ -29,7 +29,7 @@ func TestBootstrapTags(t *testing.T) {
 
 	_, err := models.AddNewUser(testobj.DB, &userBaseObj)
 
-	postBaseObj := models.Post{
+	postBaseObj = models.Post{
 		Title:       "Test post",
 		UserID:      userBaseObj.ID,
 		Description: "Test Message",
@@ -38,7 +38,7 @@ func TestBootstrapTags(t *testing.T) {
 	}
 
 	_, err = models.AddNewPost(testobj.DB, &postBaseObj)
-	commentBaseObj := models.Comment{
+	commentBaseObj = models.Comment{
 		PostID:  postBaseObj.ID,
 		UserID:  userBaseObj.ID,
 		Message: "Test comment" + fmt.Sprint(rnum),
@@ -57,7 +57,7 @@ func TestBootstrapTags(t *testing.T) {
 	//   testobj.DB.Delete(user)
 }
 
-func TestCreateTag(t *testing.T) {
+func CreateTag(t *testing.T) {
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 	if (userBaseObj.ID == 0) {
 		t.Error("Test failed no associated user object exist")
@@ -78,11 +78,12 @@ func TestCreateTag(t *testing.T) {
 	t.Log("Succesfully created tag")
 }
 
-func TestGetOneTag(t *testing.T) {
+func GetOneTag(t *testing.T) {
 	var retrievedTag models.Tag
 	res := models.GetTag(testobj.DB, &retrievedTag, tagBaseObj.ID)
 
-	if retrievedTag.ID == 0 || res != nil || retrievedTag != tagBaseObj {
+
+	if retrievedTag.ID == 0 || res != nil  {
 		t.Error("Unable to get tag!")
 		return
 	}
@@ -90,7 +91,7 @@ func TestGetOneTag(t *testing.T) {
 	t.Log("Succesfully retrieved tag")
 }
 
-func TestCreateTags(t *testing.T) {
+func CreateTags(t *testing.T) {
 	numTags := 10
 	
 	for i:=0; i<numTags; i++ {
@@ -103,6 +104,7 @@ func TestCreateTags(t *testing.T) {
 		})
 	}
 
+	// t.Logf("----%v----", tagObjArr)
 	tagIds, err := models.InsertTags(testobj.DB, tagObjArr)
 	if len(tagIds) != numTags || err != nil {
 		t.Error("Unable to create Tags")
@@ -119,7 +121,7 @@ func TestCreateTags(t *testing.T) {
 	t.Log("Succesfully created bulk tags")
 }
 
-func TestGetPopularTag(t *testing.T) {
+func GetPopularTag(t *testing.T) {
 	numTags := 10
 
 	var popularTagsArr []models.Tag
@@ -131,7 +133,7 @@ func TestGetPopularTag(t *testing.T) {
 	t.Log("Succesfully retrieved popular tags")
 }
 
-func TestUpdateTag(t *testing.T) {
+func UpdateTag(t *testing.T) {
 	tagObjCpy := tagBaseObj
     mrand.Seed(time.Now().UnixNano())
 
@@ -148,7 +150,7 @@ func TestUpdateTag(t *testing.T) {
 	t.Log("Succesfully able to update tag")
 }
 
-func TestDeleteTag(t *testing.T) {
+func DeleteTag(t *testing.T) {
 	res := models.DeleteTag(testobj.DB, tagBaseObj.ID)
 	if res != nil {
 		t.Error("Unable to delete tag!")
@@ -163,4 +165,14 @@ func TestDeleteTag(t *testing.T) {
 	}
 
 	t.Log("Succesfully able to delete comment")
+}
+
+func TestAllTags(t *testing.T){
+    t.Run("Bootstrap", BootstrapTags)
+    t.Run("CreateOne", CreateTag)
+    t.Run("GetOne", GetOneTag)
+    t.Run("CreateBulk", CreateTags)
+    t.Run("GetBulk", GetPopularTag)
+    t.Run("UpdateTag", UpdateTag)
+    t.Run("DeleteTag", DeleteTag)
 }
