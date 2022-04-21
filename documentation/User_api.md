@@ -45,9 +45,24 @@ Return all comments associated with a post with given id
 # Response
 // If user is succesfully authenticated
 {
-    "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NDY0NDQ0NjYsInVzZXJfaWQiOjF9.-XzJYiPF7U-zYQ525kUQEiqkCtJM6foxqspjL73lprk"
+    "data": {
+        "userDetails": {
+            "ID": 3,
+            "CreatedAt": "2022-04-09T23:26:06.4215922-04:00",
+            "UpdatedAt": "2022-04-15T17:19:56.1959388-04:00",
+            "DeletedAt": null,
+            "userName": "johndoe",
+            "firstName": "John",
+            "lastName": "Doe",
+            "Email": "johndoe@gatorshare.com",
+            "zipcode": 0,
+            "avatar": "",
+            "password": "",
+            "bookmark": ""
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTAzNDMxOTYsInVzZXJfaWQiOjN9.lC33tz1Cg1_SLT6R7SZgBWuQuIcUdawM0iqqibwT3aM"
+    }
 }
-
 // If user authentication fails
 {
     "error": "unable to authenticate user"
@@ -298,5 +313,46 @@ Response
 {
     "error": "error message",
     "errorDetails": "error message"
+}
+```
+
+## Request to reset forgotten password for given emailId 
+Endpoint -GET- http://localhost:8080/v1/users/resetPassword?email=allensolley@gatorshare.com <br>
+Send a password reset link to users email account   
+
+Response
+```json
+// if the user with given id exists and password reset link sent successfully:
+{
+    "data": true
+}
+
+// if the user doesn't exist or not able to generate reset link:
+{
+    "error": "Unable to generate password reset link",
+    "errorDetails": "Unable to generate password reset link"
+}
+```
+
+## Update password using reset password link 
+Endpoint -POST- http://localhost:8080/v1/users/updatePassword <br>
+Update password to new password if correct reset token is provided    
+
+this endpoint require  following x-www-form-urlencoded parameters
+email = "allensolley@gatorshare.com" *users email address*
+token = "$2a$14$aJia6YKg5cqBcl.r2sJVNO4mjzLj1FWxHlI6fEkbroDOUTCxr4TBq" *token from email*
+password = "newpassword" *newpassword string*
+
+Response
+```json
+// if the user with given id exists and password get reset succcesfully:
+{
+    "data": true
+}
+
+// if the user doesn't exist or not able to generate reset link:
+{
+    "error": "Unable to update password for user",
+    "errorDetails": "Unable to update password for user"
 }
 ```

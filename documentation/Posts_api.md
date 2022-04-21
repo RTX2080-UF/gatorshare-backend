@@ -204,7 +204,157 @@ Update post details if post exists else return error
         "tags": ""
     }
 }
+
 // If unable to update user posts
+{
+    "error": "error message"
+}
+```
+
+## Get reactions on a post by ID 
+Endpoint -GET- http://localhost:8080/v1/posts/getReactions/2 <br>
+Return reactions on post with given id if they exists else return error  
+
+Response <br>
+```json
+// if reactions exist for the post:
+{
+    "data": [
+        {
+            "ID": 1,
+            "CreatedAt": "2022-04-13T18:38:24.5347992-04:00",
+            "UpdatedAt": "2022-04-13T18:38:24.5347992-04:00",
+            "DeletedAt": null,
+            "postId": 2,
+            "Post": {
+                "ID": 0,
+                "CreatedAt": "0001-01-01T00:00:00Z",
+                "UpdatedAt": "0001-01-01T00:00:00Z",
+                "DeletedAt": null,
+                "userId": 0,
+                "User": {
+                    "ID": 0,
+                    "CreatedAt": "0001-01-01T00:00:00Z",
+                    "UpdatedAt": "0001-01-01T00:00:00Z",
+                    "DeletedAt": null,
+                    "userName": "",
+                    "firstName": "",
+                    "lastName": "",
+                    "Email": "",
+                    "zipcode": 0,
+                    "avatar": "",
+                    "password": "",
+                    "bookmark": ""
+                },
+                "title": "",
+                "description": "",
+                "userLimit": 0,
+                "participantNum": 0,
+                "Expiry": 0,
+                "viewCount": 0,
+                "status": 0,
+                "categories": "",
+                "tags": ""
+            },
+            "tagId": 3,
+            "User": {
+                "ID": 3,
+                "CreatedAt": "2022-04-09T23:26:06.4215922-04:00",
+                "UpdatedAt": "2022-04-15T17:19:56.1959388-04:00",
+                "DeletedAt": null,
+                "userName": "AnujK",
+                "firstName": "Anuj-1",
+                "lastName": "Koli",
+                "Email": "anuj.singh.koli@gmail.com",
+                "zipcode": 0,
+                "avatar": "",
+                "password": "",
+                "bookmark": ""
+            },
+            "Reaction": "INTERESTED"
+        },
+        {
+            "ID": 2,
+            "CreatedAt": "2022-04-13T18:38:26.0346405-04:00",
+            "UpdatedAt": "2022-04-13T18:38:26.0346405-04:00",
+            "DeletedAt": null,
+            "postId": 2,
+            "Post": {
+                "ID": 0,
+                "CreatedAt": "0001-01-01T00:00:00Z",
+                "UpdatedAt": "0001-01-01T00:00:00Z",
+                "DeletedAt": null,
+                "userId": 0,
+                "User": {
+                    "ID": 0,
+                    "CreatedAt": "0001-01-01T00:00:00Z",
+                    "UpdatedAt": "0001-01-01T00:00:00Z",
+                    "DeletedAt": null,
+                    "userName": "",
+                    "firstName": "",
+                    "lastName": "",
+                    "Email": "",
+                    "zipcode": 0,
+                    "avatar": "",
+                    "password": "",
+                    "bookmark": ""
+                },
+                "title": "",
+                "description": "",
+                "userLimit": 0,
+                "participantNum": 0,
+                "Expiry": 0,
+                "viewCount": 0,
+                "status": 0,
+                "categories": "",
+                "tags": ""
+            },
+            "tagId": 3,
+            "User": {
+                "ID": 3,
+                "CreatedAt": "2022-04-09T23:26:06.4215922-04:00",
+                "UpdatedAt": "2022-04-15T17:19:56.1959388-04:00",
+                "DeletedAt": null,
+                "userName": "AnujK",
+                "firstName": "Anuj-1",
+                "lastName": "Koli",
+                "Email": "anuj.singh.koli@gmail.com",
+                "zipcode": 0,
+                "avatar": "",
+                "password": "",
+                "bookmark": ""
+            },
+            "Reaction": "INTERESTED"
+        }
+    ]
+}
+
+// if no reaction exist then
+{
+  "data": []
+} 
+
+// if error retrieving the reactions then: 
+{
+  "error": "record not found"
+}
+```
+
+## POST reactions on a post by given ID 
+Endpoint -POST- http://localhost:8080/v1/posts/reactToPost <br>
+Add reaction/Interest to a post with given ID if it exists else return error  
+
+this endpoint require following x-www-form-urlencoded parameters  <br>
+postid = 18 *numeric ID* <br>
+reaction = {"INTERESTED", "MAYBE", "NOTINTERESTED"} *anyone of the given strings*
+
+```json
+// If post reaction get Successfully added
+{
+    "data": 3
+}
+
+// If unable to update reaction on user posts
 {
     "error": "error message"
 }

@@ -9,7 +9,7 @@ func UpdatResetPassword(db *gorm.DB, resetObj ResetPassword) (bool, error) {
 
 	err :=db.Clauses(clause.OnConflict{
 		Columns:   []clause.Column{{Name: "user_id"}},
-		DoUpdates: clause.Assignments(map[string]interface{}{"unique_rnd_str": resetObj.UniqueRndStr}),
+		DoUpdates: clause.Assignments(map[string]interface{}{"status":true, "unique_rnd_str": resetObj.UniqueRndStr}),
 	  }).Create(&resetObj).Error
 	if err != nil {
 		return false, err
