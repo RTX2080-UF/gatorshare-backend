@@ -11,7 +11,7 @@ func AddNewComment(db *gorm.DB, comments *Comment) (uint, error) {
 }
 
 func GetAllComment(db *gorm.DB, comments *[]Comment, id uint) error {
-	res := db.Where("post_id = ?", id).Find(&comments)
+	res := db.Preload("User").Where("post_id = ?", id).Find(&comments)
 	return res.Error
 }
 

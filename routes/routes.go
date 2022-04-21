@@ -55,6 +55,7 @@ func InitializeRoutes(db *gorm.DB, envSrc bool) *gin.Engine {
 			posts.DELETE("delete/:id", api.DeletePost)
 			posts.POST("reactToPost", api.ReactToPost)
 			posts.POST("searchPost",api.SearchPost)
+			posts.GET("getAllUserPost/:userId",api.GetUserPosts)
 		};
 		comments := v1.Group("/comments"); {
 			comments.GET("getAll/:postId", api.GetAllComment)
