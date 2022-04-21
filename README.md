@@ -87,11 +87,6 @@ else you can directly run
 $ go run ./tests
 ```
 
-## Api Details (Documentation)
-- [User Api Endpoints](./documentation/User_api.md)
-- [Post Api Endpoints](./documentation/Posts_api.md)
-- [Comment Api Endpoints](./documentation/Comment_api.md)
-
 # Api endpoints
 
 | Type | Api Endpoint | Description | Status |
