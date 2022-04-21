@@ -759,6 +759,100 @@
 						"url": "{{HOST_URL}}/v1/tags/follow/4"
 					},
 					"response": []
+				},
+				{
+					"name": "Follow Tags (Onboarding) Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"user id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1,2,3,4]"
+						},
+						"url": "{{HOST_URL}}/v1/tags/selectTags"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tags Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"user id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Test tag 2\",\r\n    \"Description\": \"Test tag 2\"\r\n}"
+						},
+						"url": "{{HOST_URL}}/v1/tags/create"
+					},
+					"response": []
 				}
 			]
 		}
