@@ -118,3 +118,15 @@ func FollowTagsByUser(db *gorm.DB, userId uint, tagId uint) (uint, error) {
 
 	return usersTags.ID, nil
 }
+
+func SearchTagIdHelper(db *gorm.DB, tagNames []string) ([]uint){
+	var tagIds []uint
+	for _, elem := range tagNames {
+		var tag Tag
+		err := db.Where("name=?",elem).Find(&tag).Error
+		if err == nil {
+			tagIds = append(tagIds, tag.ID)
+		}
+	}
+	return tagIds
+}

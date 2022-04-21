@@ -173,10 +173,9 @@ func (base *Controller) DeletePost(ctx *gin.Context) {
 	if err != nil {
 		errCustom := errors.New("unable to delete the post").Error()
 		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
-		return
+	} else {
+		middleware.RespondJSON(ctx, http.StatusOK, post, nil)
 	}
-	
-	middleware.RespondJSON(ctx, http.StatusOK, post, nil)
 }
 
 func (base *Controller) ReactToPost(ctx *gin.Context) {
@@ -262,6 +261,37 @@ func (base *Controller) GetPostReaction(ctx *gin.Context) {
 	}
 }
 
+func (base *Controller) SearchPost(ctx *gin.Context){
+	var verifiedPosts []models.Post
+	var tagIds []uint
+	var tagList SearchPostReq
+	uid := middleware.GetUidFromToken(ctx)
+	if uid == 0 {
+		return
+	}
+	
+	err := ctx.ShouldBindJSON(&tagList);
+	if err != nil {
+		errCustom := errors.New("invalid tag object provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+	}
+
+	tagIds = models.SearchTagIdHelper(base.DB, tagList.TagNames)
+	if(len(tagIds) == 0){
+		errCustom := errors.New("Unable to fetch Tags")
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), errCustom)
+		return
+	}else{
+		err = models.SearchPost(base.DB, &verifiedPosts, tagIds)
+		if err != nil {
+			errCustom := errors.New("unable to associate post with given tag id").Error()
+			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
+			return
+		} 
+		middleware.RespondJSON(ctx, http.StatusOK, verifiedPosts, nil)
+	}
+}
 
 func (base *Controller) GetUserPosts(ctx *gin.Context) {
 	var posts []models.Post
@@ -285,4 +315,5 @@ func (base *Controller) GetUserPosts(ctx *gin.Context) {
 	} 
 	
 	middleware.RespondJSON(ctx, http.StatusOK, posts, err)
+
 }

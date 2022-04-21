@@ -69,6 +69,10 @@ type LoginResponse struct {
 	Tag	  []models.Tag		  `json:"tag"`	
 }
 
+type SearchPostReq struct {
+	TagNames	 []string	`json:"tags"`	
+}
+
 func PostRequestToDBModel(req Post, UserID uint) models.Post {
 	return models.Post {
 		UserID:       UserID,  
