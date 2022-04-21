@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	"fmt"
 	"gatorshare/middleware"
 	"gatorshare/models"
 	"log"
@@ -292,7 +291,7 @@ func (base *Controller) SearchPost(ctx *gin.Context){
 		} 
 		middleware.RespondJSON(ctx, http.StatusOK, verifiedPosts, nil)
 	}
-
+}
 
 func (base *Controller) GetUserPosts(ctx *gin.Context) {
 	var posts []models.Post
