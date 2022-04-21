@@ -5,7 +5,7 @@ import (
 )
 
 func AddNotification(db *gorm.DB, notification *Notification) (uint, error) {
-	err := db.Create(notification).Error
+	err := db.Create(&notification).Error
 	if err != nil {
 		return 0, err
 	}
