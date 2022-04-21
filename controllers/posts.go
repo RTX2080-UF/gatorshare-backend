@@ -262,6 +262,7 @@ func (base *Controller) GetPostReaction(ctx *gin.Context) {
 	}
 }
 
+
 func (base *Controller) SearchPost(ctx *gin.Context){
 	var verifiedPosts []models.Post
 	var tagIds []uint
