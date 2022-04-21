@@ -637,6 +637,59 @@
 						"url": "{{HOST_URL}}/v1/tags/getOne/3"
 					},
 					"response": []
+				},
+				{
+					"name": "Get Popular Tags Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"creatorId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Creator\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"rating\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/tags/popularTags/5"
+					},
+					"response": []
 				}
 			]
 		}
