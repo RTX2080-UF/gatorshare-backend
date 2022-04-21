@@ -137,7 +137,30 @@ $ go run ./tests
 # Unit test
 [Unit tests](./tests/) are present in tests folder and could be excuted using make test
 
-Working snippets of Unit Tests
-![User Test](./documentation/screenshots/UsersTest1.PNG)
-![User Post Test](./documentation/screenshots/PostsTest1.PNG)
-![User Comment Test](./documentation/screenshots/CommentsTests1.PNG)
+## Deliverables
+[Sprint 4 Issues](https://github.com/RTX2080-UF/gatorshare-backend/issues?q=is%3Aissue+is%3Aclosed+milestone%3A%22Sprint+4%22)
+
+## Api Details (Documentation)
+- [User Api Endpoints](./documentation/User_api.md)
+- [Post Api Endpoints](./documentation/Posts_api.md)
+- [Comment Api Endpoints](./documentation/Comment_api.md)
+- [Tag Api Endpoints](./documentation/Tag_api.md)
+- [Notification Api Endpoints](./documentation/Notification_api.md)
+- [Home Api Endpoints](./documentation/Home_api.md)
+
+## Application Public Url
+- [FrontEnd Deployed URL](https://gatorshare.netlify.app/) 
+- [Backend Deployed URL](https://gatorshare.herokuapp.com/)
+- [Project Board URL](https://github.com/orgs/RTX2080-UF/projects/3)
+
+# Demo Video
+https://user-images.githubusercontent.com/24786834/164369957-9d476b9b-019d-4647-8f30-237173179b9f.mp4
+
+# Cypress Video
+https://user-images.githubusercontent.com/24786834/164369235-06d3801d-d1c6-4824-90ff-b25386dcdacb.mp4
+
+# API working
+https://user-images.githubusercontent.com/25840499/164370596-a2e24a1e-e0a4-484f-adb0-c719ff1529ed.mp4
+
+# Functional Test & Unit Tests
+https://user-images.githubusercontent.com/25840499/164372129-5c18a6a8-83ed-4f9f-85af-3316933ef2f7.mp4
