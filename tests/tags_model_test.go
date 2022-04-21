@@ -10,12 +10,6 @@ import (
 	"time"
 )
 
-var userBaseObj models.User
-var postBaseObj models.Post
-var commentBaseObj	models.Comment
-var tagBaseObj	models.Tag
-var tagObjArr []models.Tag
-
 func BootstrapTags(t *testing.T) {
 	rnum, _ := rand.Int(rand.Reader, big.NewInt(1000))
 
