@@ -866,6 +866,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status Code 204\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
 									""
 								],
 								"type": "text/javascript"
