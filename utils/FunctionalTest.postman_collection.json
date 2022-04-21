@@ -690,6 +690,28 @@
 						"url": "{{HOST_URL}}/v1/tags/popularTags/5"
 					},
 					"response": []
+				},
+				{
+					"name": "Delete Tag Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/tags/delete/2"
+					},
+					"response": []
 				}
 			]
 		}
