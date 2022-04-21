@@ -38,7 +38,7 @@ func GetUserHomePosts(db *gorm.DB, id uint) ([]TagPost, error) {
 	}
 	
 	var tagPosts []TagPost
-	res = db.Preload("Post").Preload("Post.User").Order("created_at desc, updated_at desc").Where("tag_id IN(?)", tagIDs).Find(&tagPosts)
+	res = db.Preload("Post").Preload("Post.User").Distinct("post_id").Order("created_at desc, updated_at desc").Where("tag_id IN(?)", tagIDs).Find(&tagPosts)
 	return tagPosts, res.Error
 }
 
