@@ -87,7 +87,7 @@ func (base *Controller) AddNewComment(ctx *gin.Context) {
 		"")
 
 	var notification = models.Notification {
-		UserID: userData.ID,
+		UserID: post.User.ID,
 		Description: notif_message,
 	}
 
