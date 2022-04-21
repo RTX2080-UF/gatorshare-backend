@@ -154,7 +154,7 @@ $ go run ./tests
 - [Project Board URL](https://github.com/orgs/RTX2080-UF/projects/3)
 
 # Demo Video
-https://user-images.githubusercontent.com/24786834/164369957-9d476b9b-019d-4647-8f30-237173179b9f.mp4
+https://user-images.githubusercontent.com/24786834/164372870-bd0e0e13-9580-46d7-b2de-76be7cd4fa68.mp4
 
 # Cypress Video
 https://user-images.githubusercontent.com/24786834/164369235-06d3801d-d1c6-4824-90ff-b25386dcdacb.mp4
