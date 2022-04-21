@@ -17,6 +17,10 @@ Stack:
 # Demo Video
 ## API working
 
+
+https://user-images.githubusercontent.com/25840499/164370596-a2e24a1e-e0a4-484f-adb0-c719ff1529ed.mp4
+
+
 ## Functional Test & Unit Tests
 # Sprint 4 
 
@@ -80,12 +84,6 @@ Json Response
 ## Unit test
 [Unit tests](./tests/) are present in tests folder and could be excuted using make test
 
-Working snippets of Unit Tests
-![User Test](./documentation/screenshots/UsersTest1.PNG)
-![User Post Test](./documentation/screenshots/PostsTest1.PNG)
-![User Comment Test](./documentation/screenshots/CommentsTests1.PNG)
-
-
 ## Functional test
 ![Functional test](./documentation/screenshots/output_sprint3_functional_test.gif) 
-Functional test are created with the help of postman and they are present in utils folder with file name FunctionalTest.postman_collection.json
+Functional test are created with the help of postman and they are present in [utils folder](./utils/FunctionalTest.postman_collection.json)
