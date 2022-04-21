@@ -33,7 +33,7 @@ func (base *Controller) GetProfileGeneric(ctx *gin.Context) {
 	err = models.GetUserProfile(base.DB, &userData, uint(userId))
 	userData.Password = ""
 	userData.Bookmarks = ""
-	userData.Email = ""
+	// userData.Email = ""
 
 	if err != nil {
 		errCustom := errors.New("unable to retrieve user profile with given id").Error()

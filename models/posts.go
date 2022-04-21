@@ -5,7 +5,7 @@ import (
 )
 
 func GetAllPost(db *gorm.DB, posts *[]Post, id uint) error {
-	res := db.Where("user_id = ?", id).Find(&posts)
+	res := db.Preload("User").Where("user_id = ?", id).Find(&posts)
 	return res.Error
 }
 

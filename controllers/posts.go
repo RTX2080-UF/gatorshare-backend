@@ -293,4 +293,28 @@ func (base *Controller) SearchPost(ctx *gin.Context){
 		middleware.RespondJSON(ctx, http.StatusOK, verifiedPosts, nil)
 	}
 
+
+func (base *Controller) GetUserPosts(ctx *gin.Context) {
+	var posts []models.Post
+
+	userIdStr := ctx.Params.ByName("userId")
+	userId, err := strconv.Atoi(userIdStr)
+	log.Print("Got request to get User posts", userId)
+
+    if err != nil {
+		errCustom := errors.New("invalid user id provided").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+    }
+
+	err = models.GetAllPost(base.DB, &posts, uint(userId))
+
+	if err != nil {
+		errCustom := errors.New("unable to retrieve user posts with given id").Error()
+		middleware.RespondJSON(ctx, http.StatusBadGateway, errCustom, err)
+		return
+	} 
+	
+	middleware.RespondJSON(ctx, http.StatusOK, posts, err)
+
 }
