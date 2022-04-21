@@ -49,6 +49,7 @@ func GetReactions(db *gorm.DB, postId uint, postReaction *[]UserPost) (error) {
 	return err
 }
 
+
 func SearchPost(db *gorm.DB, posts *[]Post, tagIds []uint) error {
 	var err error
 	for _ , elem := range tagIds {
