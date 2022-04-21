@@ -290,7 +290,6 @@ func (base *Controller) SearchPost(ctx *gin.Context){
 			middleware.RespondJSON(ctx, http.StatusNotFound, errCustom, err)
 			return
 		} 
-		fmt.Printf("posts------------ %v", verifiedPosts)
 		middleware.RespondJSON(ctx, http.StatusOK, verifiedPosts, nil)
 	}
 
