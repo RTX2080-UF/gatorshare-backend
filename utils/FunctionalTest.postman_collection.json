@@ -993,6 +993,55 @@
 						"url": "{{HOST_URL}}/v1/home/user"
 					},
 					"response": []
+				},
+				{
+					"name": "Home Latest Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 204\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/home/latest?page=2&page_size=10",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"home",
+								"latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "page_size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
