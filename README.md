@@ -14,7 +14,7 @@ Stack:
 
 # GatorShare
 
-College life is difficult, and expensive (unless you are Bill Gates' child). So, obviously, you'd want to save some money - let's say by sharing that cab ride to the airport (why would you even go there, though?), or maybe buy a large pizza and split the bill (and hopefully the pizza too) with different people. Whatever you want to do, GatorShare has you covered. Find people who want to share or split stuff with you and save money in the process. Wait, but its not just that, check out all that we offer below:
+Gatorshare is a social media platform built to specifically cater to the need of international students. Users can come along and make plans for a trip or they can just post about buying and splitting stuff or resale their things. Using our app is straightforward a user firsts register to the platform and provide us with their basic Identification details and Interests, then the user creates a post based on their requirement, other users will receive notification about the new event nearby and they can now react on the posts to show their interest. Users have all the other basic functionality like maintaining their profile, getting email notifications, or just resetting their password. Apart from these users can enjoy other features like User rating/feedback and searching for relevant posts. By sharing that cab ride to the airport or maybe buy a large pizza and split the bill with different people. Whatever you want to do, GatorShare has you covered. Find people who want to share or split stuff with you and save money in the process. Wait, but its not just that, check out all that we offer below:
 
 ## User Features
 ### Ride Sharing
