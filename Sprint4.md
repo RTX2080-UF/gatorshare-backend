@@ -69,7 +69,9 @@ Json Response
 | GET  | `/v1/notifications/updateStatus` | Update notification read status               | Active |
 | GET  | `/v1/home/user`                  | Get latest relevant post for user             | Active |
 | GET  | `/v1/home/latest`                | Get latest common post                        | Active |
-
+| POST | `/v1/users/addFeedback`          | Add User Feedback and Update User Rating      | Active |
+| GET  | `/v1/users/getFeedback/:userId`  | Return User Feedback                          | Active |
+| POST | `/v1/posts/searchPost/`          | Search Post by Tags                           | Active |
 
 # Backend Tests
 ## Unit test
