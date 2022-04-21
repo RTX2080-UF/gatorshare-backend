@@ -133,6 +133,7 @@ $ go run ./tests
 | GET    | `/v1/home/latest`                | Get latest common post                        | Active |
 | GET  | `/v1/users/getFeedback/:userId`  | Return User Feedback                          | Active |
 | POST | `/v1/posts/searchPost/`          | Search Post by Tags                           | Active |
+| POST | `/v1/users/addFeedback`          | Add User Feedback and Update User Rating      | Active |
 # Unit test
 [Unit tests](./tests/) are present in tests folder and could be excuted using make test
 
