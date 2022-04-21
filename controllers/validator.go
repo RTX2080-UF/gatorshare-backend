@@ -69,6 +69,7 @@ type LoginResponse struct {
 	Tag	  []models.Tag		  `json:"tag"`	
 }
 
+
 type SearchPostReq struct {
 	TagNames	 []string	`json:"tags"`	
 }
