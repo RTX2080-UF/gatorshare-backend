@@ -131,6 +131,8 @@ $ go run ./tests
 | GET    | `/v1/notifications/updateStatus` | Update notification read status               | Active |
 | GET    | `/v1/home/user`                  | Get latest relevant post for user             | Active |
 | GET    | `/v1/home/latest`                | Get latest common post                        | Active |
+| GET  | `/v1/users/getFeedback/:userId`  | Return User Feedback                          | Active |
+| POST | `/v1/posts/searchPost/`          | Search Post by Tags                           | Active |
 # Unit test
 [Unit tests](./tests/) are present in tests folder and could be excuted using make test
 
