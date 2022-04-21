@@ -963,6 +963,36 @@
 						"url": "{{HOST_URL}}"
 					},
 					"response": []
+				},
+				{
+					"name": "Home User Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 204\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/home/user"
+					},
+					"response": []
 				}
 			]
 		}
