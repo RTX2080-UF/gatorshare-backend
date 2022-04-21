@@ -51,7 +51,7 @@ func SearchPost(db *gorm.DB, posts *[]Post, tagIds []uint) error {
 	var err error
 	for _ , elem := range tagIds {
 		var tp TagPost
-		err = db.Preload("Post").Preload("User").Where("tag_id=?",elem).Find(&tp).Error
+		err = db.Preload("Post").Where("tag_id=?",elem).Find(&tp).Error
 		if(err == nil){
 			*posts = append(*posts, tp.Post)
 		}
