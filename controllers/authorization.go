@@ -168,11 +168,18 @@ func (base *Controller) ResetPassword(ctx *gin.Context) {
 }
 
 func (base *Controller) UpdatePassword(ctx *gin.Context) {
-	emailStr := ctx.PostForm("email")
-	tokenStr := ctx.PostForm("token")
+	var updatePass UpdatePasswordReq 
+	err := ctx.ShouldBindJSON(&updatePass);
+	if err != nil {
+		errCustom := errors.New("invalid updatePass request").Error()
+		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom, err)
+		return
+	}
+	
+	emailStr := updatePass.Email
+	tokenStr := updatePass.Token
 
-	_, err := mail.ParseAddress(emailStr)
-
+	_, err = mail.ParseAddress(emailStr)
 	if err != nil {
 		errCustom := errors.New("Invalid email address provided")
 		middleware.RespondJSON(ctx, http.StatusBadRequest, errCustom.Error(), err)

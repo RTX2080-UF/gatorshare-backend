@@ -73,6 +73,12 @@ type SearchPostReq struct {
 	TagNames	 []string	`json:"tags"`	
 }
 
+type UpdatePasswordReq struct {
+	Email	 	string	`json:"email"`
+	Token	 	string	`json:"token"`	
+	Password	string	`json:"password"`		
+}
+
 func PostRequestToDBModel(req Post, UserID uint) models.Post {
 	return models.Post {
 		UserID:       UserID,  
