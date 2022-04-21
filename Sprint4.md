@@ -15,19 +15,22 @@ Stack:
 - Database: Postgres and sqlite
 
 # Demo Video
+## API working
 
+## Functional Test & Unit Tests
 # Sprint 4 
 
 ## Deliverables
-Following are the git (#issue number) with corresponding feature implementation
+[Sprint 4 Issues](https://github.com/RTX2080-UF/gatorshare-backend/issues?q=is%3Aissue+is%3Aclosed+milestone%3A%22Sprint+4%22)
 
+Following are the git (#issue number) with corresponding feature implementation
 - Forgot password option was added and password reset link through email is sent (#9).
 - Users will now have updated posts on their homepage (#19).
 - Email notification and get latest notification endpoint has been added (#80).
 - User reactions on post is implemented to display interest (#81). 
-- [*]Users can now rate other users (#11).
-- [*]Users can search for post matching their specific interest (#34).
-- [*]Users can reply to other user comments (#6).
+- Users can now rate other users (#11).
+- Users can search for post matching their specific interest (#34).
+- Users can reply to other user comments (#6).
 - Functional and unit test cases has been extended for new API endpoints.
 - Added Documentation for Sprint 4.
 
@@ -35,7 +38,7 @@ Following are the git (#issue number) with corresponding feature implementation
 - Fixed create post to added newly generated tags with a post. 
 - Updated login endpoint to return user details alongside with token.
 - Updated update user profile endpoint to only update password if old password is provided.
-
+ 
 ## Application Public Url
 [FrontEnd](https://gatorshare.netlify.app/)
 [Backend](https://gatorshare.herokuapp.com/)
