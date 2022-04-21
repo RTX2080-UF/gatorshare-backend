@@ -1,571 +1,1049 @@
 {
 	"info": {
-		"_postman_id": "fa7ed480-0660-4ecb-bd74-694393d573eb",
+		"_postman_id": "13bd1f46-e2c2-4575-8a87-1fed60260799",
 		"name": "FunctionalTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create Post Tests",
-			"event": [
+			"name": "Posts",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"id was assigned\", function(){ \r",
-							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Response time is less than 200s\", function(){\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Status code name has String\", function(){\r",
-							"    pm.response.to.have.status(\"OK\");\r",
-							"});\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{TOKEN}}"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}",
-					"options": {
-						"raw": {
-							"language": "text"
+					"name": "Create Post Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : 1,\r\n    \"title\" : \"Test post 1\",\r\n    \"description\" : \"My first post\",\r\n    \"userLimit\" : 4,\r\n    \"status\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "http://localhost:8080/v1/posts/create"
+					},
+					"response": []
 				},
-				"url": "http://localhost:8080/v1/posts/create"
-			},
-			"response": []
-		},
-		{
-			"name": "Create Comment Tests",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"id was assigned\", function(){ \r",
-							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response time is less than 200s\", function(){\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code name has String\", function(){\r",
-							"    pm.response.to.have.status(\"OK\");\r",
-							"});\r",
-							"\r",
-							"\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{TOKEN}}"
-					}
+					"name": "Delete Post Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(\"response is ok\", function () {\r",
+									"//     pm.response.to.have.status(200);\r",
+									"// });\r",
+									"\r",
+									"// pm.test(\"response json data should not have errors\", function () {\r",
+									"//     pm.response.to.have.jsonBody();\r",
+									"//     pm.response.to.not.have.jsonBody('error');\r",
+									"// });\r",
+									"\r",
+									"pm.test(\"Status Code 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/v1/posts/delete/2"
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"userId\" : 5,\n\t\"postId\" : 2,\n\t\"message\" : \"API Test message\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+				{
+					"name": "Get post by ID Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"User\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"participantNum\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Expiry\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"categories\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/posts/getOne/2"
+					},
+					"response": []
 				},
-				"url": "http://localhost:8080/v1/comments/create"
-			},
-			"response": []
+				{
+					"name": "Get All user post Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"User\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"participantNum\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Expiry\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"categories\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/posts/getAll"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "Get post by ID Tests",
-			"event": [
+			"name": "Comments",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"response must be valid and have a body\", function () {\r",
-							"     pm.response.to.be.ok;\r",
-							"     pm.response.to.be.withBody;\r",
-							"     pm.response.to.be.json;\r",
-							"});\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"User\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"password\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"participantNum\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Expiry\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"categories\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v1/posts/getOne/2"
-			},
-			"response": []
-		},
-		{
-			"name": "Get All user post Tests",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"response must be valid and have a body\", function () {\r",
-							"     pm.response.to.be.ok;\r",
-							"     pm.response.to.be.withBody;\r",
-							"     pm.response.to.be.json;\r",
-							"});\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"User\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"password\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userLimit\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"participantNum\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Expiry\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"viewCount\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"categories\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{TOKEN}}"
-					}
+					"name": "Create Comment Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\" : 5,\n\t\"postId\" : 2,\n\t\"message\" : \"API Test message\",\n\t\"parentId\" : 0,\n\t\"votes\" : 5 \n}"
+						},
+						"url": "http://localhost:8080/v1/comments/create"
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v1/posts/getAll"
-			},
-			"response": []
-		},
-		{
-			"name": "Get Comment by ID Tests",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"response must be valid and have a body\", function () {\r",
-							"     pm.response.to.be.ok;\r",
-							"     pm.response.to.be.withBody;\r",
-							"     pm.response.to.be.json;\r",
-							"});\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"postId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"message\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"parentId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
-							"\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v1/comments/getOne/2"
-			},
-			"response": []
-		},
-		{
-			"name": "Get All User Comments Tests",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"response must be valid and have a body\", function () {\r",
-							"     pm.response.to.be.ok;\r",
-							"     pm.response.to.be.withBody;\r",
-							"     pm.response.to.be.json;\r",
-							"});\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"postId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"message\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"parentId\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
-							"\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v1/comments/getAll/1"
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Post Tests",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"// pm.test(\"response is ok\", function () {\r",
-							"//     pm.response.to.have.status(200);\r",
-							"// });\r",
-							"\r",
-							"// pm.test(\"response json data should not have errors\", function () {\r",
-							"//     pm.response.to.have.jsonBody();\r",
-							"//     pm.response.to.not.have.jsonBody('error');\r",
-							"// });\r",
-							"\r",
-							"pm.test(\"Status Code 400\", function(){\r",
-							"    pm.response.to.have.status(400);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{TOKEN}}"
-					}
+					"name": "Delete Comment Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/v1/comments/delete/2"
+					},
+					"response": []
 				},
-				"method": "DELETE",
-				"header": [],
-				"url": "http://localhost:8080/v1/posts/delete/2"
-			},
-			"response": []
+				{
+					"name": "Get Comment by ID Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"postId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"parentId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/comments/getOne/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User Comments Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"postId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"parentId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/comments/getAll/1"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "Delete Comment Tests",
-			"event": [
+			"name": "Users",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 400\", function(){\r",
-							"    pm.response.to.have.status(400);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{TOKEN}}"
-					}
+					"name": "User Register Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"user id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"AdamSmith\",\r\n    \"Firstname\": \"Adam\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"Adams@gatorshare.com\",\r\n    \"Password\": \"password123\"\r\n}"
+						},
+						"url": "http://localhost:8080/v1/users/register"
+					},
+					"response": []
 				},
-				"method": "DELETE",
-				"header": [],
-				"url": "http://localhost:8080/v1/comments/delete/2"
-			},
-			"response": []
+				{
+					"name": "User Login Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"user id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"AdamS\",\r\n    \"password\": \"password123\"\r\n}"
+						},
+						"url": "http://localhost:8080/v1/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/users/getProfile/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile Generic Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/users/getUserProfile/1"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "User Register Tests",
-			"event": [
+			"name": "Tags",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"user id was assigned\", function(){ \r",
-							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code name has String\", function(){\r",
-							"    pm.response.to.have.status(\"OK\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Username\": \"AdamSmith\",\r\n    \"Firstname\": \"Adam\",\r\n    \"Lastname\": \"Smith\",\r\n    \"Email\": \"Adams@gatorshare.com\",\r\n    \"Password\": \"password123\"\r\n}"
+					"name": "Get Tag Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"creatorId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Creator\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"rating\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/tags/getOne/3"
+					},
+					"response": []
 				},
-				"url": "http://localhost:8080/v1/users/register"
-			},
-			"response": []
+				{
+					"name": "Get Popular Tags Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"creatorId\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Creator\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"password\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"rating\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"votes\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/tags/popularTags/5"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tag Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/tags/delete/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Follow Tags Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"user id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"GatorShare\",\r\n    \"CreatorId\": 1,\r\n    \"Description\": \"Default tag for all post\"\r\n}\r\n"
+						},
+						"url": "{{HOST_URL}}/v1/tags/follow/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Follow Tags (Onboarding) Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"user id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1,2,3,4]"
+						},
+						"url": "{{HOST_URL}}/v1/tags/selectTags"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tags Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"user id was assigned\", function(){ \r",
+									"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000s\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has String\", function(){\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Test tag 2\",\r\n    \"Description\": \"Test tag 2\"\r\n}"
+						},
+						"url": "{{HOST_URL}}/v1/tags/create"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "User Login Tests",
-			"event": [
+			"name": "Notifications",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"user id was assigned\", function(){ \r",
-							"  pm.expect(pm.response.json().userId).to.be.not.null;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response time is less than 1000s\", function(){\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code name has String\", function(){\r",
-							"    pm.response.to.have.status(\"OK\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"AdamS\",\r\n    \"password\": \"password123\"\r\n}"
+					"name": "Get New Notifications Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 204\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/notifications/getNew"
+					},
+					"response": []
 				},
-				"url": "http://localhost:8080/v1/users/login"
-			},
-			"response": []
+				{
+					"name": "Update Notification Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/notifications/updateStatus"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "Get User Profile Tests",
-			"event": [
+			"name": "General",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"response must be valid and have a body\", function () {\r",
-							"     pm.response.to.be.ok;\r",
-							"     pm.response.to.be.withBody;\r",
-							"     pm.response.to.be.json;\r",
-							"});\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"password\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{TOKEN}}"
-					}
+					"name": "Gatorshare Home Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Body matches the String\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"data\"); \r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}"
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": "{{HOST_URL}}/v1/users/getProfile/"
-			},
-			"response": []
-		},
-		{
-			"name": "Get User Profile Generic Tests",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Code 200\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"response must be valid and have a body\", function () {\r",
-							"     pm.response.to.be.ok;\r",
-							"     pm.response.to.be.withBody;\r",
-							"     pm.response.to.be.json;\r",
-							"});\r",
-							"pm.test(\"Body matches the String\", function(){\r",
-							"    pm.expect(pm.response.text()).to.include(\"data\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"ID\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"CreatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"UpdatedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"DeletedAt\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"userName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"Email\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"avatar\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"password\");\r",
-							"    pm.expect(pm.response.text()).to.include(\"bookmark\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{TOKEN}}"
-					}
+					"name": "Home User Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 204\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST_URL}}/v1/home/user"
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": "{{HOST_URL}}/v1/users/getUserProfile/1"
-			},
-			"response": []
+				{
+					"name": "Home Latest Tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code 204\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_URL}}/v1/home/latest?page=2&page_size=10",
+							"host": [
+								"{{HOST_URL}}"
+							],
+							"path": [
+								"v1",
+								"home",
+								"latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "page_size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
