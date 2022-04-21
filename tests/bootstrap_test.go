@@ -20,3 +20,10 @@ func TestMain (t *testing.T) {
   	testobj.DB = models.GetDB()
 	// os.Exit(t.Run())
 }
+
+var userBaseObj models.User
+var postBaseObj models.Post
+var commentBaseObj	models.Comment
+var tagBaseObj	models.Tag
+var tagObjArr []models.Tag
+var notificationBaseObj models.Notification
